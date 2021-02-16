@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/oldstud/duet/static/css/main.8c8b27cf.chunk.css",
+    "main.js": "/oldstud/duet/static/js/main.0289870e.chunk.js",
+    "main.js.map": "/oldstud/duet/static/js/main.0289870e.chunk.js.map",
+    "runtime-main.js": "/oldstud/duet/static/js/runtime-main.c3dcd7ea.js",
+    "runtime-main.js.map": "/oldstud/duet/static/js/runtime-main.c3dcd7ea.js.map",
+    "static/js/2.f7c17ae3.chunk.js": "/oldstud/duet/static/js/2.f7c17ae3.chunk.js",
+    "static/js/2.f7c17ae3.chunk.js.map": "/oldstud/duet/static/js/2.f7c17ae3.chunk.js.map",
+    "static/js/3.9b99506f.chunk.js": "/oldstud/duet/static/js/3.9b99506f.chunk.js",
+    "static/js/3.9b99506f.chunk.js.map": "/oldstud/duet/static/js/3.9b99506f.chunk.js.map",
+    "index.html": "/oldstud/duet/index.html",
+    "static/css/main.8c8b27cf.chunk.css.map": "/oldstud/duet/static/css/main.8c8b27cf.chunk.css.map",
+    "static/js/2.f7c17ae3.chunk.js.LICENSE.txt": "/oldstud/duet/static/js/2.f7c17ae3.chunk.js.LICENSE.txt",
+    "static/media/logo.6ce24c58.svg": "/oldstud/duet/static/media/logo.6ce24c58.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c3dcd7ea.js",
+    "static/js/2.f7c17ae3.chunk.js",
+    "static/css/main.8c8b27cf.chunk.css",
+    "static/js/main.0289870e.chunk.js"
+  ]
+}
