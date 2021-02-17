@@ -21,7 +21,7 @@ export class Header extends React.Component {
                     <LogSC>  <FontAwesomeIcon icon={faUserAltSlash} /> .... <FontAwesomeIcon icon={faUser} /></LogSC></HeadLineSC>
                 <NavSC>
                     <NavLink to="/home"><SpanSC>Home</SpanSC></NavLink>
-                    <NavLink to="/"><SpanSC>Vovchik Api</SpanSC></NavLink>
+                    <NavLink to="/"><SpanSC>VovaN Api</SpanSC></NavLink>
                     <NavLink to="/"><SpanSC>Dima Api</SpanSC></NavLink>
                     <NavLink to="/"><SpanSC>Alex Api</SpanSC></NavLink>
                     <NavLink to="/"><SpanSC>About</SpanSC></NavLink>
