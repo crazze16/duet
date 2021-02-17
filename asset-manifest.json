@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/duet/static/css/main.97e94eb6.chunk.css",
+    "main.css": "/duet/static/css/main.80de29ea.chunk.css",
     "main.js": "/duet/static/js/main.ce66556b.chunk.js",
     "main.js.map": "/duet/static/js/main.ce66556b.chunk.js.map",
     "runtime-main.js": "/duet/static/js/runtime-main.9df78a87.js",
@@ -10,13 +10,13 @@
     "static/js/3.027d6ba3.chunk.js": "/duet/static/js/3.027d6ba3.chunk.js",
     "static/js/3.027d6ba3.chunk.js.map": "/duet/static/js/3.027d6ba3.chunk.js.map",
     "index.html": "/duet/index.html",
-    "static/css/main.97e94eb6.chunk.css.map": "/duet/static/css/main.97e94eb6.chunk.css.map",
+    "static/css/main.80de29ea.chunk.css.map": "/duet/static/css/main.80de29ea.chunk.css.map",
     "static/js/2.29d85c3c.chunk.js.LICENSE.txt": "/duet/static/js/2.29d85c3c.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.9df78a87.js",
     "static/js/2.29d85c3c.chunk.js",
-    "static/css/main.97e94eb6.chunk.css",
+    "static/css/main.80de29ea.chunk.css",
     "static/js/main.ce66556b.chunk.js"
   ]
 }
