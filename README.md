@@ -1,3 +1,25 @@
+.guys{
+# NPM INSTALL:
+react router
+styled-components
+npm install --save @fortawesome/fontawesome-free
+npm i --save @fortawesome/fontawesome-svg-core
+  npm install --save @fortawesome/free-solid-svg-icons
+  npm install --save @fortawesome/react-fontawesome
+
+
+# FONTS :
+
+font-family: 'Josefin Sans', sans-serif; 
+300,400,600
+font-family: 'Lato', sans-serif;
+300,400,700
+logo:---- font-family: 'Vidaloka', serif;
+
+}
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -69,4 +91,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
-Hi, it`s me, Alex!!!
