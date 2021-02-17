@@ -1,11 +1,15 @@
-import './App.css';
+import { Header } from "./components/Header";
+import { Home } from "./components/Home";
+
+import { Switch, Route } from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
-      <p>Nu vrode vse rabotaet</p>
-      <span>error 100%</span>
-      <div>Dima</div>
+      <Header />
+      <Switch>
+        <Route path='/home' render={() => <Home />} />
+      </Switch>
     </div>
   );
 }
