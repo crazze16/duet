@@ -6,18 +6,19 @@ import { Aapi } from "./pages/Aapi"
 import { About } from "./pages/About"
 
 import { Route } from 'react-router-dom';
+import {TestContainer} from "./pages/MoviePage";
 
 function App() {
   return (
     <div className="App">
       <Header />
-
+        <TestContainer/>
+      <Route path='/home' render={() => <Home />} />
       <Route path='/home' render={() => <Home />} />
       <Route path='/Vapi' render={() => <Vapi />} />
       <Route path='/Dapi' render={() => <Dapi />} />
       <Route path='/Aapi' render={() => <Aapi />} />
-      <Route path='/About' render={() => <About />} />
-
+      <Route path='/About'render={() => <About />} />
     </div>
   );
 }
