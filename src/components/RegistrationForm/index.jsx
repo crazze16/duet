@@ -18,10 +18,6 @@ export class RegistrationForm extends React.Component {
 
         return (
             <form>
-                <CustomInput type='text' placeholder='First Name' writedInfo={this.changeInput} />
-                <br />
-                <CustomInput type='text' placeholder='Last Name' writedInfo={this.changeInput} />
-                <br />
                 <CustomInput type='email' placeholder='email' writedInfo={this.changeInput} />
                 <br />
                 <CustomInput type='password' placeholder='password' writedInfo={this.changeInput} />
