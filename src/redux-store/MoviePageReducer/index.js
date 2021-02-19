@@ -1,24 +1,34 @@
-const SAY_DIMA_NAME = 'SAY_DIMA_NAME';
+const ON_SEARCH_MOVIE = 'ON_SEARCH_MOVIE';
+const SET_MOVIES = 'SET_MOVIES';
+const SET_TOTAL_PAGES = 'SET_TOTAL_PAGES';
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 
 let initialState = {
-    name: 'Dima',
-    data: [
-        {},
-        {},
-    ]
+    searchedMovie: null,
+    resultMoviesData: [],
+    currentPage: 1,
+    totalPages: null,
 };
 
-const MoviePageReducer = (state = initialState, action) => {
+export const MoviePageReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SAY_DIMA_NAME:
-            return {...state, name: action.name};
+        case ON_SEARCH_MOVIE:
+            return {...state, searchedMovie: action.searchedText};
+        case SET_MOVIES:
+           return {...state, resultMoviesData: action.movieData};
+        case SET_TOTAL_PAGES:
+           return {...state, totalPages: action.totalPages};
+        case SET_CURRENT_PAGE:
+           return {...state, currentPage: action.page};
         default:
             return {...state};
     }
 };
 
-export const sayNameActionCreator = (name) => ({type: SAY_DIMA_NAME, name});
-//action creator
-//action - объект у которого 100% должен быть ключ type = string
+export const searchMovie = (searchedText) => ({type: ON_SEARCH_MOVIE, searchedText});
+export const setMovieData = (movieData) => ({type: SET_MOVIES, movieData});
+export const setTotalPages = (totalPages) => ({type: SET_TOTAL_PAGES, totalPages});
+export const setCurrentPage = (page) => ({type: SET_CURRENT_PAGE, page});
+
 
 export default MoviePageReducer

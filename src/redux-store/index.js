@@ -5,5 +5,5 @@ import MoviePageReducer from "./MoviePageReducer";
 let reducers = combineReducers({
     MoviePageReducer
 });
-
 export let store = createStore(reducers);
+window.store = store;
