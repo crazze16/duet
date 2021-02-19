@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import fire from '../../fire'
-import { User } from '../User'
+import { UserContainer } from '../User'
 import { Login } from '../Login';
 
 export const AuthForm = () => {
@@ -11,7 +11,7 @@ export const AuthForm = () => {
     const [passwordError, setPasswordError] = useState('');
     const [hasAccount, setHasAccount] = useState('');
 
-    const [isAuth, setIsAuth] = useState(false);
+
 
 
     const clearInputs = () => {
@@ -82,19 +82,14 @@ export const AuthForm = () => {
 
     );
 
-    const authFlag = () => {
-        if (user) {
-            setIsAuth(true)
 
-        }
-    }
 
 
     return (
         <div>
             {user ? (
 
-                <User handleLogout={handleLogout} onclick={authFlag} />
+                <UserContainer handleLogout={handleLogout} />
 
             ) : (
                     <Login
