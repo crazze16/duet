@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import fire from '../../fire'
+import { User } from '../User'
+import { Login } from '../Login';
 
 export const AuthForm = () => {
     const [user, setUser] = useState('');
@@ -9,13 +11,21 @@ export const AuthForm = () => {
     const [passwordError, setPasswordError] = useState('');
     const [hasAccount, setHasAccount] = useState('');
 
+    const [isAuth, setIsAuth] = useState(false);
+
 
     const clearInputs = () => {
         setEmail('');
         setPassword('');
     };
 
+    const clearErrors = () => {
+        setEmailError('');
+        setPasswordError('');
+    };
+
     const handleLogin = () => {
+        clearErrors();
         fire
             .auth()
             .signInWithEmailAndPassword(email, password)
@@ -33,6 +43,7 @@ export const AuthForm = () => {
     };
 
     const handleSignup = () => {
+        clearErrors();
         fire
             .auth()
             .createUserWithEmailAndPassword(email, password)
@@ -56,6 +67,7 @@ export const AuthForm = () => {
     const authListener = () => {
         fire.auth().onAuthStateChanged(user => {
             if (user) {
+                clearInputs();
                 setUser(user)
             } else {
                 setUser('')
@@ -68,12 +80,40 @@ export const AuthForm = () => {
 
     }, []
 
-    )
+    );
+
+    const authFlag = () => {
+        if (user) {
+            setIsAuth(true)
+
+        }
+    }
 
 
     return (
-        <form>
-            aaaaa
-        </form>
+        <div>
+            {user ? (
+
+                <User handleLogout={handleLogout} onclick={authFlag} />
+
+            ) : (
+                    <Login
+                        email={email}
+                        setEmail={setEmail}
+                        password={password}
+                        setPassword={setPassword}
+                        handleLogin={handleLogin}
+                        handleSignup={handleSignup}
+                        hasAccount={hasAccount}
+                        setHasAccount={setHasAccount}
+                        emailError={emailError}
+                        passwordError={passwordError}
+                    />
+                )}
+
+
+        </div>
+
+
     )
 }
