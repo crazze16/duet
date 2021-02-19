@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/duet/static/css/main.a6bf7945.chunk.css",
-    "main.js": "/duet/static/js/main.875c9bf2.chunk.js",
-    "main.js.map": "/duet/static/js/main.875c9bf2.chunk.js.map",
+    "main.css": "/duet/static/css/main.28935ef4.chunk.css",
+    "main.js": "/duet/static/js/main.c819d935.chunk.js",
+    "main.js.map": "/duet/static/js/main.c819d935.chunk.js.map",
     "runtime-main.js": "/duet/static/js/runtime-main.e2ba16d9.js",
     "runtime-main.js.map": "/duet/static/js/runtime-main.e2ba16d9.js.map",
-    "static/js/2.6d34a4f6.chunk.js": "/duet/static/js/2.6d34a4f6.chunk.js",
-    "static/js/2.6d34a4f6.chunk.js.map": "/duet/static/js/2.6d34a4f6.chunk.js.map",
+    "static/js/2.ba349948.chunk.js": "/duet/static/js/2.ba349948.chunk.js",
+    "static/js/2.ba349948.chunk.js.map": "/duet/static/js/2.ba349948.chunk.js.map",
     "static/js/3.f3db9c19.chunk.js": "/duet/static/js/3.f3db9c19.chunk.js",
     "static/js/3.f3db9c19.chunk.js.map": "/duet/static/js/3.f3db9c19.chunk.js.map",
     "index.html": "/duet/index.html",
-    "static/css/main.a6bf7945.chunk.css.map": "/duet/static/css/main.a6bf7945.chunk.css.map",
-    "static/js/2.6d34a4f6.chunk.js.LICENSE.txt": "/duet/static/js/2.6d34a4f6.chunk.js.LICENSE.txt"
+    "static/css/main.28935ef4.chunk.css.map": "/duet/static/css/main.28935ef4.chunk.css.map",
+    "static/js/2.ba349948.chunk.js.LICENSE.txt": "/duet/static/js/2.ba349948.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.e2ba16d9.js",
-    "static/js/2.6d34a4f6.chunk.js",
-    "static/css/main.a6bf7945.chunk.css",
-    "static/js/main.875c9bf2.chunk.js"
+    "static/js/2.ba349948.chunk.js",
+    "static/css/main.28935ef4.chunk.css",
+    "static/js/main.c819d935.chunk.js"
   ]
 }
