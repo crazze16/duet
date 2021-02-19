@@ -8,7 +8,7 @@ import {search} from "../../../../VMoviePageApi";
 const VMoviePageBody = (props) => {
 
     let resultMoviesData = props.resultMoviesData.map(item => <VMoviePageItem poster={item['poster_path']}
-                                                                              title={item.title}/>)
+                                                                              title={item.title}/>);
     let totalPagesArr = [];
     let totalPages = props.totalPages;
     for (let i = 1; i <= totalPages; i++) {
