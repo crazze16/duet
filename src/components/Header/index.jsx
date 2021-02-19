@@ -20,7 +20,7 @@ export class Header extends React.Component {
                     <LogoSC>D.V.A</LogoSC>
                     <LogSC>
                         {/* <FontAwesomeIcon icon={faUserAltSlash} /> */}
-                        <FontAwesomeIcon icon={faUser} />
+                        <NavLink to="/Auth"><FontAwesomeIcon icon={faUser} color="#fff" /></NavLink>
 
                     </LogSC>
                 </HeadLineSC>
