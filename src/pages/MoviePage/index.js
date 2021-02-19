@@ -1,20 +1,13 @@
-import React from 'react'
-import {connect} from "react-redux";
-import {sayName} from "../../redux-store/MoviePageReducer";
+import React from 'react';
+import {VMoviePageHeaderContainer} from "./VMoviePageHeader/VMoviePageHeaderContainer";
+import {VMoviePageBodyContainer} from "./VMoviePageBodyContainer/VMoviePageBody";
+import {VWrapperSC} from "./styles";
 
-const Test = (props) => {
+export const VMoviePage = (props) => {
     return (
-        <div>
-            <button onClick={()=> alert(props.messagesData)}>is it working?</button>
-        </div>
+        <VWrapperSC>
+            <VMoviePageHeaderContainer/>
+            <VMoviePageBodyContainer/>
+        </VWrapperSC>
     )
-}
-
-
-let mapStateToProps = (state) => {
-    return {
-        messagesData: state.MoviePageReducer.name,
-    }
 };
-
-export const TestContainer = connect(mapStateToProps)(Test);
