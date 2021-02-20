@@ -3,7 +3,7 @@ import { Header } from "./components/Header";
 import { Home } from "./pages/Home";
 import { Dapi } from "./pages/Dapi"
 import { Aapi } from "./pages/Aapi"
-import { About } from "./pages/About"
+import { AboutContainer } from "./pages/About"
 import { Route } from 'react-router-dom';
 import {VMoviePage, VMoviePageContainer} from "./pages/MoviePage";
 import { Auth } from "./pages/Auth";
@@ -19,8 +19,8 @@ function App() {
       <Route exact path='/Vapi' render={() => <VMoviePageContainer />} />
       <Route path='/Dapi' render={() => <Dapi />} />
       <Route path='/Aapi' render={() => <Aapi />} />
-      <Route path='/About' render={() => <About />} />
       <Route path='/Vapi/movie/:movieId?' render={() => <VSelectedMoviePageContainer/>} />
+      <Route path='/About' render={() => <AboutContainer />} />
     </div>
   );
 }

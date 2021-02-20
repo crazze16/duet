@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { onAuth, offAuth } from '../../redux-store/AuthPageReducer'
 
 
-
-export const User = (props) => {
-    const { handleLogout, onclick } = props;
+const User = (props) => {
+    const { handleLogout } = props;
 
 
     useEffect(() => {
-        onclick();
+        props.onAuth()
+        console.log('bitch')
     }, []
     )
     return (
@@ -17,3 +19,7 @@ export const User = (props) => {
         </section>
     )
 }
+const mapStateToProps = (state) => ({
+    authFlag: state.AuthPageReducer.isAuth,
+})
+export const UserContainer = connect(mapStateToProps, { onAuth, offAuth })(User);
