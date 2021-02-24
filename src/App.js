@@ -16,11 +16,10 @@ function App() {
       <Header />
       <Route path='/Auth' render={() => <Auth />} />
       <Route path='/home' render={() => <Home />} />
-      <Route path='/Vapi' render={() => <VMoviePage />} />
+
       <Route path='/Dapi' render={() => <DapiContainer />} />
-      {/* <Route exact path='/Vapi' render={() => <VMoviePageContainer />} />
-      <Route path='/Dapi' render={() => <Dapi />} /> */}
-      {/* был конфлит закоментил  */}
+      <Route exact path='/Vapi' render={() => <VMoviePageContainer />} />
+
       <Route path='/Aapi' render={() => <Aapi />} />
       <Route path='/Vapi/movie/:movieId?' render={() => <VSelectedMoviePageContainer />} />
       <Route path='/About' render={() => <AboutContainer />} />
