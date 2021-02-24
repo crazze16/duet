@@ -1,17 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWrench } from '@fortawesome/free-solid-svg-icons';
 
+import { connect } from 'react-redux'
+import { setNewsAC } from '../../redux-store/NewsReducer';
 
-export class Dapi extends React.Component {
-    render() {
-        return (
-            <div>
-                <FontAwesomeIcon icon={faWrench} color='#fff' size="9x" pulse style={{ dislay: "block", margin: "50px 45%" }} />
-                <p style={{ fontSize: "55px", textAlign: "center" }}>COMING SOON!</p>
-            </div>
-        )
-    }
+import { NewsForm } from './components/NewsForm';
 
+const Dapi = () => {
+
+    ///579f9b87b90940b5b13991bfa09bcb9c - apiNEWS
+
+    return (
+        <div>
+
+
+            <NewsForm />
+
+
+        </div>
+    )
 }
+
+
+
+const mapStateToProps = (state) => ({
+    actualNews: state.NewsPageReducer.newsData
+});
+
+export const DapiContainer = connect(mapStateToProps, { setNewsAC })(Dapi)

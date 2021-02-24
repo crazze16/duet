@@ -3,7 +3,7 @@ const OFF_AUTH = "OFF_AUTH";
 
 let initialState = {
     isAuth: false,
-    name: "Dima",
+
 };
 
 const AuthPageReducer = (state = initialState, action) => {
