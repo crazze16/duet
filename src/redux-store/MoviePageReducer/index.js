@@ -2,10 +2,12 @@ const ON_SEARCH_MOVIE = 'ON_SEARCH_MOVIE';
 const SET_MOVIES = 'SET_MOVIES';
 const SET_TOTAL_PAGES = 'SET_TOTAL_PAGES';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+const SET_CURRENT_MOVIE = 'SET_CURRENT_MOVIE';
 
 let initialState = {
     searchedMovie: null,
     resultMoviesData: [],
+    selectedMovieData: [],
     currentPage: 1,
     totalPages: null,
 };
@@ -16,6 +18,8 @@ export const MoviePageReducer = (state = initialState, action) => {
             return {...state, searchedMovie: action.searchedText};
         case SET_MOVIES:
            return {...state, resultMoviesData: action.movieData};
+        case SET_CURRENT_MOVIE:
+           return {...state, selectedMovieData: action.selectedMovie};
         case SET_TOTAL_PAGES:
            return {...state, totalPages: action.totalPages};
         case SET_CURRENT_PAGE:
@@ -29,6 +33,7 @@ export const searchMovie = (searchedText) => ({type: ON_SEARCH_MOVIE, searchedTe
 export const setMovieData = (movieData) => ({type: SET_MOVIES, movieData});
 export const setTotalPages = (totalPages) => ({type: SET_TOTAL_PAGES, totalPages});
 export const setCurrentPage = (page) => ({type: SET_CURRENT_PAGE, page});
+export const setCurrentMovie = (selectedMovie) => ({type: SET_CURRENT_MOVIE, selectedMovie});
 
 
 export default MoviePageReducer
