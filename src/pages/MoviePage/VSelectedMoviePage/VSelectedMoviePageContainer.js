@@ -1,21 +1,27 @@
 import React from 'react'
 import {withRouter} from "react-router-dom";
-import {search} from "../../../VMoviePageApi";
+import {movie} from "../../../VMoviePageApi";
 import {connect} from "react-redux";
-import {setCurrentMovie} from "../../../redux-store/MoviePageReducer";
+import {setCurrentMovie, setSimilarMovieData} from "../../../redux-store/MoviePageReducer";
 import {VSelectedMoviePage} from "./VSelectedMoviePage";
 
 class VSelectedMoviePageAPI extends React.Component {
     componentDidMount() {
         let movieId = +this.props.match.params.movieId;
-        console.log(movieId);
-        search.getSelectedFilm(movieId)
+        movie.getSelectedFilm(movieId)
             .then(response => this.props.setCurrentMovie(response.data))
+            .then(() => {
+                movie.getSimilarMovies(movieId)
+                    .then(similar => this.props.setSimilarMovieData((similar.data.results).splice(0,14)))
+            })
     }
 
     render() {
         return (
-                <VSelectedMoviePage {...this.props}/>
+            <div>
+                <VSelectedMoviePage {...this.props} />
+            </div>
+
         )
     }
 }
@@ -23,8 +29,9 @@ class VSelectedMoviePageAPI extends React.Component {
 const VSelectedMoviePageWithRouter = withRouter(VSelectedMoviePageAPI);
 
 const mapStateToProps = (state) => ({
-    selectedMovieData: state.MoviePageReducer.selectedMovieData
+    selectedMovieData: state.MoviePageReducer.selectedMovieData,
+    similarMoviesData: state.MoviePageReducer.similarMoviesData,
 });
 
 
-export const VSelectedMoviePageContainer = connect(mapStateToProps, {setCurrentMovie})(VSelectedMoviePageWithRouter);
+export const VSelectedMoviePageContainer = connect(mapStateToProps, {setCurrentMovie, setSimilarMovieData})(VSelectedMoviePageWithRouter);

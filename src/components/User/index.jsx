@@ -12,7 +12,6 @@ const User = (props) => {
         console.log('bitch')
     }, []
     )
-
     return (
         <section>
             <h2>Welcome</h2>
@@ -23,6 +22,4 @@ const User = (props) => {
 const mapStateToProps = (state) => ({
     authFlag: state.AuthPageReducer.isAuth,
 })
-//mapstatetoprops ---> преобразовует данные  из глобального стэйта  в пропс(ы) , мы оборачиваем нашу компоненту в контейнер и конектимся через мапСтэйтТуПропс с глобальным стэйтом
-
 export const UserContainer = connect(mapStateToProps, { onAuth, offAuth })(User);

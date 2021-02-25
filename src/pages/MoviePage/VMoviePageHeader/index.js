@@ -8,7 +8,7 @@ export const VMoviePageHeader = (props) => {
 
     return (
         <div>
-            <input type="text" onChange={(e) => onSearch(e.currentTarget.value)} />
+            <input type="text" onChange={(e) => onSearch(e.currentTarget.value)}/>
             <button onClick={() => props.buttonSearch()}>search</button>
         </div>
     )

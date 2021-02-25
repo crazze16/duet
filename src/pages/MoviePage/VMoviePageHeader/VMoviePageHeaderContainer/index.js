@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import {VMoviePageHeader} from "../index";
 import {searchMovie, setMovieData, setTotalPages} from "../../../../redux-store/MoviePageReducer";
-import {search} from "../../../../VMoviePageApi";
+import {movie} from "../../../../VMoviePageApi";
 
 class VMoviePageHeaderAPI extends React.Component {
 
@@ -11,7 +11,7 @@ class VMoviePageHeaderAPI extends React.Component {
     }
 
     buttonSearch = () => {
-        search.getFilmsBySearch(this.props.searchedMovie, this.props.currentPage)
+        movie.getFilmsBySearch(this.props.searchedMovie, this.props.currentPage)
             .then(response => {
                 this.props.setMovieData(response.data.results);
                 this.props.setTotalPages(response.data['total_pages'])

@@ -3,7 +3,7 @@ import {VMoviePageItem} from "./VMoviePageItem";
 import {connect} from "react-redux";
 import {VMoviesListSC, VMoviesPages} from "./styles";
 import {setCurrentPage, setMovieData} from "../../../../redux-store/MoviePageReducer";
-import {search} from "../../../../VMoviePageApi";
+import {movie} from "../../../../VMoviePageApi";
 
 const VMoviePageBody = (props) => {
 
@@ -19,7 +19,7 @@ const VMoviePageBody = (props) => {
 
     let selectPage = (item) => {
         props.setCurrentPage(item);
-        search.getFilmsBySearch(props.searchedMovie, item)
+        movie.getFilmsBySearch(props.searchedMovie, item)
             .then(response => {
                 props.setMovieData(response.data.results);
             })

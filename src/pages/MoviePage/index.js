@@ -2,8 +2,7 @@ import React from 'react';
 import {VMoviePageHeaderContainer} from "./VMoviePageHeader/VMoviePageHeaderContainer";
 import {VMoviePageBodyContainer} from "./VMoviePageBodyContainer/VMoviePageBody";
 import {VWrapperSC} from "./styles";
-import {Route, withRouter} from "react-router-dom";
-import {VSelectedMoviePageContainer} from "./VSelectedMoviePage/VSelectedMoviePageContainer";
+import {withRouter} from "react-router-dom";
 
 
 class VMoviePage extends React.Component{

@@ -12,8 +12,6 @@ export const AuthForm = () => {
     const [hasAccount, setHasAccount] = useState('');
 
 
-
-
     const clearInputs = () => {
         setEmail('');
         setPassword('');
@@ -82,15 +80,10 @@ export const AuthForm = () => {
 
     );
 
-
-
-
     return (
         <div>
             {user ? (
-
                 <UserContainer handleLogout={handleLogout} />
-
             ) : (
                     <Login
                         email={email}
@@ -105,10 +98,7 @@ export const AuthForm = () => {
                         passwordError={passwordError}
                     />
                 )}
-
-
         </div>
-
-
     )
-}
+};
+
