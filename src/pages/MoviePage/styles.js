@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
-export let VmaxWidth = 1350;
+export let VmaxWidth = 100;
 
 export const VWrapperSC = styled.div`
-    max-width: ${VmaxWidth}px;
+    max-width: ${VmaxWidth}%;
     width: 100%;
     margin: 0 auto;
 `;

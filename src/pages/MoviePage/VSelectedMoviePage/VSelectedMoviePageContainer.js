@@ -12,7 +12,7 @@ class VSelectedMoviePageAPI extends React.Component {
             .then(response => this.props.setCurrentMovie(response.data))
             .then(() => {
                 movie.getSimilarMovies(movieId)
-                    .then(similar => this.props.setSimilarMovieData((similar.data.results).splice(0,14)))
+                    .then(similar => this.props.setSimilarMovieData((similar.data.results).splice(0,8)))
             })
     }
 
