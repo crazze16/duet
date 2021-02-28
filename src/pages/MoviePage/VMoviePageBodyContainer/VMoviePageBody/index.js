@@ -7,10 +7,12 @@ import {movie} from "../../../../VMoviePageApi";
 
 const VMoviePageBody = (props) => {
 
-    let resultMoviesData = props.resultMoviesData.map(item => <VMoviePageItem poster={item['poster_path']}
-                                                                              id={item.id}
-                                                                              url={props.url}
-                                                                              title={item.title}/>);
+    let resultMoviesData = props.resultMoviesData.map((item, index) => <VMoviePageItem poster={item['poster_path']}
+                                                                                       id={item.id}
+                                                                                       url={props.url}
+                                                                                       title={item.title}
+                                                                                       key={index}
+    />);
     let totalPagesArr = [];
     let totalPages = props.totalPages;
     for (let i = 1; i <= totalPages; i++) {
@@ -27,7 +29,7 @@ const VMoviePageBody = (props) => {
 
     return (
         <>
-            {totalPagesArr.map(item => <VMoviesPages onClick={() => selectPage(item)}>{item}
+            {totalPagesArr.map((item, index) => <VMoviesPages key={index} onClick={() => selectPage(item)}>{item}
             </VMoviesPages>)}
             <VMoviesListSC>
                 {resultMoviesData}

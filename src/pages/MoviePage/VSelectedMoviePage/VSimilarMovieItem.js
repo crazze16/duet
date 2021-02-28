@@ -1,15 +1,23 @@
 import React from 'react'
 import {SimilarMoviesItemSC} from "./styles";
+import {movie} from "../../../VMoviePageApi";
 
 export const VSimilarMovieItem = (props) => {
-    const {poster} = props;
+    const {poster, movieId, setSimilarMovieData, setCurrentMovie} = props;
 
     const src = `https://image.tmdb.org/t/p/w300/${poster}`;
-    // const src = `https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg`;
+
+    let func = () => {
+        movie.getSelectedFilm(movieId)
+            .then(response => setCurrentMovie(response.data))
+            .then(() => {
+                movie.getSimilarMovies(movieId)
+                    .then(similar => setSimilarMovieData((similar.data.results).splice(0,8)))
+            })
+};
 
     return (
-        <SimilarMoviesItemSC to='/' poster={src}>
-            {/*<img src={src} alt="" width='180'/>*/}
+        <SimilarMoviesItemSC to={`${movieId}`} poster={src} onClick={() => func()}>
         </SimilarMoviesItemSC>
     )
 };

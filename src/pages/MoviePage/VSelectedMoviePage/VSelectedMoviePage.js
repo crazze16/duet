@@ -1,44 +1,65 @@
 import React from 'react'
 import {
+    BackdropSectionSC,
+    CollectionContainerSC,
     DescriptionSC,
+    FooterSC,
     GenreSC,
     GenresSC,
-    InfoSC, SimilarMoviesListSC,
+    InfoContentSC,
+    InfoSC,
+    ProductionSC,
+    ProductionsSC,
+    RecommendedMoviesListSC, RecommendedTitleSC,
     VBackDropSC,
     VGradientSC,
     VMainMoviePageTitleSC,
     VoteAvarageSC,
-    BackdropSectionSC,
     VoteScoreCS,
     VSubMoviePageTitleSC,
-    VWrapperSPSC, InfoContentSC, ProductionSC, ProductionsSC, FooterSC, WatchMovieSC
+    VWrapperSPSC,
+    WatchMovieSC
 } from "./styles";
 import {VSimilarMovieItem} from "./VSimilarMovieItem";
+import VModalVideo from "./VModalVideo";
+import {VCast} from "./VCast";
+import {VReviews} from "./VReviews";
+
 
 export const VSelectedMoviePage = (props) => {
-    const {title, original_title, vote_average, overview, backdrop_path, status, genres, production_companies} = props.selectedMovieData;
-    const {similarMoviesData} = props;
+    const {title, original_title, vote_average, overview, backdrop_path, status, genres, production_companies, release_date} = props.selectedMovieData;
+    const {similarMoviesData, openModuleVideo, setCurrentMovie, setSimilarMovieData, collection, movieId, setCast, movieCast,setReviews, reviewsData} = props;
+    const baseSrc = 'https://image.tmdb.org/t/p/original/';
+    const backdrop = `${baseSrc}${backdrop_path}`;
+
 
     const similarMovies = (data = []) => {
-        return data.sort((a, b) => a.popularity < b.popularity ? 1 : -1).map(item => <VSimilarMovieItem
-            poster={item['poster_path']}/>);
+        return data.map((item, index) => <VSimilarMovieItem
+            poster={item['poster_path']}
+            key={index}
+            movieId={item.id}
+            setSimilarMovieData={setSimilarMovieData}
+            setCurrentMovie={setCurrentMovie}
+        />);
     };
 
     let genresFunc = (data = []) => {
         let genresArr = [];
         data.forEach(item => genresArr.push(item.name));
-        return genresArr.join(', ').split(' ').map(item => <GenreSC to='/'>{item} </GenreSC>);
+        return genresArr.join(', ').split(' ').map((item, index) => <GenreSC key={index} to='/'>{item} </GenreSC>);
     };
     let production = (data = []) => {
         let arr = [];
         data.forEach(item => arr.push(item.name));
-        return arr.join(', ').split(' ').map(item => <ProductionSC to='/'>{item} </ProductionSC>);
+        return arr.join(', ').split(' ').map((item, index) => <ProductionSC key={index} to='/'>{item} </ProductionSC>);
     };
+    let releaseDate = (releaseDate = '') => releaseDate.slice(0, 4);
 
-    let backdrop = `https://image.tmdb.org/t/p/original/${backdrop_path}`;
 
     return (
         <VWrapperSPSC>
+            <VModalVideo movieId={props.movieId}/>
+
             <BackdropSectionSC>
                 <InfoSC>
                     <InfoContentSC>
@@ -46,7 +67,7 @@ export const VSelectedMoviePage = (props) => {
                             {title}
                         </VMainMoviePageTitleSC>
                         <VSubMoviePageTitleSC>
-                            {original_title}
+                            {releaseDate(release_date)}, {original_title}
                         </VSubMoviePageTitleSC>
                         {status === 'Released' ?
                             <VoteAvarageSC>
@@ -62,10 +83,13 @@ export const VSelectedMoviePage = (props) => {
                         <DescriptionSC>
                             {overview}
                         </DescriptionSC>
+                        <CollectionContainerSC>
+                        </CollectionContainerSC>
                         <GenresSC>
+                            {collection.id ? <GenreSC to='/'>{collection.data.name},</GenreSC> : ''}
                             {genresFunc(genres)}
                         </GenresSC>
-                        <WatchMovieSC>
+                        <WatchMovieSC onClick={openModuleVideo}>
                             WATCH TRAILER
                         </WatchMovieSC>
                     </InfoContentSC>
@@ -76,11 +100,18 @@ export const VSelectedMoviePage = (props) => {
                     </VGradientSC>
                 </VBackDropSC>
             </BackdropSectionSC>
-            <SimilarMoviesListSC>
+            <VCast movieId={movieId}
+                   setCast={setCast}
+                   movieCast={movieCast}
+                   />
+            <RecommendedMoviesListSC>
+                <RecommendedTitleSC>
+                    RECOMMENDED MOVIES
+                </RecommendedTitleSC>
                 {similarMovies(similarMoviesData)}
-            </SimilarMoviesListSC>
+            </RecommendedMoviesListSC>
+            <VReviews movieId={movieId} setReviews={setReviews} reviewsData={reviewsData}/>
             <FooterSC>
-
             </FooterSC>
         </VWrapperSPSC>
 
