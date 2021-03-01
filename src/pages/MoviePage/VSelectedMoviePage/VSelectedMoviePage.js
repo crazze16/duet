@@ -2,15 +2,15 @@ import React from 'react'
 import {
     BackdropSectionSC,
     CollectionContainerSC,
-    DescriptionSC,
-    FooterSC,
+    DescriptionSC, FooterInfoSC,
+    FooterSC, FooterWrapperSC,
     GenreSC,
     GenresSC,
     InfoContentSC,
-    InfoSC,
+    InfoSC, LinkSC, CreatedSC,
     ProductionSC,
     ProductionsSC,
-    RecommendedMoviesListSC, RecommendedTitleSC,
+    RecommendedMoviesListSC, RecommendedTitleSC, SocialSC,
     VBackDropSC,
     VGradientSC,
     VMainMoviePageTitleSC,
@@ -18,17 +18,19 @@ import {
     VoteScoreCS,
     VSubMoviePageTitleSC,
     VWrapperSPSC,
-    WatchMovieSC
+    WatchMovieSC, MailSC
 } from "./styles";
 import {VSimilarMovieItem} from "./VSimilarMovieItem";
 import VModalVideo from "./VModalVideo";
 import {VCast} from "./VCast";
 import {VReviews} from "./VReviews";
-
+import { FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa';
 
 export const VSelectedMoviePage = (props) => {
-    const {title, original_title, vote_average, overview, backdrop_path, status, genres, production_companies, release_date} = props.selectedMovieData;
-    const {similarMoviesData, openModuleVideo, setCurrentMovie, setSimilarMovieData, collection, movieId, setCast, movieCast,setReviews, reviewsData} = props;
+    const {title, original_title, vote_average, overview, backdrop_path, status,
+        genres, production_companies, release_date} = props.selectedMovieData;
+    const {similarMoviesData, openModuleVideo, setCurrentMovie, setSimilarMovieData,
+        collection, movieId, setCast, movieCast,setReviews, reviews, setCurrentReviewPage} = props;
     const baseSrc = 'https://image.tmdb.org/t/p/original/';
     const backdrop = `${baseSrc}${backdrop_path}`;
 
@@ -110,8 +112,25 @@ export const VSelectedMoviePage = (props) => {
                 </RecommendedTitleSC>
                 {similarMovies(similarMoviesData)}
             </RecommendedMoviesListSC>
-            <VReviews movieId={movieId} setReviews={setReviews} reviewsData={reviewsData}/>
+            <VReviews movieId={movieId} setReviews={setReviews} reviews={reviews} setCurrentReviewPage={setCurrentReviewPage}/>
             <FooterSC>
+                <FooterWrapperSC>
+                    <FooterInfoSC>
+                        <SocialSC>
+                            <LinkSC  target="_blank" href={'https://github.com/crazze16'}>
+                                <FaGithub size={'24px'}/>
+                            </LinkSC>
+                            <LinkSC  target="_blank" href={'https://www.instagram.com/because_nekoz/'}>
+                                <FaInstagram size={'24px'}/>
+                            </LinkSC>
+                            <LinkSC  target="_blank" href={'https://www.linkedin.com/in/vladimir-nekoz-099173204/'}>
+                                <FaLinkedin size={'24px'}/>
+                            </LinkSC>
+                        </SocialSC>
+                            <CreatedSC>created by</CreatedSC>
+                        <MailSC>vladimirnekoz16@gmail.com</MailSC>
+                    </FooterInfoSC>
+                </FooterWrapperSC>
             </FooterSC>
         </VWrapperSPSC>
 

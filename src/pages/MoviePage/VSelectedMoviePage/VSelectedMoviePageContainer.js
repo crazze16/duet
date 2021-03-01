@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {
     openModuleVideo, setCast, setCollectionData,
     setCollectionId,
-    setCurrentMovie, setReviews,
+    setCurrentMovie, setCurrentReviewPage, setReviews,
     setSimilarMovieData
 } from "../../../redux-store/MoviePageReducer";
 import {VSelectedMoviePage} from "./VSelectedMoviePage";
@@ -49,7 +49,7 @@ const mapStateToProps = (state) => ({
     similarMoviesData: state.MoviePageReducer.similarMoviesData,
     collection: state.MoviePageReducer.collection,
     movieCast: state.MoviePageReducer.movieCast,
-    reviewsData: state.MoviePageReducer.reviewsData
+    reviews: state.MoviePageReducer.reviews
 });
 
 
@@ -61,4 +61,5 @@ export const VSelectedMoviePageContainer = connect(mapStateToProps, {
     setCollectionData,
     setCast,
     setReviews,
+    setCurrentReviewPage,
 })(VSelectedMoviePageWithRouter);

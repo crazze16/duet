@@ -24,8 +24,8 @@ export const movie = {
     getCastAndCrew(collectionId){
         return instance.get(`/movie/${collectionId}/credits?api_key=${API_KEY}&language=en-US`)
     },
-    getReviews(movieId){
-        return instance.get(`movie/${movieId}/reviews?api_key=${API_KEY}&language=en-US&page=1`)
+    getReviews(movieId, currentPage){
+        return instance.get(`movie/${movieId}/reviews?api_key=${API_KEY}&language=en-US&page=${currentPage}`)
                             // movie/320288/reviews?api_key=5b9377492f02937b4e7cf2b6508ab19f&language=en-US&page=1
     },
 };

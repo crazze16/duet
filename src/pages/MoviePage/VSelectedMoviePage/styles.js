@@ -91,7 +91,7 @@ export const DescriptionSC = styled.div`
       font-size: 20px;
       text-shadow: 5px 3px 9px rgba(0, 0, 0, 1);
       padding-left: 5px;
-      
+      font-weight: 500;
 `;
 export const BackdropSectionSC = styled.div`
     display: flex;
@@ -134,6 +134,7 @@ export const GenreSC = styled(NavLink)`
     color: #ffffff;
     &:hover {
     opacity: 100%;
+    color: ${`#a90000`};
     }
 `;
 export const ProductionSC = styled(GenreSC)`
@@ -150,7 +151,6 @@ export const RecommendedMoviesListSC = styled.div`
     max-width: 1700px;
     width: 100%;
     margin: 0 auto;
-    
 `;
 
 export const SimilarMoviesItemSC = styled(NavLink)`
@@ -176,9 +176,7 @@ export const RecommendedTitleSC = styled.div`
     font-weight: 500;
     margin-bottom: 30px;
 `;
-export const FooterSC = styled.div`
-    background: black;
-`;
+
 
 //video
 export const ModalWrappSC = styled.div`
@@ -211,14 +209,12 @@ export const VideoCloseSC = styled.div`
         left: 15px;
         position: absolute;
         transform: rotate(45deg);
-        
    }
    &:after {
         content: '';
         width: 2px;
         height: 33px;
                 left: 15px;
-
         background: white;
         position: absolute;
         transform: rotate(-45deg);
@@ -235,3 +231,43 @@ export const CollectionContainerSC = styled.div`
         font-size: 16px;
         opacity: 0.8;
     `;
+// FOOTER
+
+export const FooterSC = styled.div`
+    background: ${`#292828`};
+    padding: 20px;
+`;
+export const SocialSC = styled.div`
+    display: flex;
+    align-items: center;
+    height: 100%;
+    color: white;
+    max-width: 100px;
+    width: 100%;
+    justify-content: space-around;
+`;
+export const LinkSC = styled.a`
+    color: white;
+    display: block;
+`;
+export const FooterWrapperSC = styled.div`
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+`;
+export const FooterInfoSC = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+export const CreatedSC = styled.span`
+    color: white;
+    opacity: 80%;
+    font-weight: 500;
+    margin: 4px 0;
+`;
+export const MailSC = styled.span`
+    color: white;
+    font-weight: 500;
+`;
