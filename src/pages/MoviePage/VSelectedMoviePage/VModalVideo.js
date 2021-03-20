@@ -8,17 +8,24 @@ import {compose} from "redux";
 
 const VModalVideo = (props) => {
 
-    useEffect(() => {
-            movie.getVideo(props.match.params.movieId)
-                .then(videosData => props.setVideoKey(videosData.data.results
-                    .sort(item => item.name.includes('Trailer') ? -1 : 1)[0].key) )
+    const {setVideoKey, videoKey, openModuleVideo, isTrailer} = props;
 
+    useEffect(() => {
+        (async ()=>{
+            try {
+                const video = await movie.getVideo(props.match.params.movieId);
+                    setVideoKey(video.data.results
+                        .sort(item => item.name.includes('Trailer') ? -1 : 1)[0].key)
+            } catch(e) {
+                alert(e)
+            }
+        })()
         }, [props.match.params.movieId]
     );
-   const src = `https://www.youtube.com/embed/${props.videoKey}?mute=1&autoplay=1`;
+   const src = `https://www.youtube.com/embed/${videoKey}?mute=1&autoplay=1`;
     return (
-        props.isTrailer ?
-            <ModalWrappSC  onClick={props.openModuleVideo}>
+        isTrailer ?
+            <ModalWrappSC  onClick={openModuleVideo}>
                 <VideoFrameSC>
                     <iframe width='1300' height='700' src={src}
                             frameBorder="0"
@@ -35,7 +42,7 @@ const VModalVideo = (props) => {
 };
 
 const mapStateToProps = state => ({
-    isTrailer: state.MoviePageReducer.isTrailer,
+    isTrailer: state.MoviePageReducer.isTrailerOpen,
     videoKey: state.MoviePageReducer.videoKey
 });
 

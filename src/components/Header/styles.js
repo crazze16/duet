@@ -1,49 +1,24 @@
 import styled from 'styled-components';
+import {NavLink} from "react-router-dom";
 
-export const HeaderSC = styled.header`
-
-width:100%;
-
-`;
 
 export const NavSC = styled.nav`
-background-color:#333;
-font-family: 'Josefin Sans', sans-serif; 
-font-weight: 600;
-font-size:22px;
-height:45px;
-max-width:800px;
-margin: 0 auto;
-display:flex;
-justify-content: space-around;
+position: fixed;
+display: flex;
+flex-direction: column;
+justify-content: center;
+height: 100%;
 align-items: center;
-border-bottom-right-radius: 50px;
-border-bottom-left-radius: 50px;
-
-
-}
-
-
-`;
-export const LogoSC = styled.div`
-font-family: 'Vidaloka', serif;
-font-size:24px;
-margin:0 10px;
+width: 90px;
+border-right: 1px solid white;
+z-index: 9999;
+background: black;
 `;
 
-export const HeadLineSC = styled.div`
-width:100%;
-display:flex;
-justify-content: space-between;
-color:#fff;
-background-color:rgba(0,0,0,0.9);
-
+export const NavItemSC = styled(NavLink)`
 
 `;
-export const LogSC = styled.div`
-margin:0 10px;
 
-`;
 export const SpanSC = styled.span`
 color:#fff
 `;

@@ -8,5 +8,11 @@ export const VMoviesListSC = styled.div`
 `;
 
 export const VMoviesPages = styled.span`
-    font-weight: bold
+    font-weight: ${props => props.isActive};
+    margin-left: 2px;
+    color: #fff;
+`;
+
+export const Page = styled.span`
+color: #fff;
 `;

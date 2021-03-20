@@ -3,41 +3,44 @@ import {withRouter} from "react-router-dom";
 import {movie} from "../../../VMoviePageApi";
 import {connect} from "react-redux";
 import {
-    openModuleVideo, setCast, setCollectionData,
+    createFavouriteMoviesList,
+    openModuleVideo,
+    setCast,
+    setCollectionData,
     setCollectionId,
-    setCurrentMovie, setCurrentReviewPage, setReviews,
+    setCurrentMovie,
+    setCurrentReviewPage, getFavouriteMoviesList,
+    setReviews,
     setSimilarMovieData
 } from "../../../redux-store/MoviePageReducer";
 import {VSelectedMoviePage} from "./VSelectedMoviePage";
 
 const VSelectedMoviePageAPI = (props) => {
 
-    useEffect(() => {
-            let movieId = +props.match.params.movieId;
-            movie.getSelectedFilm(movieId)
-                .then(response => {
-                    props.setCurrentMovie(response.data);
-                    if(response.data['belongs_to_collection']) {
-                        props.setCollectionId(response.data['belongs_to_collection'].id);
-                        movie.getCollection(response.data['belongs_to_collection'].id)
-                            .then(collectionData => props.setCollectionData(collectionData.data));
-                    } else {
-                        props.setCollectionId(null);
-                        props.setCollectionData([]);
-                    }
-                })
-                .then(() => {
-                    movie.getSimilarMovies(movieId)
-                        .then(similar => props.setSimilarMovieData((similar.data.results).splice(0,8)))
+    const {setCurrentMovie, setCollectionId, setCollectionData, setSimilarMovieData} = props;
 
-                })
+    useEffect(() => {
+            (async () => {
+                const movieId = +props.match.params.movieId;
+                const selectedFilm = await movie.getSelectedFilm(movieId);
+                setCurrentMovie(selectedFilm.data);
+                if (selectedFilm.data['belongs_to_collection']) {
+                    setCollectionId(selectedFilm.data['belongs_to_collection'].id);
+                    const collection = await movie.getCollection(selectedFilm.data['belongs_to_collection'].id);
+                    setCollectionData(collection.data);
+                } else {
+                    setCollectionId(null);
+                    setCollectionData([]);
+                }
+                const similar = await movie.getSimilarMovies(movieId);
+                setSimilarMovieData((similar.data.results).splice(0, 8))
+            })();
         }, [props.match.params.movieId]
     );
 
     return (
         <div>
-    <VSelectedMoviePage {...props} movieId={+props.match.params.movieId} />
-
+            <VSelectedMoviePage {...props} movieId={+props.match.params.movieId}/>
         </div>
     )
 };
@@ -49,7 +52,8 @@ const mapStateToProps = (state) => ({
     similarMoviesData: state.MoviePageReducer.similarMoviesData,
     collection: state.MoviePageReducer.collection,
     movieCast: state.MoviePageReducer.movieCast,
-    reviews: state.MoviePageReducer.reviews
+    reviews: state.MoviePageReducer.reviews,
+    favouritesMovies: state.MoviePageReducer.favouritesMovies
 });
 
 
@@ -62,4 +66,6 @@ export const VSelectedMoviePageContainer = connect(mapStateToProps, {
     setCast,
     setReviews,
     setCurrentReviewPage,
+    createFavouriteMoviesList,
+    getFavouriteMoviesList,
 })(VSelectedMoviePageWithRouter);

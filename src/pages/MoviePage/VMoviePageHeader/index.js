@@ -2,14 +2,16 @@ import React from 'react'
 
 export const VMoviePageHeader = (props) => {
 
-    let onSearch = (searchedText) => {
-        props.searchMovie(searchedText)
+    const {buttonSearch} = props;
+
+    let onSearch = (event) => {
+        props.searchMovie(event.target.value)
     };
 
     return (
         <div>
-            <input type="text" onChange={(e) => onSearch(e.currentTarget.value)}/>
-            <button onClick={() => props.buttonSearch()}>search</button>
+            <input type="text" onChange={onSearch}/>
+            <button onClick={buttonSearch}>search</button>
         </div>
     )
 };

@@ -2,15 +2,22 @@ import React from 'react'
 import {
     BackdropSectionSC,
     CollectionContainerSC,
-    DescriptionSC, FooterInfoSC,
-    FooterSC, FooterWrapperSC,
+    CreatedSC,
+    DescriptionSC,
+    FooterInfoSC,
+    FooterSC,
+    FooterWrapperSC,
     GenreSC,
     GenresSC,
     InfoContentSC,
-    InfoSC, LinkSC, CreatedSC,
+    InfoSC,
+    LinkSC,
+    MailSC,
     ProductionSC,
     ProductionsSC,
-    RecommendedMoviesListSC, RecommendedTitleSC, SocialSC,
+    RecommendedMoviesListSC,
+    RecommendedTitleSC,
+    SocialSC,
     VBackDropSC,
     VGradientSC,
     VMainMoviePageTitleSC,
@@ -18,50 +25,65 @@ import {
     VoteScoreCS,
     VSubMoviePageTitleSC,
     VWrapperSPSC,
-    WatchMovieSC, MailSC
+    WatchMovieSC
 } from "./styles";
 import {VSimilarMovieItem} from "./VSimilarMovieItem";
 import VModalVideo from "./VModalVideo";
 import {VCast} from "./VCast";
-import {VReviews} from "./VReviews";
-import { FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import {VReviewsMemo} from "./VReviews";
+import {FaGithub, FaInstagram, FaLinkedin} from 'react-icons/fa';
+import {movie} from "../../../VMoviePageApi";
 
 export const VSelectedMoviePage = (props) => {
     const {title, original_title, vote_average, overview, backdrop_path, status,
         genres, production_companies, release_date} = props.selectedMovieData;
     const {similarMoviesData, openModuleVideo, setCurrentMovie, setSimilarMovieData,
-        collection, movieId, setCast, movieCast,setReviews, reviews, setCurrentReviewPage} = props;
+        collection, movieId, setCast, movieCast,setReviews, reviews, setCurrentReviewPage,
+        favouritesMovies, createFavouriteMoviesList, getFavouriteMoviesList} = props;
     const baseSrc = 'https://image.tmdb.org/t/p/original/';
     const backdrop = `${baseSrc}${backdrop_path}`;
 
-
-    const similarMovies = (data = []) => {
-        return data.map((item, index) => <VSimilarMovieItem
+    const similarMovies = similarMoviesData.map((item, index) => <VSimilarMovieItem
             poster={item['poster_path']}
             key={index}
             movieId={item.id}
             setSimilarMovieData={setSimilarMovieData}
             setCurrentMovie={setCurrentMovie}
         />);
-    };
 
     let genresFunc = (data = []) => {
         let genresArr = [];
         data.forEach(item => genresArr.push(item.name));
-        return genresArr.join(', ').split(' ').map((item, index) => <GenreSC key={index} to='/'>{item} </GenreSC>);
+        return genresArr.join(', ').split(' ').map((item, index) => <GenreSC key={index} to={`/${item}`}>{item}</GenreSC>);
     };
+
     let production = (data = []) => {
         let arr = [];
         data.forEach(item => arr.push(item.name));
-        return arr.join(', ').split(' ').map((item, index) => <ProductionSC key={index} to='/'>{item} </ProductionSC>);
+        return arr.join(', ').split(' ').map((item, index) => <ProductionSC key={index} to='/'>{item}</ProductionSC>);
     };
     let releaseDate = (releaseDate = '') => releaseDate.slice(0, 4);
 
+    const createList = () => {
+        (async () => {
+            const listId = await movie.setList('another test');
+            createFavouriteMoviesList(listId.data.id)
+        })();
+    };
+    const getList = () => {
+            (async () => {
+                const listData = await movie.getList(favouritesMovies.listId);
+                console.log('get:', listData)
+                getFavouriteMoviesList(listData.data.results);
+            })()
+    };
+    const add = () => {
+        movie.updateList(favouritesMovies.listId, movieId);
+    };
 
     return (
-        <VWrapperSPSC>
+            <VWrapperSPSC>
             <VModalVideo movieId={props.movieId}/>
-
             <BackdropSectionSC>
                 <InfoSC>
                     <InfoContentSC>
@@ -94,6 +116,15 @@ export const VSelectedMoviePage = (props) => {
                         <WatchMovieSC onClick={openModuleVideo}>
                             WATCH TRAILER
                         </WatchMovieSC>
+                        <WatchMovieSC onClick={() => createList()}>
+                            create
+                        </WatchMovieSC>
+                        <WatchMovieSC onClick={() => getList()}>
+                            get
+                        </WatchMovieSC>
+                        <WatchMovieSC onClick={() => add()}>
+                            add
+                        </WatchMovieSC>
                     </InfoContentSC>
                 </InfoSC>
 
@@ -110,9 +141,9 @@ export const VSelectedMoviePage = (props) => {
                 <RecommendedTitleSC>
                     RECOMMENDED MOVIES
                 </RecommendedTitleSC>
-                {similarMovies(similarMoviesData)}
+                {similarMovies}
             </RecommendedMoviesListSC>
-            <VReviews movieId={movieId} setReviews={setReviews} reviews={reviews} setCurrentReviewPage={setCurrentReviewPage}/>
+            <VReviewsMemo movieId={movieId} setReviews={setReviews} reviews={reviews} setCurrentReviewPage={setCurrentReviewPage}/>
             <FooterSC>
                 <FooterWrapperSC>
                     <FooterInfoSC>
@@ -133,6 +164,5 @@ export const VSelectedMoviePage = (props) => {
                 </FooterWrapperSC>
             </FooterSC>
         </VWrapperSPSC>
-
     )
 };

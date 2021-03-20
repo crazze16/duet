@@ -1,7 +1,16 @@
 import * as axios from "axios";
-const API_KEY = '5b9377492f02937b4e7cf2b6508ab19f'
+const API_KEY = '5b9377492f02937b4e7cf2b6508ab19f';
+const ACCESS_KEY= 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE2MTYxNzA1NjEsImF1ZCI6IjViOTM3NzQ5MmYwMjkzN2I0ZTdjZjJiNjUwOGFiMTlmIiwianRpIjoiMjkxNDIzNyIsInNjb3BlcyI6WyJhcGlfcmVhZCIsImFwaV93cml0ZSJdLCJ2ZXJzaW9uIjoxLCJzdWIiOiI2MDJlN2ZiYjIyM2UyMDAwM2U5ODU2ODUifQ.BaLxvYlC7YsKu-tmY6dMv2nYkRzlbTeYElXT4V3e_Rw'
 export const instance = axios.create({
-    baseURL: 'https://api.themoviedb.org/3/'
+    baseURL: 'https://api.themoviedb.org/3/',
+
+});
+export const list = axios.create({
+    baseURL: 'https://api.themoviedb.org/4/list/',
+    headers: {
+        "authorization": `Bearer ${ACCESS_KEY}`,
+        "content-type": "application/json;charset=utf-8"
+    }
 });
 
 export const movie = {
@@ -26,7 +35,25 @@ export const movie = {
     },
     getReviews(movieId, currentPage){
         return instance.get(`movie/${movieId}/reviews?api_key=${API_KEY}&language=en-US&page=${currentPage}`)
-                            // movie/320288/reviews?api_key=5b9377492f02937b4e7cf2b6508ab19f&language=en-US&page=1
+    },
+    setList(listName){
+        return list.post(`https://api.themoviedb.org/4/list`, {
+            "name": listName,
+            "iso_639_1": "en"
+        })
+    },
+    getList(listId) {
+        return list.get(`${listId}?page=1&api_key=${API_KEY}`)
+    },
+    updateList(listId, id) {
+        return list.post(`${listId}/items`, {
+            "items": [
+                {
+                    "media_type": "movie",
+                    "media_id": id
+                },
+            ]
+        })
     },
 };
 

@@ -1,27 +1,32 @@
-import { Header } from "./components/Header";
-
-import { Home } from "./pages/Home";
-import {Dapi} from "./pages/Dapi"
-import { Aapi } from "./pages/Aapi"
-import { AboutContainer } from "./pages/About"
-import { Route } from 'react-router-dom';
-import {VMoviePage, VMoviePageContainer} from "./pages/MoviePage";
-import { Auth } from "./pages/Auth";
+import {Navigation} from "./components/Header";
+import {Redirect, Route, Switch} from 'react-router-dom';
+import {VMoviePageContainer} from "./pages/MoviePage";
+import {Auth} from "./pages/Auth";
 import {VSelectedMoviePageContainer} from "./pages/MoviePage/VSelectedMoviePage/VSelectedMoviePageContainer";
+import {BodySC, ContentSC, NavigationWrapperSC} from "./styles/AppSC";
 
 function App() {
-  return (
-    <div className="App">
-      <Header />
-      <Route path='/Auth' render={() => <Auth />} />
-      <Route path='/home' render={() => <Home />} />
-      <Route exact path='/Vapi' render={() => <VMoviePageContainer />} />
-      <Route path='/Dapi' render={() => <Dapi />} />
-      <Route path='/Aapi' render={() => <Aapi />} />
-      <Route path='/Vapi/movie/:movieId?' render={() => <VSelectedMoviePageContainer/>} />
-      <Route path='/About' render={() => <AboutContainer />} />
-    </div>
-  );
+
+
+    return (
+        <BodySC>
+            <NavigationWrapperSC>
+                <Navigation/>
+            </NavigationWrapperSC>
+            <ContentSC>
+                <Switch>
+                    <Route path='/Auth' render={() => <Auth/>}/>
+                    <Route exact path='/Vapi' render={() => <VMoviePageContainer/>}/>
+                    <Route path='/home' render={() => <div>home</div>}/>
+                    <Route path='/about' render={() => <div>about</div>}/>
+                    <Route path='/Vapi/movie/:movieId?' render={() => <VSelectedMoviePageContainer/>}/>
+                    <Route path="/404" render={() => <div>not found 404</div>}/>
+                    <Redirect exact from="/" to="/home" />
+                    <Redirect to="/404"/>
+                </Switch>
+            </ContentSC>
+        </BodySC>
+    );
 }
 
 export default App;

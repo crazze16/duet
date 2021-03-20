@@ -1,5 +1,5 @@
 import React from 'react'
-import {HoveredSC, VMovieItemSC, VTitleSC} from "./styles";
+import {VMovieItemSC, VTitleSC} from "./styles";
 import {NavLink} from "react-router-dom";
 
 export const VMoviePageItem = (props) => {

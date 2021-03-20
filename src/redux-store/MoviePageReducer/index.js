@@ -11,16 +11,18 @@ const TOGGLE_VIDEO = 'TOGGLE_VIDEO';
 const SET_CAST = 'SET_CAST';
 const SET_REVIEWS = 'SET_REVIEWS';
 const SET_CURRENT_REVIEW_PAGE = 'SET_CURRENT_REVIEW_PAGE';
+const CREATE_FAVOURITE_MOVIES_LIST = 'CREATE_FAVOURITE_MOVIES_LIST';
+const SET_FAVOURITE_MOVIES_LIST = 'SET_FAVOURITE_MOVIES_LIST';
 
 let initialState = {
     searchedMovie: null,
     resultMoviesData: [],
     selectedMovieData: [],
     similarMoviesData: [],
-    currentPage: 1,
+    currentPage: null,
     totalPages: null,
     videoKey: '',
-    isTrailer: false,
+    isTrailerOpen: false,
     collection: {
         id: null,
         data: []
@@ -31,7 +33,10 @@ let initialState = {
         currentPage: 1,
         totalPages: null,
     },
-
+    favouritesMovies: {
+        listId: 7082579,
+        listData: []
+    },
 };
 
 export const MoviePageReducer = (state = initialState, action) => {
@@ -55,7 +60,7 @@ export const MoviePageReducer = (state = initialState, action) => {
         case SET_VIDEO_KEY:
             return {...state, videoKey: action.videoKey};
         case TOGGLE_VIDEO:
-            return {...state, isTrailer: !state.isTrailer};
+            return {...state, isTrailerOpen: !state.isTrailerOpen};
         case SET_CAST:
             return {...state, movieCast: action.castData};
         case SET_REVIEWS:
@@ -73,6 +78,22 @@ export const MoviePageReducer = (state = initialState, action) => {
                 reviews: {
                     ...state.reviews,
                     currentPage: action.reviewPage,
+                }
+            };
+        case CREATE_FAVOURITE_MOVIES_LIST:
+            return {
+                ...state,
+                favouritesMovies: {
+                    ...state.favouritesMovies,
+                    listId: action.listId
+                }
+            };
+        case SET_FAVOURITE_MOVIES_LIST:
+            return {
+                ...state,
+                favouritesMovies: {
+                    ...state.favouritesMovies,
+                    listData: action.listData
                 }
             };
         default:
@@ -93,6 +114,8 @@ export const setReviews = (reviewsData, reviewsTotalPages) => ({type: SET_REVIEW
 export const setCurrentReviewPage = (reviewPage) => ({type: SET_CURRENT_REVIEW_PAGE, reviewPage});
 export const setVideoKey = (videoKey) => ({type: SET_VIDEO_KEY, videoKey});
 export const openModuleVideo = () => ({type: TOGGLE_VIDEO});
+export const createFavouriteMoviesList = (listId) => ({type: CREATE_FAVOURITE_MOVIES_LIST, listId});
+export const getFavouriteMoviesList = (listData) => ({type: SET_FAVOURITE_MOVIES_LIST, listData});
 
 
 export default MoviePageReducer

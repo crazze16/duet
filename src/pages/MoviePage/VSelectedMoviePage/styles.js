@@ -2,10 +2,12 @@ import styled from 'styled-components'
 import {VWrapperSC} from "../styles";
 import {NavLink} from "react-router-dom";
 
+
 export const VWrapperSPSC = styled(VWrapperSC)`
     box-shadow: 1px 1px 50px 20px #000000;
     border-radius: 15px 15px 0 0;
-    background: linear-gradient(270deg, rgba(24,23,25,1) 0%, rgba(12,12,12,1) 100%);
+    background: linear-gradient(270deg, rgba(20,20,20,1) 0%, rgba(0,0,0,1) 100%);
+    
 `;
 
 export const VMainMoviePageTitleSC = styled.h1`
@@ -137,8 +139,11 @@ export const GenreSC = styled(NavLink)`
     color: ${`#a90000`};
     }
 `;
-export const ProductionSC = styled(GenreSC)`
+export const ProductionSC = styled.span`
     font-size: 12px;
+    margin-left: 4px;
+    color: #fff;
+    opacity: 80%;
 `;
 export const ProductionsSC = styled(GenresSC)`
     margin-bottom: 10px;
@@ -236,6 +241,7 @@ export const CollectionContainerSC = styled.div`
 export const FooterSC = styled.div`
     background: ${`#292828`};
     padding: 20px;
+
 `;
 export const SocialSC = styled.div`
     display: flex;

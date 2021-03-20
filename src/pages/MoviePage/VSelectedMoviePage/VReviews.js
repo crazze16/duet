@@ -13,7 +13,10 @@ import {
     WrapperSC
 } from "./Reviews";
 
-export const VReviews = (props) => {
+
+
+ const VReviews = (props) => {
+     console.log('render')
     const {setReviews, reviews, movieId, setCurrentReviewPage} = props;
 
     useEffect(() => {
@@ -38,12 +41,12 @@ export const VReviews = (props) => {
     const selectPage = (item) => {
         scrollTo();
         setCurrentReviewPage(item);
+        reviews.currentPage !== item &&
         movie.getReviews(movieId, item)
             .then(response => {
                 setReviews(response.data.results, response.data['total_pages']);
             })
     };
-
     let totalPagesArr = [];
     const totalPages = reviews.totalPages;
     for (let i = 1; i <= totalPages; i++) {
@@ -74,8 +77,9 @@ export const VReviews = (props) => {
 
 };
 
+export const VReviewsMemo = React.memo(VReviews);
 
-const ReviewItem = (props) => {
+const ReviewItem = React.memo(props => {
     const {author, date, author_details, content} = props;
     const src = 'https://image.tmdb.org/t/p/original/' + author_details.avatar_path;
     const noSrc = 'https://socpartnerstvo.org/img/avatar_male.png';
@@ -108,5 +112,5 @@ const ReviewItem = (props) => {
             </BodySC>
         </WrapperSC>
     )
-};
+});
 

@@ -9,7 +9,6 @@ const User = (props) => {
 
     useEffect(() => {
         props.onAuth()
-        console.log('bitch')
     }, []
     )
     return (
