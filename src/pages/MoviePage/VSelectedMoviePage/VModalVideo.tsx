@@ -5,27 +5,42 @@ import {movie} from "../../../VMoviePageApi";
 import {openModuleVideo, setVideoKey} from "../../../redux-store/MoviePageReducer";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
+import {CombinedStateType} from "../../../redux-store";
 
-const VModalVideo = (props) => {
+type MapDispatchPropsType = {
+    setVideoKey: (videoKey: string) => void
+    openModuleVideo: () => void
+}
+type MapStatePropsType = {
+    isTrailer: boolean,
+    videoKey: string | null
+}
+type OwnPropsType = {
+    movieId: number
+}
 
-    const {setVideoKey, videoKey, openModuleVideo, isTrailer} = props;
+type PropsType = OwnPropsType & MapStatePropsType & MapDispatchPropsType
+
+const VModalVideo: React.FC<PropsType> = (props) => {
+    const {setVideoKey, videoKey, openModuleVideo, isTrailer, movieId} = props;
+
 
     useEffect(() => {
         (async ()=>{
             try {
-                const video = await movie.getVideo(props.match.params.movieId);
-                    setVideoKey(video.data.results
+                const video = await movie.getVideo(movieId);
+                    setVideoKey(video.results
                         .sort(item => item.name.includes('Trailer') ? -1 : 1)[0].key)
             } catch(e) {
                 alert(e)
             }
         })()
-        }, [props.match.params.movieId]
+        }, [movieId]
     );
    const src = `https://www.youtube.com/embed/${videoKey}?mute=1&autoplay=1`;
     return (
         isTrailer ?
-            <ModalWrappSC  onClick={openModuleVideo}>
+            <ModalWrappSC onClick={openModuleVideo}>
                 <VideoFrameSC>
                     <iframe width='1300' height='700' src={src}
                             frameBorder="0"
@@ -36,17 +51,14 @@ const VModalVideo = (props) => {
                 </VideoFrameSC>
 
             </ModalWrappSC>
-        : ''
-
+        : <></>
     )
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: CombinedStateType): MapStatePropsType => ({
     isTrailer: state.MoviePageReducer.isTrailerOpen,
     videoKey: state.MoviePageReducer.videoKey
 });
 
-export default compose(
-    connect(mapStateToProps, {setVideoKey, openModuleVideo}),
-    withRouter,
-    )(VModalVideo)
+
+export const VModalVideoContainer = connect(mapStateToProps, {setVideoKey, openModuleVideo})(VModalVideo);

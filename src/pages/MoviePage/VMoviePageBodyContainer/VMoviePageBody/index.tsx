@@ -1,36 +1,61 @@
 import React from 'react'
 import {VMoviePageItem} from "./VMoviePageItem";
 import {connect} from "react-redux";
-import {Page, VMoviesListSC, VMoviesPages} from "./styles";
+import {VMoviesListSC, VMoviesPagesSC} from "./styles";
 import {setCurrentPage, setMovieData} from "../../../../redux-store/MoviePageReducer";
 import {movie} from "../../../../VMoviePageApi";
+import {CombinedStateType} from "../../../../redux-store";
+import { MovieItemType } from '../../../../types/types';
 
-const VMoviePageBody = (props) => {
 
-    const {totalPages, resultMoviesData, setCurrentPage, searchedMovie, setMovieData, currentPage} = props;
+type MapStatePropsType = {
+    searchedMovie: string
+    totalPages: number | null
+    resultMoviesData: Array<MovieItemType>
+    currentPage: number | null
 
-    let resultMoviesDataArr = resultMoviesData.map((item, index) => <VMoviePageItem poster={item['poster_path']}
+}
+type OwnPropsType = {
+    url: string
+}
+type MapDispatchPropsType = {
+    setCurrentPage: (page: number) => void
+    setMovieData: (MovieData: object[]) => void
+}
+
+type PropsType = MapDispatchPropsType & MapStatePropsType & OwnPropsType
+
+
+
+const VMoviePageBody: React.FC<PropsType> = (props) => {
+
+    const {totalPages, resultMoviesData, setCurrentPage, searchedMovie, setMovieData, currentPage, url} = props;
+
+    let resultMoviesDataArr = resultMoviesData.map((item, index) => <VMoviePageItem poster={item.poster_path}
                                                                                     id={item.id}
-                                                                                    url={props.url}
+                                                                                    url={url}
                                                                                     title={item.title}
                                                                                     key={index}
-    />);
+    /> );
 
 
-    const pagination = (range) => {
+
+    const pagination = (range: number) => {
         const totalPagesArr = [];
+        if(totalPages !== null)
         for (let i = 1; i <= totalPages; i++) {
             totalPagesArr.push(i)
         }
-        const mapping = (arr) => arr.map(
+        const mapping = (arr: Array<number>) => arr.map(
             (item, index) =>
-                <VMoviesPages key={index} onClick={() => selectPage(item)} isActive={item === currentPage ? '800' : '500'}>
+                <VMoviesPagesSC key={index} onClick={() => selectPage(item)} isActive={item === currentPage ? '800' : '500'}>
                     {item}
-                </VMoviesPages>
+                </VMoviesPagesSC>
         );
-        const extremePages = (num) => <VMoviesPages onClick={() => selectPage(num)}>{num}</VMoviesPages>;
+        const extremePages = (num: number) => <VMoviesPagesSC onClick={() => selectPage(num)}>{num}</VMoviesPagesSC>;
         const neighbours = (range - 1) / 2;
         const rightLimit = totalPagesArr.length - neighbours;
+        if(currentPage !== null)
         if (currentPage >= neighbours + 1 && currentPage < rightLimit) {
             return (
                 <div>
@@ -64,11 +89,11 @@ const VMoviePageBody = (props) => {
         }
     };
 
-    let selectPage = (item) => {
+    let selectPage = (item: number) => {
         setCurrentPage(item);
         movie.getFilmsBySearch(searchedMovie, item)
-            .then(response => {
-                setMovieData(response.data.results);
+            .then((response) => {
+                setMovieData(response.results);
             })
     };
     return (
@@ -83,11 +108,11 @@ const VMoviePageBody = (props) => {
     )
 };
 
-let mapStateToProps = (state) => ({
+let mapStateToProps = (state: CombinedStateType): MapStatePropsType => ({
     resultMoviesData: state.MoviePageReducer.resultMoviesData,
     totalPages: state.MoviePageReducer.totalPages,
     searchedMovie: state.MoviePageReducer.searchedMovie,
     currentPage: state.MoviePageReducer.currentPage,
 });
 
-export const VMoviePageBodyContainer = connect(mapStateToProps, {setCurrentPage, setMovieData})(VMoviePageBody);
+export const VMoviePageBodyContainer = connect(mapStateToProps, {setCurrentPage, setMovieData})(VMoviePageBody as React.FC);

@@ -1,4 +1,4 @@
-import {MoviePageReducer, searchMovie} from "./index";
+import {MoviePageReducer, searchMovie} from "../MoviePageReducer";
 
 test('renders learn react link', () => {
     let action = searchMovie('Spider-Man');

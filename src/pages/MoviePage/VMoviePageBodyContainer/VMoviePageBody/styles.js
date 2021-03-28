@@ -7,7 +7,7 @@ export const VMoviesListSC = styled.div`
     justify-content: space-around;
 `;
 
-export const VMoviesPages = styled.span`
+export const VMoviesPagesSC = styled.span`
     font-weight: ${props => props.isActive};
     margin-left: 2px;
     color: #fff;

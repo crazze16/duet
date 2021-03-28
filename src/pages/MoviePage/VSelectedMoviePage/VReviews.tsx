@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'
-import {movie} from "../../../VMoviePageApi";
+import {AuthorDetailsType, ReviewDetails, ReviewsType } from '../../../types/types';
+import { movie, } from "../../../VMoviePageApi";
 import {
     AvatarSC,
     BodySC,
@@ -11,18 +12,21 @@ import {
     ReviewTitleSC,
     ToggleSC,
     WrapperSC
-} from "./Reviews";
+} from "./ReviewsSC";
 
+type PropsReviewsType = {
+    setReviews: (reviews: Array<ReviewDetails>, totalPages: number) => void
+    reviews: ReviewsType
+    movieId: number
+    setCurrentReviewPage: (page: number) => void
+}
 
-
- const VReviews = (props) => {
-     console.log('render')
+const VReviews: React.FC<PropsReviewsType> = (props) => {
     const {setReviews, reviews, movieId, setCurrentReviewPage} = props;
-
     useEffect(() => {
             movie.getReviews(movieId, reviews.currentPage)
                 .then(response => {
-                    setReviews(response.data.results, response.data['total_pages']);
+                    setReviews(response.results, response['total_pages']);
                 })
         }, [movieId]
     );
@@ -35,16 +39,19 @@ import {
                                                                       content={item.content}
     />);
 
-    const myRef = useRef(null);
-    const scrollTo = () => myRef.current.scrollIntoView();
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    const myRef = useRef(null as any);
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-    const selectPage = (item) => {
+    const scrollTo = (): void => myRef.current.scrollIntoView();
+
+    const selectPage = (page: number): void => {
         scrollTo();
-        setCurrentReviewPage(item);
-        reviews.currentPage !== item &&
-        movie.getReviews(movieId, item)
+        setCurrentReviewPage(page);
+        reviews.currentPage !== page &&
+        movie.getReviews(movieId, page)
             .then(response => {
-                setReviews(response.data.results, response.data['total_pages']);
+                setReviews(response.results, response['total_pages']);
             })
     };
     let totalPagesArr = [];
@@ -74,18 +81,23 @@ import {
 
         </ReviewSectionSC>
     )
-
 };
 
 export const VReviewsMemo = React.memo(VReviews);
 
-const ReviewItem = React.memo(props => {
+type ItemPropsType = {
+    author: string
+    date: string
+    author_details: AuthorDetailsType
+    content: string
+}
+
+const ReviewItem: React.FC<ItemPropsType> = React.memo(props => {
     const {author, date, author_details, content} = props;
     const src = 'https://image.tmdb.org/t/p/original/' + author_details.avatar_path;
     const noSrc = 'https://socpartnerstvo.org/img/avatar_male.png';
 
     const [isOpen, setStyle] = useState(false);
-
 
     return (
         <WrapperSC>

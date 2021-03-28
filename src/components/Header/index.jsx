@@ -16,9 +16,10 @@ export class Navigation extends React.Component {
 
         return (
             <NavSC>
-                <NavItemSC to="/home"><FontAwesomeIcon icon={faHome} color='white' /> <SpanSC>Home</SpanSC></NavItemSC>
-                <NavItemSC to="/Vapi"><SpanSC>VovaN Api</SpanSC></NavItemSC>
-                <NavItemSC to="/about"><FontAwesomeIcon icon={faAddressCard} color='white' /><SpanSC> About</SpanSC></NavItemSC>
+                {/*<NavItemSC to="/home"><FontAwesomeIcon icon={faHome} color='white' /> <SpanSC>Home</SpanSC></NavItemSC>*/}
+                <NavItemSC to="/Vapi"><SpanSC>Main Page</SpanSC></NavItemSC>
+                {/*<NavItemSC to="/about"><FontAwesomeIcon icon={faAddressCard} color='white' /><SpanSC> About</SpanSC></NavItemSC>*/}
+                <NavItemSC to="/favourite"><SpanSC> Favourite Movies</SpanSC></NavItemSC>
             </NavSC>
         )
     }

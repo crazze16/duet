@@ -2,15 +2,28 @@ import React, {useEffect} from 'react'
 import {movie} from "../../../VMoviePageApi";
 import {AvatarsListSC, CastAvatarSC, CastItemSC, CastTitleSC, CastWrapperSC, CharacterSC, NameSC} from "./CastSC";
 
-export const VCast = (props) => {
-    const {movieCast, setCast} = props;
+type MovieCastObjType = {
+    id: number,
+    profile_path: string,
+    character: string,
+    name: string
+}
+
+type PropsType = {
+    movieCast: Array<MovieCastObjType>,
+    setCast: (data: Array<object>) => void,
+    movieId: number
+}
+
+export const VCast: React.FC<PropsType> = (props) => {
+    const {movieCast, setCast, movieId} = props;
 
     useEffect(() => {
             (async () => {
-                let cast = await movie.getCastAndCrew(props.movieId);
-                setCast(cast.data.cast.splice(0, 8));
+                let castData = await movie.getCastAndCrew(movieId);
+                setCast(castData.cast.splice(0, 8));
             })()
-        }, [props.movieId]
+        }, [movieId]
     );
 
     const movieCastArr = movieCast.map(item => <VCastItem
@@ -31,7 +44,13 @@ export const VCast = (props) => {
 
 };
 
-const VCastItem = (props) => {
+type PropsItemType = {
+    src: string,
+    character: string,
+    name: string
+}
+
+const VCastItem: React.FC<PropsItemType> = (props) => {
 
     const {src, character, name} = props;
 
