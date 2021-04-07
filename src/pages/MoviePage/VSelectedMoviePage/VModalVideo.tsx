@@ -1,27 +1,27 @@
 import React, {useEffect} from 'react'
-import {connect} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {ModalWrappSC, VideoCloseSC, VideoFrameSC} from "./styles";
 import {movie} from "../../../VMoviePageApi";
 import {actions} from "../../../redux-store/MoviePageReducer";
 import {CombinedStateType} from "../../../redux-store";
 
-type MapDispatchPropsType = {
-    setVideoKey: (videoKey: string) => void
-    openModuleVideo: () => void
-}
-type MapStatePropsType = {
-    isTrailer: boolean,
-    videoKey: string | null
-}
+
 type OwnPropsType = {
     movieId: number
 }
 
-type PropsType = OwnPropsType & MapStatePropsType & MapDispatchPropsType
+type PropsType = OwnPropsType
 
-const VModalVideo: React.FC<PropsType> = (props) => {
-    const {setVideoKey, videoKey, openModuleVideo, isTrailer, movieId} = props;
+export const VModalVideo: React.FC<PropsType> = (props) => {
+    const {movieId} = props;
 
+    const dispatch = useDispatch();
+
+    const isTrailer = useSelector((state: CombinedStateType) => state.MoviePageReducer.isTrailerOpen);
+    const videoKey = useSelector((state: CombinedStateType) => state.MoviePageReducer.videoKey);
+
+    const setVideoKey = (videoKey: string) => dispatch(actions.setVideoKey(videoKey));
+    const openModuleVideo = () => dispatch(actions.openModuleVideo());
 
     useEffect(() => {
         (async ()=>{
@@ -51,11 +51,3 @@ const VModalVideo: React.FC<PropsType> = (props) => {
         : <></>
     )
 };
-
-const mapStateToProps = (state: CombinedStateType): MapStatePropsType => ({
-    isTrailer: state.MoviePageReducer.isTrailerOpen,
-    videoKey: state.MoviePageReducer.videoKey
-});
-
-
-export const VModalVideoContainer = connect(mapStateToProps, {...actions})(VModalVideo);

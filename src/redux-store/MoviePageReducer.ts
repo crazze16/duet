@@ -22,7 +22,7 @@ let initialState = {
     isTrailerOpen: false,
     collection: {
         id: null as number | null,
-        data: {} as CollectionType
+        data: {} as CollectionType | null
     },
     movieCast: [] as Array<CastPersonType>,
     reviews: {
@@ -87,7 +87,7 @@ export const actions = {
     setCurrentPage:  (page: number) => ({type: 'SET_CURRENT_PAGE', page} as const),
     setCurrentMovie:  (selectedMovie: SelectedMovieType)  => ({type: 'SET_CURRENT_MOVIE', selectedMovie} as const),
     setCollectionId:  (collectionId: number | null)  => ({type: 'SET_COLLECTION_ID', collectionId} as const),
-    setCollectionData:  (collectionData: CollectionType) => ({type: 'SET_COLLECTION_DATA', collectionData} as const),
+    setCollectionData:  (collectionData: CollectionType ) => ({type: 'SET_COLLECTION_DATA', collectionData} as const),
     setCast:  (castData: Array<CastPersonType>) => ({type: 'SET_CAST', castData} as const),
     setReviews:  (reviewsData: Array<ReviewDetails>, reviewsTotalPages: number) => ({type: 'SET_REVIEWS', reviewsData, reviewsTotalPages} as const),
     setCurrentReviewPage:  (reviewPage: number) => ({type: 'SET_CURRENT_REVIEW_PAGE', reviewPage} as const),

@@ -28,54 +28,55 @@ import {
     WatchMovieSC
 } from "./styles";
 import {VSimilarMovieItem} from "./VSimilarMovieItem";
-import {VModalVideoContainer} from "./VModalVideo";
+import {VModalVideo} from "./VModalVideo";
 import {VCast} from "./VCast";
 import {VReviewsMemo} from "./VReviews";
 import {FaGithub, FaInstagram, FaLinkedin} from 'react-icons/fa';
 import {movie} from "../../../VMoviePageApi";
 import {
     CastPersonType,
-    CollectionType,
-    GenresType, MovieBySearch, ProdactionCompaniesType, ReviewDetails, ReviewsType, SelectedMovieType
+    GenresType,
+    MovieBySearch,
+    ProdactionCompaniesType,
+    ReviewDetails,
+    SelectedMovieType
 } from '../../../types/types';
-import { NoCommSC } from './ReviewsSC';
+import {useDispatch, useSelector} from "react-redux";
+import {CombinedStateType} from "../../../redux-store";
+import {actions} from "../../../redux-store/MoviePageReducer";
+import {FMactions} from "../../../redux-store/FavouriteMoviesReducer";
 
 type PropsType = {
-    selectedMovieData: SelectedMovieType
-    similarMoviesData: Array<MovieBySearch>
-    movieCast: Array<CastPersonType>
     movieId: number
-    reviews: ReviewsType
-    collection: {
-        id: number | null,
-        data: CollectionType
-    },
-    favouritesMovies: {
-        listId: number | null,
-        listData: Array<MovieBySearch>
-        isFavourite: boolean
-    }
-    openModuleVideo: () => void
-    setCurrentMovie: (selectedMovie: SelectedMovieType) => void
-    setSimilarMovieData: (similarMovieData: Array<MovieBySearch>) => void
-    setCast: (castData: Array<CastPersonType>) => void
-    setReviews: (reviewsData: Array<ReviewDetails>, reviewsTotalPages: number) => void
-    setCurrentReviewPage: (reviewPage: number) => void
-    createFavouriteMoviesList: (listId: number) => void
-    setFavouriteMovie: (flag: boolean) => void
-    setFavouriteMoviesList: (favouriteData: Array<MovieBySearch>) => void
 }
 
 export const VSelectedMoviePage: React.FC<PropsType> = (props) => {
-    const {
-        title, original_title, vote_average, overview, backdrop_path, status,
-        genres, production_companies, release_date
-    } = props.selectedMovieData;
-    const {
-        similarMoviesData, openModuleVideo, setCurrentMovie, setSimilarMovieData,
-        collection, movieId, setCast, movieCast, setReviews, reviews, setCurrentReviewPage,
-        favouritesMovies, createFavouriteMoviesList, setFavouriteMoviesList, setFavouriteMovie
-    } = props;
+
+
+
+
+    const {movieId} = props;
+
+    const dispatch = useDispatch();
+
+    const selectedMovieData = useSelector((state: CombinedStateType) => state.MoviePageReducer.selectedMovieData);
+    const similarMoviesData = useSelector((state: CombinedStateType) => state.MoviePageReducer.similarMoviesData);
+    const collection = useSelector((state: CombinedStateType) => state.MoviePageReducer.collection);
+    const movieCast = useSelector((state: CombinedStateType) => state.MoviePageReducer.movieCast);
+    const favouritesMovies = useSelector((state: CombinedStateType) => state.FavouriteMoviesReducer.favouritesMovies);
+
+    const openModuleVideo = () => dispatch(actions.openModuleVideo());
+    const setCurrentMovie = (selectedMovie: SelectedMovieType) => dispatch(actions.setCurrentMovie(selectedMovie));
+    const setSimilarMovieData = (similarMovieData: Array<MovieBySearch>) => dispatch(actions.setSimilarMovieData(similarMovieData));
+    const setCast = (castData: Array<CastPersonType>) => dispatch(actions.setCast(castData));
+    const setReviews = (reviewsData: Array<ReviewDetails>, reviewsTotalPages: number) => dispatch(actions.setReviews(reviewsData, reviewsTotalPages));
+    const createFavouriteMoviesList = (listId: number) => dispatch(FMactions.createFavouriteMoviesList(listId));
+    const setFavouriteMoviesList = (favouriteData: Array<MovieBySearch>) => dispatch(FMactions.setFavouriteMoviesList(favouriteData));
+    const setFavouriteMovie = (flag: boolean) => dispatch(FMactions.setFavouriteMovie(flag));
+
+    const { title, original_title, vote_average, overview, backdrop_path,
+        status, genres, production_companies, release_date } = selectedMovieData;
+
     const baseSrc = 'https://image.tmdb.org/t/p/original/';
     const backdrop = `${baseSrc}${backdrop_path}`;
 
@@ -131,13 +132,12 @@ export const VSelectedMoviePage: React.FC<PropsType> = (props) => {
 
     return (
         <VWrapperSPSC>
-            <VModalVideoContainer movieId={movieId}/>
+            <VModalVideo movieId={movieId}/>
             <BackdropSectionSC>
                 <InfoSC>
                     <InfoContentSC>
                         <VMainMoviePageTitleSC>
                             {title}
-
                         </VMainMoviePageTitleSC>
                         <VSubMoviePageTitleSC>
                             {releaseDate(release_date)}, {original_title}
@@ -159,7 +159,7 @@ export const VSelectedMoviePage: React.FC<PropsType> = (props) => {
                         <CollectionContainerSC>
                         </CollectionContainerSC>
                         <GenresSC>
-                            {collection.id ? <GenreSC to='/'>{collection.data.name}</GenreSC> : ''}
+                            {collection.data?.id ? <GenreSC to='/'>{collection.data.name},</GenreSC> : ''}
                             {genresFunc(genres)}
                         </GenresSC>
                         <WatchMovieSC onClick={openModuleVideo}>
@@ -189,8 +189,7 @@ export const VSelectedMoviePage: React.FC<PropsType> = (props) => {
                 </RecommendedTitleSC>
                 {similarMovies}
             </RecommendedMoviesListSC>
-            <VReviewsMemo movieId={+movieId} setReviews={setReviews} reviews={reviews}
-                          setCurrentReviewPage={setCurrentReviewPage}/>
+            <VReviewsMemo movieId={+movieId} setReviews={setReviews}/>
             <FooterSC>
                 <FooterWrapperSC>
                     <FooterInfoSC>

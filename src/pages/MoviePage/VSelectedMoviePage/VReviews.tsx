@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react'
-import {AuthorDetailsType, ReviewDetails, ReviewsType} from '../../../types/types';
+import {AuthorDetailsType, ReviewDetails} from '../../../types/types';
 import {movie,} from "../../../VMoviePageApi";
 import {
     AvatarSC,
@@ -13,16 +13,25 @@ import {
     ToggleSC,
     WrapperSC
 } from "./ReviewsSC";
+import {useDispatch, useSelector} from "react-redux";
+import {CombinedStateType} from "../../../redux-store";
+import {actions} from "../../../redux-store/MoviePageReducer";
 
 type PropsReviewsType = {
     setReviews: (reviews: Array<ReviewDetails>, totalPages: number) => void
-    reviews: ReviewsType
     movieId: number
-    setCurrentReviewPage: (page: number) => void
 }
 
 const VReviews: React.FC<PropsReviewsType> = (props) => {
-    const {setReviews, reviews, movieId, setCurrentReviewPage} = props;
+
+    const dispatch = useDispatch();
+
+    const reviews = useSelector((state: CombinedStateType) => state.MoviePageReducer.reviews);
+
+    const setCurrentReviewPage = (reviewPage: number) => dispatch(actions.setCurrentReviewPage(reviewPage));
+
+
+    const {setReviews, movieId} = props;
     useEffect(() => {
             movie.getReviews(movieId, reviews.currentPage)
                 .then(response => {

@@ -1,28 +1,22 @@
 import React from 'react';
-import {connect} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {VMoviePageHeader} from "../index";
 import {movie} from "../../../../VMoviePageApi";
 import {CombinedStateType} from '../../../../redux-store';
-import {compose} from "redux";
 import {actions} from "../../../../redux-store/MoviePageReducer";
 import {MovieBySearch} from "../../../../types/types";
 
-type MapStatePropsType = {
-    searchedMovie: string
-}
 
-type MapDispatchPropsType = {
-    setMovieData: (movieData: Array<MovieBySearch>) => void
-    setTotalPages: (totalPages: number) => void
-    setCurrentPage: (page: number) => void
-    searchMovie: (searchedMovie: string) => void
-}
 
-type PropsType = MapDispatchPropsType & MapStatePropsType
+export const VMoviePageHeaderAPI: React.FC = () => {
 
-const VMoviePageHeaderAPI: React.FC<PropsType> = (props) => {
+    const dispatch = useDispatch();
 
-    const {searchedMovie, setMovieData, setTotalPages, setCurrentPage} = props;
+    const searchedMovie = useSelector((state: CombinedStateType) => state.MoviePageReducer.searchedMovie);
+
+    const setMovieData = (movieData: Array<MovieBySearch>) => dispatch(actions.setMovieData(movieData));
+    const setTotalPages = (totalPages: number) => dispatch(actions.setTotalPages(totalPages));
+    const setCurrentPage = (page: number) => dispatch(actions.setCurrentPage(page));
 
    let onSearch = () => {
         movie.getFilmsBySearch(searchedMovie, 1)
@@ -34,16 +28,8 @@ const VMoviePageHeaderAPI: React.FC<PropsType> = (props) => {
     };
         return (
             <div>
-                <VMoviePageHeader {...props} onSearch={onSearch}/>
+                <VMoviePageHeader searchedMovie={searchedMovie} onSearch={onSearch}/>
             </div>
         )
 };
-
-let mapStateToProps = (state: CombinedStateType):MapStatePropsType => ({
-    searchedMovie: state.MoviePageReducer.searchedMovie,
-});
-
-export default compose(
-    connect(mapStateToProps, {...actions}))
-(VMoviePageHeaderAPI)
 

@@ -1,26 +1,25 @@
 import React, {useEffect, useRef, useState} from 'react'
-import {compose} from "redux";
-import {connect} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {FavouriteMoviePage} from "./FavouriteMoviesPage";
 import {movie} from "../../VMoviePageApi";
 import {CombinedStateType} from "../../redux-store";
-import {FavouriteMoviesType, MovieBySearch} from "../../types/types";
+import { MovieBySearch} from "../../types/types";
 import {Loader} from '../../components/Loader/Loader';
 import {FMactions} from '../../redux-store/FavouriteMoviesReducer'
 import {EmptyListSC, WrapperSC} from '../../styles/FavouriteMoviesSC';
 
-type MapState = {
-    favouritesMovies: FavouriteMoviesType
-}
-type MapDispatch = {
-    setFavouriteMoviesList: (moviesData: Array<MovieBySearch>) => void
-    createFavouriteMoviesList: (listId: number) => void
-}
-type PropsType = MapState & MapDispatch
 
-const FavouriteMoviesPageContainer: React.FC<PropsType> = (props) => {
 
-    const {createFavouriteMoviesList, setFavouriteMoviesList, favouritesMovies} = props;
+export const FavouriteMoviesPageContainer: React.FC = () => {
+
+
+    const dispatch = useDispatch();
+
+    const favouritesMovies = useSelector((state: CombinedStateType) => state.FavouriteMoviesReducer.favouritesMovies);
+
+    const createFavouriteMoviesList = (listId: number) => dispatch(FMactions.createFavouriteMoviesList(listId));
+    const setFavouriteMoviesList = (moviesData: Array<MovieBySearch>) => dispatch(FMactions.setFavouriteMoviesList(moviesData));
+
     const LIST_ID = 'Favourite Movies list id';
     // const [fetching, setFetching] = useState(false);
 
@@ -61,16 +60,8 @@ const FavouriteMoviesPageContainer: React.FC<PropsType> = (props) => {
         //     <Loader/> :
             favouritesMovies.listData.length > 0 ?
                 <WrapperSC>
-                    <FavouriteMoviePage {...props} removeFromFavourite={removeFromFavourite}/>
+                    <FavouriteMoviePage removeFromFavourite={removeFromFavourite} favouritesMovies={favouritesMovies}/>
                 </WrapperSC> : <EmptyListSC>you haven't added anything to your favorite movies list</EmptyListSC>
 
     )
 };
-
-const mapStateToProps = (state: CombinedStateType): MapState => ({
-    favouritesMovies: state.FavouriteMoviesReducer.favouritesMovies
-});
-
-export default compose(
-    connect(mapStateToProps, {...FMactions}),
-)(FavouriteMoviesPageContainer)

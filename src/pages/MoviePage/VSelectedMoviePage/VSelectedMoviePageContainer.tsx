@@ -1,53 +1,28 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import {movie} from "../../../VMoviePageApi";
-import {connect} from "react-redux";
+import {useDispatch} from "react-redux";
 import {actions} from "../../../redux-store/MoviePageReducer";
 import {FMactions} from "../../../redux-store/FavouriteMoviesReducer";
 import {VSelectedMoviePage} from "./VSelectedMoviePage";
-import {compose} from "redux";
 import {useParams} from "react-router";
-import {
-    CastPersonType,
-    CollectionType,
-    FavouriteMoviesType,
-    MovieBySearch,
-    ReviewDetails, ReviewsType,
-    SelectedMovieType
-} from "../../../types/types";
-import {CombinedStateType} from "../../../redux-store";
-import { Loader } from '../../../components/Loader/Loader';
+import {CollectionType, MovieBySearch, SelectedMovieType} from "../../../types/types";
 
-type MapState = {
-    selectedMovieData: SelectedMovieType
-    similarMoviesData: Array<MovieBySearch>
-    collection: {
-        id: number | null,
-        data: CollectionType
-    },
-    movieCast: Array<CastPersonType>
-    reviews: ReviewsType
-    favouritesMovies: FavouriteMoviesType
-}
 
-type MapDispatch = {
-    setSimilarMovieData: (similarMovieData: Array<MovieBySearch>) => void
-    openModuleVideo: () => void
-    setCollectionId: (collectionId: number | null) => void
-    setCollectionData: (collectionData: CollectionType | {}) => void
-    setCast: (castData: Array<CastPersonType>) => void
-    setReviews: (reviewsData: Array<ReviewDetails>, reviewsTotalPages: number) => void
-    setCurrentReviewPage: (reviewPage: number) => void
-    createFavouriteMoviesList: (listId: number) => void
-    setFavouriteMoviesList: (listData: Array<MovieBySearch>) => void
-    setFavouriteMovie: (isFavourite: boolean) => void
-    setCurrentMovie: (selectedMovie: SelectedMovieType) => void
-}
+export const VSelectedMoviePageContainer: React.FC = () => {
 
-type PropsType = MapState & MapDispatch
 
-const VSelectedMoviePageContainer: React.FC<PropsType> = (props) => {
 
-    const {setCurrentMovie, setCollectionId, setCollectionData, setSimilarMovieData, setFavouriteMoviesList, setFavouriteMovie, createFavouriteMoviesList} = props;
+    const dispatch = useDispatch();
+
+    const setCurrentMovie = (selectedMovie: SelectedMovieType) => dispatch(actions.setCurrentMovie(selectedMovie));
+    const setCollectionId = (collectionId: number | null) => dispatch(actions.setCollectionId(collectionId));
+    const setCollectionData = (collectionData: CollectionType) => dispatch(actions.setCollectionData(collectionData));
+    const setSimilarMovieData = (similarMovieData: Array<MovieBySearch>) => dispatch(actions.setSimilarMovieData(similarMovieData));
+    const setFavouriteMoviesList = (listData: Array<MovieBySearch>) => dispatch(FMactions.setFavouriteMoviesList(listData));
+    const setFavouriteMovie = (isFavourite: boolean) => dispatch(FMactions.setFavouriteMovie(isFavourite));
+    const createFavouriteMoviesList = (listId: number) => dispatch(FMactions.createFavouriteMoviesList(listId));
+
+
 
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // @ts-ignore
@@ -83,7 +58,7 @@ const VSelectedMoviePageContainer: React.FC<PropsType> = (props) => {
                     setCollectionData(collection);
                 } else {
                     setCollectionId(null);
-                    setCollectionData({});
+                    setCollectionData({} as CollectionType);
                 }
             })();
         }, [movieId]
@@ -92,21 +67,9 @@ const VSelectedMoviePageContainer: React.FC<PropsType> = (props) => {
     return (
 
         <div>
-            <VSelectedMoviePage {...props} movieId={+movieId}/>
+            <VSelectedMoviePage movieId={+movieId}/>
         </div>
     )
 };
 
 
-const mapStateToProps = (state: CombinedStateType): MapState => ({
-    selectedMovieData: state.MoviePageReducer.selectedMovieData,
-    similarMoviesData: state.MoviePageReducer.similarMoviesData,
-    collection: state.MoviePageReducer.collection,
-    movieCast: state.MoviePageReducer.movieCast,
-    reviews: state.MoviePageReducer.reviews,
-    favouritesMovies: state.FavouriteMoviesReducer.favouritesMovies
-});
-
-export default compose<React.ComponentType>(
-    connect(mapStateToProps, {...actions, ...FMactions}),
-)(VSelectedMoviePageContainer)

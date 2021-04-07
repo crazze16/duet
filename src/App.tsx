@@ -3,8 +3,8 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 import {VMoviePage} from "./pages/MoviePage";
 import {Auth} from "./pages/Auth";
 import {BodySC, ContentSC, NavigationWrapperSC} from "./styles/AppSC";
-import FavouriteMoviesPageContainer from "./pages/FavouritesMoviesPage/FavouriteMoviesPageContainer";
-import  VSelectedMoviePageContainer from "./pages/MoviePage/VSelectedMoviePage/VSelectedMoviePageContainer";
+import {FavouriteMoviesPageContainer} from "./pages/FavouritesMoviesPage/FavouriteMoviesPageContainer";
+import  {VSelectedMoviePageContainer} from "./pages/MoviePage/VSelectedMoviePage/VSelectedMoviePageContainer";
 
 function App() {
     return (

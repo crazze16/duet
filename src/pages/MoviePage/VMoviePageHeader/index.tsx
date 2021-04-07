@@ -1,14 +1,18 @@
 import React from 'react'
+import {useDispatch} from "react-redux";
+import {actions} from "../../../redux-store/MoviePageReducer";
 
 type PropsType = {
     onSearch: () => void
-    searchMovie: (searchedMovie: string) => void
     searchedMovie: string
 }
 
 export const VMoviePageHeader: React.FC<PropsType> = (props) => {
 
-    const {onSearch, searchMovie, searchedMovie} = props;
+    const {onSearch, searchedMovie} = props;
+
+    const dispatch = useDispatch();
+    const searchMovie = (searchedMovie: string) => dispatch(actions.searchMovie(searchedMovie))
 
     const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         searchMovie(event.target.value)
