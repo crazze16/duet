@@ -1,12 +1,13 @@
 import React from 'react'
-import {SimilarMoviesItemSC} from "./styles";
+import {SimilarMoviesItemSC, } from "./styles";
 import {movie} from "../../../VMoviePageApi";
+import {MovieBySearch, SelectedMovieType} from "../../../types/types";
 
 type PropsType = {
     poster: string
     movieId: number
-    setSimilarMovieData: (data: Array<object>) => void
-    setCurrentMovie: (data: Array<object>) => void
+    setSimilarMovieData: (similarMovieData: Array<MovieBySearch>) => void
+    setCurrentMovie: (selectedMovie: SelectedMovieType) => void
 }
 
 export const VSimilarMovieItem: React.FC<PropsType> = (props) => {
@@ -14,7 +15,7 @@ export const VSimilarMovieItem: React.FC<PropsType> = (props) => {
 
     const src: string = `https://image.tmdb.org/t/p/w300/${poster}`;
 
-    let func = () => {
+    let selectMovie = () => {
         movie.getSelectedFilm(movieId)
             .then((response: any) => setCurrentMovie(response))
             .then(() => {
@@ -23,6 +24,6 @@ export const VSimilarMovieItem: React.FC<PropsType> = (props) => {
             })
 };
     return (
-        <SimilarMoviesItemSC to={`${movieId}`} poster={src} onClick={() => func()}/>
+    <SimilarMoviesItemSC to={`${movieId}`} poster={ poster ? src : 'https://prikolnye-kartinki.ru/img/picture/Sep/23/9d857169c84422fdaa28df62667a1467/8.jpg'} onClick={() => selectMovie()}/>
     )
 };

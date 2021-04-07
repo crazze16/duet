@@ -12,6 +12,8 @@ const rootReducer = combineReducers({
     AuthPageReducer,
     FavouriteMoviesReducer
 });
+export type InferActionsTypes<T> = T extends { [key: string]: (...args: any[]) => infer U} ? U : never
+
 export const store = createStore(rootReducer);
 // @ts-ignore
 window.store = store;

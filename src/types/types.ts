@@ -1,10 +1,9 @@
 
 export type MovieItemType = { id: number
-    url: string
     title: string
     poster_path: string
 }
-export type ReviewsType = { data: Array<ReviewDetails>, currentPage: number, totalPages: number }
+export type ReviewsType = { data: Array<ReviewDetails>, currentPage: number, totalPages: number | null }
 export type ProdactionCompaniesType =  Array<{name: string, id: number, logo_path: string | null, origin_country: string }>
 export type GenresType =  Array<{ id: number, name: string }>
 export type MovieBySearch = {
@@ -91,4 +90,5 @@ export type FavouriteMoviesType = {
     listId: number | null
     listData: Array<MovieBySearch>
     isFavourite: boolean
-    isCreated: boolean}
+    isCreated: boolean
+}

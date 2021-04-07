@@ -51,7 +51,7 @@ export const movie = {
         return list.get<ListType>(`${listId}?page=1&api_key=${API_KEY}`).then(res => res.data)
     },
     updateList(listId: number, MovieId: number) {
-        return list.post(`${listId}/items`, {
+        return list.post<ResponseType>(`${listId}/items`, {
             items: [
                 {
                     "media_type": "movie",
@@ -61,7 +61,7 @@ export const movie = {
         })
     },
     removeItems(listId: number, MovieId: number) {
-        return list.delete(`${listId}/items`, {
+        return list.delete<ResponseType>(`${listId}/items`, {
             data: {
                 items: [
                     {
@@ -132,4 +132,16 @@ type ListType = {
     sort_by: string
     total_pages: number
     total_results: number
+}
+type ResponseType = {
+    "status_message": string
+    "results": [
+        {
+            "media_type": string
+            "media_id": number
+            "success": boolean
+        }
+    ],
+    "success": boolean
+    "status_code": number
 }

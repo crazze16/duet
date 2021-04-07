@@ -2,17 +2,15 @@ import React from 'react';
 import VMoviePageHeaderAPI from "./VMoviePageHeader/VMoviePageHeaderContainer";
 import {VMoviePageBodyContainer} from "./VMoviePageBodyContainer/VMoviePageBody";
 import {VWrapperSC} from "./styles";
-import {withRouter} from "react-router-dom";
+
+type PropsType = {}
 
 
-const VMoviePage = (props) => {
+export const VMoviePage: React.FC<PropsType> = (props) => {
     return (
         <VWrapperSC>
             <VMoviePageHeaderAPI/>
-            <VMoviePageBodyContainer url={props.match.url}/>
+            <VMoviePageBodyContainer/>
         </VWrapperSC>
     )
 };
-
-
-export const VMoviePageContainer = withRouter(VMoviePage);

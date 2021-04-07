@@ -8,7 +8,9 @@ export const CastAvatarSC = styled.div`
   background: url(${props => props.src}) center center;
   background-size: cover;
 `;
-
+export const AvatarWrapper = styled(CastAvatarSC)`
+    background: ${`#131313`};
+`;
 export const AvatarsListSC = styled.div`
     display: flex;
     justify-content: center;

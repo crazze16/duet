@@ -28,14 +28,17 @@ import {
     WatchMovieSC
 } from "./styles";
 import {VSimilarMovieItem} from "./VSimilarMovieItem";
-import { VModalVideoContainer } from "./VModalVideo";
+import {VModalVideoContainer} from "./VModalVideo";
 import {VCast} from "./VCast";
 import {VReviewsMemo} from "./VReviews";
 import {FaGithub, FaInstagram, FaLinkedin} from 'react-icons/fa';
-import { movie} from "../../../VMoviePageApi";
-import {CastPersonType,
+import {movie} from "../../../VMoviePageApi";
+import {
+    CastPersonType,
     CollectionType,
-    GenresType, MovieBySearch, ProdactionCompaniesType, ReviewsType, SelectedMovieType} from '../../../types/types';
+    GenresType, MovieBySearch, ProdactionCompaniesType, ReviewDetails, ReviewsType, SelectedMovieType
+} from '../../../types/types';
+import { NoCommSC } from './ReviewsSC';
 
 type PropsType = {
     selectedMovieData: SelectedMovieType
@@ -43,18 +46,21 @@ type PropsType = {
     movieCast: Array<CastPersonType>
     movieId: number
     reviews: ReviewsType
-    collection: CollectionType
+    collection: {
+        id: number | null,
+        data: CollectionType
+    },
     favouritesMovies: {
         listId: number | null,
         listData: Array<MovieBySearch>
         isFavourite: boolean
     }
     openModuleVideo: () => void
-    setCurrentMovie: () => void
-    setSimilarMovieData: () => void
-    setCast: () => void
-    setReviews: () => void
-    setCurrentReviewPage: () => void
+    setCurrentMovie: (selectedMovie: SelectedMovieType) => void
+    setSimilarMovieData: (similarMovieData: Array<MovieBySearch>) => void
+    setCast: (castData: Array<CastPersonType>) => void
+    setReviews: (reviewsData: Array<ReviewDetails>, reviewsTotalPages: number) => void
+    setCurrentReviewPage: (reviewPage: number) => void
     createFavouriteMoviesList: (listId: number) => void
     setFavouriteMovie: (flag: boolean) => void
     setFavouriteMoviesList: (favouriteData: Array<MovieBySearch>) => void
@@ -84,23 +90,16 @@ export const VSelectedMoviePage: React.FC<PropsType> = (props) => {
     let genresFunc = (data = [] as GenresType): React.ReactNode => {
         let genresArr: Array<string> = [];
         data.forEach(item => genresArr.push(item.name));
-        return genresArr.join(', ').split(' ').map((item, index) => <GenreSC key={index} to={`/${item}`}>{item}</GenreSC>);
+        return genresArr.join(', ').split(' ').map((item, index) => <GenreSC key={index}
+                                                                             to={`/${item}`}>{item}</GenreSC>);
     };
     let production = (data = [] as ProdactionCompaniesType): React.ReactNode => {
-        let arr:Array<string> = [];
+        let arr: Array<string> = [];
         data.forEach(item => arr.push(item.name));
         return arr.join(', ').split(' ').map((item, index) => <ProductionSC key={index} to='/'>{item}</ProductionSC>);
     };
     let releaseDate = (releaseDate = ''): string => releaseDate.slice(0, 4);
 
-    const createList = (): void => {
-        (async () => {
-            const listId = await movie.setList('test');
-            createFavouriteMoviesList(listId.data.id);
-            localStorage.setItem('Favourite Movies list id', listId.data.id)
-        })();
-
-    };
     const addToFavourite = (listId = favouritesMovies.listId): void => {
         favouritesMovies.listId ?
             (async () => {
@@ -138,6 +137,7 @@ export const VSelectedMoviePage: React.FC<PropsType> = (props) => {
                     <InfoContentSC>
                         <VMainMoviePageTitleSC>
                             {title}
+
                         </VMainMoviePageTitleSC>
                         <VSubMoviePageTitleSC>
                             {releaseDate(release_date)}, {original_title}
@@ -159,24 +159,21 @@ export const VSelectedMoviePage: React.FC<PropsType> = (props) => {
                         <CollectionContainerSC>
                         </CollectionContainerSC>
                         <GenresSC>
-                            {collection.id ? <GenreSC to='/'>{collection.name}</GenreSC> : ''}
+                            {collection.id ? <GenreSC to='/'>{collection.data.name}</GenreSC> : ''}
                             {genresFunc(genres)}
                         </GenresSC>
                         <WatchMovieSC onClick={openModuleVideo}>
                             WATCH TRAILER
                         </WatchMovieSC>
-                        <WatchMovieSC onClick={() => createList()}>
-                            create
-                        </WatchMovieSC>
-                        <WatchMovieSC onClick={() => addToFavourite()}>
-                            add
-                        </WatchMovieSC>
-                        {favouritesMovies.isFavourite ?
-                            <button onClick={() => removeFromFavourite()}>remove from favourite</button> :
-                            <button onClick={() => addToFavourite()}>add to favourite</button>}
+                        {
+                            favouritesMovies.isFavourite ? <WatchMovieSC onClick={() => removeFromFavourite()}>
+                                REMOVE FROM LIST
+                            </WatchMovieSC> : <WatchMovieSC onClick={() => addToFavourite()}>
+                                ADD TO LIST
+                            </WatchMovieSC>
+                        }
                     </InfoContentSC>
                 </InfoSC>
-
                 <VBackDropSC src={backdrop}>
                     <VGradientSC>
                     </VGradientSC>

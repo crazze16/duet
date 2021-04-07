@@ -52,3 +52,43 @@ const css:ICSS = {
     width: '15px',
     color: "#ccc"
 }
+
+function inferLiteralFromString<T extends string>(arg: T): T {
+    return arg
+}
+const a = inferLiteralFromString<string>('some string');
+const b = inferLiteralFromString<'some string'>('some string');
+// const c = returnTheSame<number>(42);
+//Запись выше означает, что мы подаем на вход аргумент строкового типа Т, и функция вернет нам ровно тот же самый тип Т.
+
+function inferLiteral<U, T extends U>(arg: T): T {
+    return arg
+}
+function inferStringLiteral<T extends string>(arg: T): T {
+    return inferLiteral<string, T>(arg)
+}
+
+//Generics
+
+type ServerResponseType<T> = {
+    errorCode: number
+    messages: Array<string>
+    data: T
+}
+
+type Data = {
+    name: string
+    surname: string
+}
+
+const response: ServerResponseType<Data> = {
+    errorCode: 1,
+    messages: ['no','yes'],
+        data: {
+            name: 'Vova',
+            surname: 'Nekoz'
+        }
+}
+
+
+type SomeType<T> = T extends {[key: string]: infer U} ? U : never

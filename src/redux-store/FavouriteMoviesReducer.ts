@@ -1,9 +1,5 @@
 import {MovieBySearch} from "../types/types";
-
-const CREATE_FAVOURITE_MOVIES_LIST = 'CREATE_FAVOURITE_MOVIES_LIST';
-const SET_FAVOURITE_MOVIES_LIST = 'SET_FAVOURITE_MOVIES_LIST';
-const SET_AS_FAVOURITE = 'SET_AS_FAVOURITE';
-
+import { InferActionsTypes} from "./index";
 
 type InitialStateType = typeof initialState
 const initialState = {
@@ -15,9 +11,9 @@ const initialState = {
     },
 };
 
- const FavouriteMoviesReducer = (state = initialState, action: ActionsType): InitialStateType => {
+ const FavouriteMoviesReducer = (state = initialState, action: InferActionsTypes<typeof FMactions>): InitialStateType => {
     switch (action.type) {
-        case CREATE_FAVOURITE_MOVIES_LIST:
+        case 'CREATE_FAVOURITE_MOVIES_LIST':
             return {
                 ...state,
                 favouritesMovies: {
@@ -26,7 +22,7 @@ const initialState = {
                     isCreated: true
                 }
             };
-        case SET_FAVOURITE_MOVIES_LIST:
+        case 'SET_FAVOURITE_MOVIES_LIST':
             return {
                 ...state,
                 favouritesMovies: {
@@ -34,7 +30,7 @@ const initialState = {
                     listData: action.listData,
                 }
             };
-        case SET_AS_FAVOURITE:
+        case 'SET_AS_FAVOURITE':
             return {
                 ...state,
                 favouritesMovies: {
@@ -46,13 +42,13 @@ const initialState = {
     }
 };
 
-type TCreateFavouriteMoviesList = {type: typeof CREATE_FAVOURITE_MOVIES_LIST, listId: number}
-export const createFavouriteMoviesList = (listId: number): TCreateFavouriteMoviesList => ({type: CREATE_FAVOURITE_MOVIES_LIST, listId});
-type TSetFavouriteMoviesList = {type: typeof SET_FAVOURITE_MOVIES_LIST, listData: Array<MovieBySearch>}
-export const setFavouriteMoviesList = (listData: Array<MovieBySearch>): TSetFavouriteMoviesList => ({type: SET_FAVOURITE_MOVIES_LIST, listData});
-type TSetFavouriteMovie = {type: typeof SET_AS_FAVOURITE, isFavourite: boolean}
-export const setFavouriteMovie = (isFavourite: boolean): TSetFavouriteMovie => ({type: SET_AS_FAVOURITE, isFavourite});
+// type actionsType = ReturnType<SomeType<typeof actions>>;
+// type SomeType<T extends {[key: string]: (...args: any[]) => any}> = T extends {[key: string]: infer U} ? U : never
 
-type ActionsType = TCreateFavouriteMoviesList | TSetFavouriteMoviesList | TSetFavouriteMovie
+export const FMactions = {
+    createFavouriteMoviesList: (listId: number) => ({type: 'CREATE_FAVOURITE_MOVIES_LIST', listId} as const),
+    setFavouriteMoviesList: (listData: Array<MovieBySearch>) => ({type: 'SET_FAVOURITE_MOVIES_LIST', listData}  as const),
+    setFavouriteMovie: (isFavourite: boolean) => ({type: 'SET_AS_FAVOURITE', isFavourite}  as const),
+};
 
 export default FavouriteMoviesReducer

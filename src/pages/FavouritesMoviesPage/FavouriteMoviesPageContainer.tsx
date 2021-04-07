@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {compose} from "redux";
 import {connect} from "react-redux";
 import {FavouriteMoviePage} from "./FavouriteMoviesPage";
 import {movie} from "../../VMoviePageApi";
-import {createFavouriteMoviesList, setFavouriteMoviesList} from "../../redux-store/FavouriteMoviesReducer";
 import {CombinedStateType} from "../../redux-store";
 import {FavouriteMoviesType, MovieBySearch} from "../../types/types";
 import {Loader} from '../../components/Loader/Loader';
-import {EmptyListSC, WrapperSC } from '../../styles/FavouriteMoviesSC';
+import {FMactions} from '../../redux-store/FavouriteMoviesReducer'
+import {EmptyListSC, WrapperSC} from '../../styles/FavouriteMoviesSC';
 
 type MapState = {
     favouritesMovies: FavouriteMoviesType
@@ -21,18 +21,24 @@ type PropsType = MapState & MapDispatch
 const FavouriteMoviesPageContainer: React.FC<PropsType> = (props) => {
 
     const {createFavouriteMoviesList, setFavouriteMoviesList, favouritesMovies} = props;
+    const LIST_ID = 'Favourite Movies list id';
+    // const [fetching, setFetching] = useState(false);
 
-    const [fetching, setFetching] = useState(false);
+    // const prevCountRef = useRef<any>();
+    // prevCountRef.current = favouritesMovies.listData;
+    // const prev = prevCountRef.current;
+    // console.log('prev:', prev);
+    // console.log('current:', favouritesMovies.listData);
 
     useEffect(() => {
-            if (+localStorage.getItem('Favourite Movies list id')!) {
-                setFetching(true);
-                const listId: number = +localStorage.getItem('Favourite Movies list id')!;
+            if (+localStorage.getItem(LIST_ID)!) {
+                const listId: number = +localStorage.getItem(LIST_ID)!;
                 (async () => {
+                    // setFetching(true);
                     createFavouriteMoviesList(listId);
                     const listData = await movie.getList(listId);
                     setFavouriteMoviesList(listData.results);
-                    setFetching(false);
+                    // setFetching(false);
                 })();
             }
         },
@@ -40,20 +46,19 @@ const FavouriteMoviesPageContainer: React.FC<PropsType> = (props) => {
         []
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     );
-
-    const removeFromFavourite = (flag: boolean, id: number):void => {
+    const removeFromFavourite = (flag: boolean, id: number): void => {
         flag ?
-        (async () => {
-           await movie.removeItems(favouritesMovies.listId!, id);
-        })() :
+            (async () => {
+                await movie.removeItems(favouritesMovies.listId!, id);
+            })() :
             (async () => {
                 await movie.updateList(favouritesMovies.listId!, id);
             })()
     };
 
     return (
-        fetching ?
-            <Loader/> :
+        // fetching ?
+        //     <Loader/> :
             favouritesMovies.listData.length > 0 ?
                 <WrapperSC>
                     <FavouriteMoviePage {...props} removeFromFavourite={removeFromFavourite}/>
@@ -67,5 +72,5 @@ const mapStateToProps = (state: CombinedStateType): MapState => ({
 });
 
 export default compose(
-    connect(mapStateToProps, {setFavouriteMoviesList, createFavouriteMoviesList}),
+    connect(mapStateToProps, {...FMactions}),
 )(FavouriteMoviesPageContainer)

@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 import {movie} from "../../../VMoviePageApi";
-import {AvatarsListSC, CastAvatarSC, CastItemSC, CastTitleSC, CastWrapperSC, CharacterSC, NameSC} from "./CastSC";
+import {AvatarsListSC, AvatarWrapper, CastAvatarSC, CastItemSC, CastTitleSC, CastWrapperSC, CharacterSC, NameSC} from "./CastSC";
+import {CastPersonType} from "../../../types/types";
 
 type MovieCastObjType = {
     id: number,
@@ -11,7 +12,7 @@ type MovieCastObjType = {
 
 type PropsType = {
     movieCast: Array<MovieCastObjType>,
-    setCast: (data: Array<object>) => void,
+    setCast: (castData: Array<CastPersonType>) => void,
     movieId: number
 }
 
@@ -28,7 +29,7 @@ export const VCast: React.FC<PropsType> = (props) => {
 
     const movieCastArr = movieCast.map(item => <VCastItem
         key={item.id}
-        src={'https://image.tmdb.org/t/p/w500' + item['profile_path']}
+        src={item['profile_path']}
         character={item.character}
         name={item.name}
     />);
@@ -53,11 +54,14 @@ type PropsItemType = {
 const VCastItem: React.FC<PropsItemType> = (props) => {
 
     const {src, character, name} = props;
+    const noSrc = 'https://socpartnerstvo.org/img/avatar_male.png';
 
 
     return (
         <CastItemSC>
-            <CastAvatarSC src={src}/>
+            <AvatarWrapper>
+                <CastAvatarSC src={src ? 'https://image.tmdb.org/t/p/w500' + src : noSrc}/>
+            </AvatarWrapper>
             <NameSC>{name}</NameSC>
             <CharacterSC>{character}</CharacterSC>
         </CastItemSC>

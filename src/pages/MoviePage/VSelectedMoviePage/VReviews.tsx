@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'
-import {AuthorDetailsType, ReviewDetails, ReviewsType } from '../../../types/types';
-import { movie, } from "../../../VMoviePageApi";
+import {AuthorDetailsType, ReviewDetails, ReviewsType} from '../../../types/types';
+import {movie,} from "../../../VMoviePageApi";
 import {
     AvatarSC,
     BodySC,
@@ -56,9 +56,10 @@ const VReviews: React.FC<PropsReviewsType> = (props) => {
     };
     let totalPagesArr = [];
     const totalPages = reviews.totalPages;
-    for (let i = 1; i <= totalPages; i++) {
-        totalPagesArr.push(i)
-    }
+    if (totalPages)
+        for (let i = 1; i <= totalPages; i++) {
+            totalPagesArr.push(i)
+        }
     totalPagesArr = totalPagesArr.map((item, index) =>
         <PaginationItemSC key={index}
                           onClick={() => selectPage(item)}

@@ -1,14 +1,12 @@
 import {Navigation} from "./components/Header";
 import {Redirect, Route, Switch} from 'react-router-dom';
-import {VMoviePageContainer} from "./pages/MoviePage";
+import {VMoviePage} from "./pages/MoviePage";
 import {Auth} from "./pages/Auth";
-import {VSelectedMoviePageContainer} from "./pages/MoviePage/VSelectedMoviePage/VSelectedMoviePageContainer";
 import {BodySC, ContentSC, NavigationWrapperSC} from "./styles/AppSC";
 import FavouriteMoviesPageContainer from "./pages/FavouritesMoviesPage/FavouriteMoviesPageContainer";
+import  VSelectedMoviePageContainer from "./pages/MoviePage/VSelectedMoviePage/VSelectedMoviePageContainer";
 
 function App() {
-
-
     return (
         <BodySC>
             <NavigationWrapperSC>
@@ -17,7 +15,7 @@ function App() {
             <ContentSC>
                 <Switch>
                     <Route path='/Auth' render={() => <Auth/>}/>
-                    <Route exact path='/Vapi' render={() => <VMoviePageContainer/>}/>
+                    <Route exact path='/Vapi' render={() => <VMoviePage/>}/>
                     <Route path='/home' render={() => <div>home</div>}/>
                     <Route path='/about' render={() => <div>about</div>}/>
                     <Route path='/Vapi/movie/:movieId?' render={() => <VSelectedMoviePageContainer/>}/>

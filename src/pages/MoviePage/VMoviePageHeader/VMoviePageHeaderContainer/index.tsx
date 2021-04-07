@@ -1,17 +1,18 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {VMoviePageHeader} from "../index";
-import {searchMovie, setCurrentPage, setMovieData, setTotalPages} from "../../../../redux-store/MoviePageReducer";
 import {movie} from "../../../../VMoviePageApi";
 import {CombinedStateType} from '../../../../redux-store';
 import {compose} from "redux";
+import {actions} from "../../../../redux-store/MoviePageReducer";
+import {MovieBySearch} from "../../../../types/types";
 
 type MapStatePropsType = {
     searchedMovie: string
 }
 
 type MapDispatchPropsType = {
-    setMovieData: (movieData: {}) => void
+    setMovieData: (movieData: Array<MovieBySearch>) => void
     setTotalPages: (totalPages: number) => void
     setCurrentPage: (page: number) => void
     searchMovie: (searchedMovie: string) => void
@@ -43,6 +44,6 @@ let mapStateToProps = (state: CombinedStateType):MapStatePropsType => ({
 });
 
 export default compose(
-    connect(mapStateToProps, {searchMovie, setMovieData, setTotalPages, setCurrentPage}))
-(VMoviePageHeaderAPI as React.FC)
+    connect(mapStateToProps, {...actions}))
+(VMoviePageHeaderAPI)
 

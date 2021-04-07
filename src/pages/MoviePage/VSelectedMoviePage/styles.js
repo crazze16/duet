@@ -25,7 +25,7 @@ export const VSubMoviePageTitleSC = styled.div`
 
 export const VBackDropSC = styled.div`
     border-radius: 2px 15px 0 0;
-    background: url(${props => props.src}) center center;
+    background: url(${props => props.src ? props.src : ''}) center center;
     height: 700px;
     background-size: cover;
     max-width: 100%;
@@ -160,7 +160,7 @@ export const RecommendedMoviesListSC = styled.div`
 
 export const SimilarMoviesItemSC = styled(NavLink)`
     margin: 4px 12px;
-    background-image: url(${props => props.poster}); 
+    background: url(${props => props.poster}); 
     background-size: cover;
     height: 270px;
     width: 180px;
@@ -169,8 +169,9 @@ export const SimilarMoviesItemSC = styled(NavLink)`
     transition: .2s ease;
     }
     transition: .2s ease;
-
+z-index: 9999;
 `;
+
 export const RecommendedTitleSC = styled.div`
     color: #ffffff;
     font-size: 24px;

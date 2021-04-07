@@ -38,7 +38,7 @@ export const FavouriteMoviePage: React.FC<PropsType> = (props) => {
         <ListWrapperSC>
             <div>
                 <PageTitleSC>Your Picked Movies:</PageTitleSC>
-                <SortSC>Sorted by: <select onChange={(e) => setType(e.target.value)}>
+                <SortSC>Sorted by: <select onChange={(e:React.FormEvent<HTMLSelectElement>) => setType(e.currentTarget.value)}>
                     <option value='default'>Newest</option>
                     <option value='reverse'>Oldest</option>
                     <option value='popularity'>Most popular</option>

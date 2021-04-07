@@ -2,9 +2,7 @@ import React, {useEffect} from 'react'
 import {connect} from "react-redux";
 import {ModalWrappSC, VideoCloseSC, VideoFrameSC} from "./styles";
 import {movie} from "../../../VMoviePageApi";
-import {openModuleVideo, setVideoKey} from "../../../redux-store/MoviePageReducer";
-import {withRouter} from "react-router-dom";
-import {compose} from "redux";
+import {actions} from "../../../redux-store/MoviePageReducer";
 import {CombinedStateType} from "../../../redux-store";
 
 type MapDispatchPropsType = {
@@ -49,7 +47,6 @@ const VModalVideo: React.FC<PropsType> = (props) => {
                     </iframe>
                     <VideoCloseSC/>
                 </VideoFrameSC>
-
             </ModalWrappSC>
         : <></>
     )
@@ -61,4 +58,4 @@ const mapStateToProps = (state: CombinedStateType): MapStatePropsType => ({
 });
 
 
-export const VModalVideoContainer = connect(mapStateToProps, {setVideoKey, openModuleVideo})(VModalVideo);
+export const VModalVideoContainer = connect(mapStateToProps, {...actions})(VModalVideo);
