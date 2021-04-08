@@ -1,16 +1,16 @@
 import React, {useEffect} from 'react'
-import {movie} from "../../../VMoviePageApi";
+import {movie, movieList} from "../../../API";
 import {useDispatch} from "react-redux";
 import {actions} from "../../../redux-store/MoviePageReducer";
 import {FMactions} from "../../../redux-store/FavouriteMoviesReducer";
 import {VSelectedMoviePage} from "./VSelectedMoviePage";
 import {useParams} from "react-router";
 import {CollectionType, MovieBySearch, SelectedMovieType} from "../../../types/types";
+import useLocalStorage from "../../../hooks/useLocalStorage";
+import {LIST_KEY} from "../../FavouritesMoviesPage/FavouriteMoviesPageContainer";
 
 
 export const VSelectedMoviePageContainer: React.FC = () => {
-
-
 
     const dispatch = useDispatch();
 
@@ -22,17 +22,14 @@ export const VSelectedMoviePageContainer: React.FC = () => {
     const setFavouriteMovie = (isFavourite: boolean) => dispatch(FMactions.setFavouriteMovie(isFavourite));
     const createFavouriteMoviesList = (listId: number) => dispatch(FMactions.createFavouriteMoviesList(listId));
 
-
-
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // @ts-ignore
     const { movieId } = useParams();
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    const listId = +useLocalStorage(LIST_KEY, '')[0];
 
     useEffect(() => {
-        const listId = +localStorage.getItem('Favourite Movies list id')!;
 
-            (async () => {
+        (async () => {
                 //set selected data
                 const selectedFilm = await movie.getSelectedFilm(movieId);
                 setCurrentMovie(selectedFilm);
@@ -43,7 +40,7 @@ export const VSelectedMoviePageContainer: React.FC = () => {
 
                 //set favourite data
                 await createFavouriteMoviesList(listId);
-                const listData = await movie.getList(listId);
+                const listData = await movieList.getList(listId);
                 setFavouriteMoviesList(listData.results);
 
                 if (listData.results.some(id => id.id === +movieId)) {
@@ -65,7 +62,6 @@ export const VSelectedMoviePageContainer: React.FC = () => {
     );
 
     return (
-
         <div>
             <VSelectedMoviePage movieId={+movieId}/>
         </div>

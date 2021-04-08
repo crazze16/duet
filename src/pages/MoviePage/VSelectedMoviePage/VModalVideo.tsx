@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import {ModalWrappSC, VideoCloseSC, VideoFrameSC} from "./styles";
-import {movie} from "../../../VMoviePageApi";
+import {movie} from "../../../API";
 import {actions} from "../../../redux-store/MoviePageReducer";
 import {CombinedStateType} from "../../../redux-store";
 

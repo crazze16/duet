@@ -12,16 +12,14 @@ export const FavouriteMovieItem: React.FC<PropsType> = (props) => {
 
     const {id, title, poster, removeFromFavourite} = props;
     const [hover, setHover] = useState(false);
-    const [handler, setHandler] = useState(true);
+    const [isFavourite, setIsFavourite] = useState(true);
 
-    const favouriteMovieToggle = (flag: boolean) => {
-        setHandler(flag);
-        removeFromFavourite(handler, id);
+    const toggleFavouriteMovie = (flag: boolean): void => {
+        setIsFavourite(flag);
+        removeFromFavourite(isFavourite, id);
     };
 
-
     return (
-        <>
             <WrapperItemSC onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} >
 
                     <BackdropSC bg={`https://image.tmdb.org/t/p/w780` + poster} to={`/Vapi/movie/${id}`}>
@@ -30,8 +28,8 @@ export const FavouriteMovieItem: React.FC<PropsType> = (props) => {
                         {title}
                     </TitleSC>
 
-                    <HoveredSC flag={hover} content={handler} to={`/Vapi/movie/${id}`} onClick={() => favouriteMovieToggle(!handler)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" fill={handler ? `white` : 'transparent'}
+                    <HoveredSC flag={hover} content={isFavourite} to={`/Vapi/movie/${id}`} onClick={() => toggleFavouriteMovie(!isFavourite)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" fill={isFavourite ? `white` : 'transparent'}
                              stroke="white"
                              className="bi bi-bookmark-fill" viewBox="0 0 16 16">
                             <path
@@ -39,7 +37,5 @@ export const FavouriteMovieItem: React.FC<PropsType> = (props) => {
                         </svg>
                     </HoveredSC>
             </WrapperItemSC>
-
-        </>
     )
 };

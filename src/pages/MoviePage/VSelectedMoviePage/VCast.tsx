@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import {movie} from "../../../VMoviePageApi";
+import {movie} from "../../../API";
 import {AvatarsListSC, AvatarWrapper, CastAvatarSC, CastItemSC, CastTitleSC, CastWrapperSC, CharacterSC, NameSC} from "./CastSC";
 import {CastPersonType} from "../../../types/types";
 
@@ -21,7 +21,7 @@ export const VCast: React.FC<PropsType> = (props) => {
 
     useEffect(() => {
             (async () => {
-                let castData = await movie.getCastAndCrew(movieId);
+                const castData = await movie.getCastAndCrew(movieId);
                 setCast(castData.cast.splice(0, 8));
             })()
         }, [movieId]

@@ -11,9 +11,9 @@ type PropsType = {
 export const FavouriteMoviePage: React.FC<PropsType> = (props) => {
 
     const {favouritesMovies, removeFromFavourite} = props;
-    let listData = [...favouritesMovies.listData];
+    const listData = [...favouritesMovies.listData];
 
-    const [type, setType] = useState('default')
+    const [type, setType] = useState('default');
 
         const sort = ():Array<MovieBySearch> => {
             switch (type) {
@@ -27,10 +27,10 @@ export const FavouriteMoviePage: React.FC<PropsType> = (props) => {
                     return [...favouritesMovies.listData]
             }
         };
-    const arr: Array<ReactNode> =  sort().map(i => <FavouriteMovieItem key={`key_${i.id}`}
-                                                                         id={i.id}
-                                                                         title={i.title}
-                                                                         poster={i.backdrop_path}
+    const FavouriteMoviesList: Array<ReactNode> =  sort().map(item => <FavouriteMovieItem key={`key_${item.id}`}
+                                                                         id={item.id}
+                                                                         title={item.title}
+                                                                         poster={item.backdrop_path}
                                                                          removeFromFavourite={removeFromFavourite}
     />);
 
@@ -46,7 +46,7 @@ export const FavouriteMoviePage: React.FC<PropsType> = (props) => {
                 </select></SortSC>
             </div>
             <ListSC>
-                {arr}
+                {FavouriteMoviesList}
             </ListSC>
         </ListWrapperSC>
     )

@@ -1,6 +1,6 @@
 import React from 'react'
 import {SimilarMoviesItemSC, } from "./styles";
-import {movie} from "../../../VMoviePageApi";
+import {movie} from "../../../API";
 import {MovieBySearch, SelectedMovieType} from "../../../types/types";
 
 type PropsType = {

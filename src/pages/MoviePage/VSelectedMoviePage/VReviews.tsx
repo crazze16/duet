@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {AuthorDetailsType, ReviewDetails} from '../../../types/types';
-import {movie,} from "../../../VMoviePageApi";
+import {movie,} from "../../../API";
 import {
     AvatarSC,
     BodySC,

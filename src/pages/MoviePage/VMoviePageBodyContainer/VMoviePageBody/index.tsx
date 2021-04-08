@@ -2,7 +2,7 @@ import React from 'react'
 import {VMoviePageItem} from "./VMoviePageItem";
 import {useDispatch, useSelector} from "react-redux";
 import {VMoviesListSC, VMoviesPagesSC} from "./styles";
-import {movie} from "../../../../VMoviePageApi";
+import {movie} from "../../../../API";
 import {CombinedStateType} from "../../../../redux-store";
 import {MovieBySearch} from '../../../../types/types';
 import {actions} from "../../../../redux-store/MoviePageReducer";

@@ -32,7 +32,7 @@ import {VModalVideo} from "./VModalVideo";
 import {VCast} from "./VCast";
 import {VReviewsMemo} from "./VReviews";
 import {FaGithub, FaInstagram, FaLinkedin} from 'react-icons/fa';
-import {movie} from "../../../VMoviePageApi";
+import {movieList} from "../../../API";
 import {
     CastPersonType,
     GenresType,
@@ -45,16 +45,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {CombinedStateType} from "../../../redux-store";
 import {actions} from "../../../redux-store/MoviePageReducer";
 import {FMactions} from "../../../redux-store/FavouriteMoviesReducer";
+import useLocalStorage from "../../../hooks/useLocalStorage";
+import {LIST_KEY} from "../../FavouritesMoviesPage/FavouriteMoviesPageContainer";
 
 type PropsType = {
     movieId: number
 }
 
 export const VSelectedMoviePage: React.FC<PropsType> = (props) => {
-
-
-
-
     const {movieId} = props;
 
     const dispatch = useDispatch();
@@ -87,43 +85,44 @@ export const VSelectedMoviePage: React.FC<PropsType> = (props) => {
         setSimilarMovieData={setSimilarMovieData}
         setCurrentMovie={setCurrentMovie}
     />);
-
-    let genresFunc = (data = [] as GenresType): React.ReactNode => {
+    const genresFunc = (data = [] as GenresType): React.ReactNode => {
         let genresArr: Array<string> = [];
         data.forEach(item => genresArr.push(item.name));
         return genresArr.join(', ').split(' ').map((item, index) => <GenreSC key={index}
                                                                              to={`/${item}`}>{item}</GenreSC>);
     };
-    let production = (data = [] as ProdactionCompaniesType): React.ReactNode => {
+    const production = (data = [] as ProdactionCompaniesType): React.ReactNode => {
         let arr: Array<string> = [];
         data.forEach(item => arr.push(item.name));
         return arr.join(', ').split(' ').map((item, index) => <ProductionSC key={index} to='/'>{item}</ProductionSC>);
     };
-    let releaseDate = (releaseDate = ''): string => releaseDate.slice(0, 4);
+    const releaseDate = (releaseDate = ''): string => releaseDate.slice(0, 4);
+
+    const SetInLocalStorage = (listId: string) => useLocalStorage(LIST_KEY, listId);
 
     const addToFavourite = (listId = favouritesMovies.listId): void => {
         favouritesMovies.listId ?
             (async () => {
                 if (listId) {
-                    await movie.updateList(listId, +movieId);
-                    const listData = await movie.getList(listId);
+                    await movieList.updateList(listId, +movieId);
+                    const listData = await movieList.getList(listId);
                     setFavouriteMoviesList(listData.results);
                     setFavouriteMovie(true)
                 }
             })() :
             (async () => {
-                const list = await movie.setList('test');
+                const list = await movieList.setList('test');
                 createFavouriteMoviesList(list.data.id);
                 const listId = await list.data.id;
-                localStorage.setItem('Favourite Movies list id', list.data.id);
+                SetInLocalStorage(list.data.id);
                 addToFavourite(listId)
             })()
     };
     const removeFromFavourite = (): void => {
         (async () => {
             if (favouritesMovies.listId) {
-                await movie.removeItems(favouritesMovies.listId, +movieId);
-                const listData = await movie.getList(favouritesMovies.listId);
+                await movieList.removeItems(favouritesMovies.listId, +movieId);
+                const listData = await movieList.getList(favouritesMovies.listId);
                 setFavouriteMoviesList(listData.results);
                 setFavouriteMovie(false)
             }
