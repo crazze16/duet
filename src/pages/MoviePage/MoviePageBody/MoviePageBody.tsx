@@ -1,14 +1,14 @@
 import React from 'react'
-import {VMoviePageItem} from "./VMoviePageItem";
+import {MoviePageItem} from "./MoviePageItem/MoviePageItem";
 import {useDispatch, useSelector} from "react-redux";
-import {VMoviesListSC, VMoviesPagesSC} from "./styles";
-import {movie} from "../../../../API";
-import {CombinedStateType} from "../../../../redux-store";
-import {MovieBySearch} from '../../../../types/types';
-import {actions} from "../../../../redux-store/MoviePageReducer";
+import {MoviesListSC, MoviesPagesSC} from "./MoviePageBodySC";
+import {movie} from "../../../API";
+import {CombinedStateType} from "../../../redux-store/RootReducer";
+import {MovieBySearch} from '../../../types/types';
+import {actions} from "../../../redux-store/MoviePageReducer";
 import {useLocation} from 'react-router-dom';
 
-export const VMoviePageBody: React.FC = () => {
+export const MoviePageBody: React.FC = () => {
 
     const dispatch = useDispatch();
 
@@ -20,13 +20,13 @@ export const VMoviePageBody: React.FC = () => {
     const setCurrentPage = (page: number) => dispatch(actions.setCurrentPage(page));
     const setMovieData = (MovieData: Array<MovieBySearch>) => dispatch(actions.setMovieData(MovieData));
 
-    let location = useLocation();
+    const location = useLocation();
 
-    let resultMoviesDataArr = resultMoviesData.map((item, index) => <VMoviePageItem poster={item.poster_path}
-                                                                                    id={item.id}
-                                                                                    url={location.pathname}
-                                                                                    title={item.title}
-                                                                                    key={index}
+    const resultMoviesDataArr = resultMoviesData.map((item, index) => <MoviePageItem poster={item.poster_path}
+                                                                                   id={item.id}
+                                                                                   url={location.pathname}
+                                                                                   title={item.title}
+                                                                                   key={index}
     /> );
 
     const pagination = (range: number) => {
@@ -37,11 +37,11 @@ export const VMoviePageBody: React.FC = () => {
         }
         const mapping = (arr: Array<number>) => arr.map(
             (item, index) =>
-                <VMoviesPagesSC key={index} onClick={() => selectPage(item)} isActive={item === currentPage ? '800' : '500'}>
+                <MoviesPagesSC key={index} onClick={() => selectPage(item)} isActive={item === currentPage ? '800' : '500'}>
                     {item}
-                </VMoviesPagesSC>
+                </MoviesPagesSC>
         );
-        const extremePages = (num: number) => <VMoviesPagesSC onClick={() => selectPage(num)}>{num}</VMoviesPagesSC>;
+        const extremePages = (num: number) => <MoviesPagesSC onClick={() => selectPage(num)}>{num}</MoviesPagesSC>;
         const neighbours = (range - 1) / 2;
         const rightLimit = totalPagesArr.length - neighbours;
         if(currentPage !== null)
@@ -78,7 +78,7 @@ export const VMoviePageBody: React.FC = () => {
         }
     };
 
-    let selectPage = (item: number) => {
+    const selectPage = (item: number) => {
         setCurrentPage(item);
         movie.getFilmsBySearch(searchedMovie, item)
             .then((response) => {
@@ -90,9 +90,9 @@ export const VMoviePageBody: React.FC = () => {
             {
                 pagination(9)
             }
-            <VMoviesListSC>
+            <MoviesListSC>
                 {resultMoviesDataArr}
-            </VMoviesListSC>
+            </MoviesListSC>
         </>
     )
 };

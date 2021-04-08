@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import {FavouriteMoviePage} from "./FavouriteMoviesPage";
 import {movieList} from "../../API";
-import {CombinedStateType} from "../../redux-store";
+import {CombinedStateType} from "../../redux-store/RootReducer";
 import {MovieBySearch} from "../../types/types";
 import {FMactions} from '../../redux-store/FavouriteMoviesReducer'
 import {EmptyListSC, WrapperSC} from '../../styles/FavouriteMoviesSC';

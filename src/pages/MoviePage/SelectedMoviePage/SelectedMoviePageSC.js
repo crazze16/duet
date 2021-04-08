@@ -1,29 +1,25 @@
 import styled from 'styled-components'
-import {VWrapperSC} from "../styles";
+import {WrapperSC} from "../MoviePageSC";
 import {NavLink} from "react-router-dom";
 
 
-export const VWrapperSPSC = styled(VWrapperSC)`
+export const WrapperSPSC = styled(WrapperSC)`
     box-shadow: 1px 1px 50px 20px #000000;
     border-radius: 15px 15px 0 0;
     background: linear-gradient(270deg, rgba(20,20,20,1) 0%, rgba(0,0,0,1) 100%);
-    
 `;
-
-export const VMainMoviePageTitleSC = styled.h1`
+export const MainTitleSC = styled.h1`
     color: #fff;
     margin: 20px 0 2px 0;
     padding: 0;
 `;
-export const VSubMoviePageTitleSC = styled.div`
+export const SubTitleSC = styled.div`
     font-size: 18px;
     color: #fff;
     opacity: 80%;
     padding-left: 5px;
-    
 `;
-
-export const VBackDropSC = styled.div`
+export const BackDropSC = styled.div`
     border-radius: 2px 15px 0 0;
     background: url(${props => props.src ? props.src : ''}) center center;
     height: 700px;
@@ -33,24 +29,21 @@ export const VBackDropSC = styled.div`
     position: relative;
     box-shadow: inset 4px -36px 6px -30px #000000;
 `;
-export const InfoSC = styled.div`
+export const InfoWrapperSC = styled.div`
     display: flex;
     flex-direction: column;
     width: 470px;
     background: black;
     position: relative;
-    z-index: 999;
-    
+    z-index: 1;
 `;
-
 export const InfoContentSC = styled.div`
     position: absolute;
     padding: 20px;
     width: 600px;
     margin: 0;
-    
 `;
-export const VGradientSC = styled.div`
+export const GradientSC = styled.div`
     background: rgb(0,0,0);
     background: linear-gradient(90deg, rgba(0, 0, 0, 1) 20%, rgba(255, 255, 255, 0) 60%);
     height: 100%;
@@ -59,34 +52,23 @@ export const VGradientSC = styled.div`
     left: 0;
     top: 0;
 `;
-export const WatchMovieSC = styled.button`
+export const WatchTrailerButtonSC = styled.button`
     width: 150px;
-    background: transparent;
     outline: none;
     border: 1px solid ${`#a90000`};
+    background: transparent;
     color: white;
     height: 45px;
     margin-top: 40px;
     margin-left: 40px;
     position: relative;
     border-radius: 5px;
-    &:before {
-    content:'';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 42px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 3px;
-    transition: all .5s ease;
-    }
-    &:hover:before {
-    width: 100%;
-    }
     &:hover {
       cursor: pointer; 
     }
+`;
+export const ToggleFavouriteSC = styled(WatchTrailerButtonSC)`
+    color: ${props => props.disabled ? 'rgba(255,255,255,0.5)' : 'white'};
 `;
 export const DescriptionSC = styled.div`
       color: #fff;  
@@ -101,16 +83,14 @@ export const BackdropSectionSC = styled.div`
     width: 100%;
     box-shadow: 1px 13px 20px 5px #000000;
 `;
-export const VoteAvarageSC = styled.div`
+export const VoteContainerSC = styled.div`
     margin: 10px 0;
     color: white;
     font-weight: bold;
     font-size: 20px;
     padding-left: 5px;
-
 `;
 export const VoteScoreCS = styled.span`
-
     color: ${props => {
     if (props.score <= 3.9) {
         return '#FF0000'
@@ -125,7 +105,6 @@ export const VoteScoreCS = styled.span`
     }
 }}
 `;
-
 export const GenresSC = styled.div`
     padding-left: 5px;
     margin-top: 10px;
@@ -145,7 +124,7 @@ export const ProductionSC = styled.span`
     color: #fff;
     opacity: 80%;
 `;
-export const ProductionsSC = styled(GenresSC)`
+export const ProductionContainerSC = styled(GenresSC)`
     margin-bottom: 10px;
 `;
 export const RecommendedMoviesListSC = styled.div`
@@ -169,9 +148,7 @@ export const SimilarMoviesItemSC = styled(NavLink)`
     transition: .2s ease;
     }
     transition: .2s ease;
-z-index: 9999;
 `;
-
 export const RecommendedTitleSC = styled.div`
     color: #ffffff;
     font-size: 24px;
@@ -182,15 +159,13 @@ export const RecommendedTitleSC = styled.div`
     font-weight: 500;
     margin-bottom: 30px;
 `;
-
-
 //video
 export const ModalWrappSC = styled.div`
     top: 0;
     position: fixed;
     height: 100vh;
     width: 100%;
-    z-index: 999999;
+    z-index: 10;
     background: rgba(0,0,0, 0.9);
 `;
 export const VideoFrameSC = styled.div`
@@ -229,22 +204,12 @@ export const VideoCloseSC = styled.div`
     opacity: 1;
     }
 `;
-
-export const CollectionContainerSC = styled.div`
-        color: white;
-        padding-left: 10px;
-        margin-top: 4px;
-        font-size: 16px;
-        opacity: 0.8;
-    `;
 // FOOTER
-
-export const FooterSC = styled.div`
+export const FooterSC = styled.footer`
     background: ${`#292828`};
     padding: 20px;
-
 `;
-export const SocialSC = styled.div`
+export const SocialLinksSC = styled.div`
     display: flex;
     align-items: center;
     height: 100%;

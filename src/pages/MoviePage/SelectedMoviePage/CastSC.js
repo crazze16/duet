@@ -1,14 +1,14 @@
 import styled from 'styled-components'
 
 
-export const CastAvatarSC = styled.div`
+export const PersonAvatarSC = styled.div`
   width: 140px;
   border-radius: 50%;
   height: 140px;
   background: url(${props => props.src}) center center;
   background-size: cover;
 `;
-export const AvatarWrapper = styled(CastAvatarSC)`
+export const AvatarWrapper = styled(PersonAvatarSC)`
     background: ${`#131313`};
 `;
 export const AvatarsListSC = styled.div`
@@ -17,7 +17,7 @@ export const AvatarsListSC = styled.div`
     width: 100%;
     margin: 0 auto;
 `;
-export const CastItemSC = styled.div`
+export const PersonSC = styled.div`
     display: flex;
     flex-direction: column;
     margin: 0 20px;

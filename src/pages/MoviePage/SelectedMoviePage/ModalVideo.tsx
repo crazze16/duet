@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from "react-redux";
-import {ModalWrappSC, VideoCloseSC, VideoFrameSC} from "./styles";
+import {ModalWrappSC, VideoCloseSC, VideoFrameSC} from "./SelectedMoviePageSC";
 import {movie} from "../../../API";
 import {actions} from "../../../redux-store/MoviePageReducer";
-import {CombinedStateType} from "../../../redux-store";
+import {CombinedStateType} from "../../../redux-store/RootReducer";
 
 
 type OwnPropsType = {
@@ -12,7 +12,7 @@ type OwnPropsType = {
 
 type PropsType = OwnPropsType
 
-export const VModalVideo: React.FC<PropsType> = (props) => {
+export const ModalVideo: React.FC<PropsType> = (props) => {
     const {movieId} = props;
 
     const dispatch = useDispatch();

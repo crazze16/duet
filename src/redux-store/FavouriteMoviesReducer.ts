@@ -1,5 +1,5 @@
 import {MovieBySearch} from "../types/types";
-import { InferActionsTypes} from "./index";
+import { InferActionsTypes} from "./RootReducer";
 
 type InitialStateType = typeof initialState
 const initialState = {
@@ -9,6 +9,7 @@ const initialState = {
         isFavourite: false,
         isCreated: false,
     },
+    isFetching: false,
 };
 
  const FavouriteMoviesReducer = (state = initialState, action: InferActionsTypes<typeof FMactions>): InitialStateType => {
@@ -38,17 +39,22 @@ const initialState = {
                     isFavourite: action.isFavourite,
                 }
             };
+        case 'TOGGLE_FETCH':
+            return {
+                ...state,
+                isFetching: action.isFetching
+            };
         default: return {...state}
     }
 };
 
-// type actionsType = ReturnType<SomeType<typeof actions>>;
-// type SomeType<T extends {[key: string]: (...args: any[]) => any}> = T extends {[key: string]: infer U} ? U : never
+
 
 export const FMactions = {
     createFavouriteMoviesList: (listId: number) => ({type: 'CREATE_FAVOURITE_MOVIES_LIST', listId} as const),
     setFavouriteMoviesList: (listData: Array<MovieBySearch>) => ({type: 'SET_FAVOURITE_MOVIES_LIST', listData}  as const),
     setFavouriteMovie: (isFavourite: boolean) => ({type: 'SET_AS_FAVOURITE', isFavourite}  as const),
+    toggleFetch: (isFetching: boolean) => ({type: 'TOGGLE_FETCH', isFetching}  as const),
 };
 
 export default FavouriteMoviesReducer

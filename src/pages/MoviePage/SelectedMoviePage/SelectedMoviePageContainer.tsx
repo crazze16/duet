@@ -3,14 +3,15 @@ import {movie, movieList} from "../../../API";
 import {useDispatch} from "react-redux";
 import {actions} from "../../../redux-store/MoviePageReducer";
 import {FMactions} from "../../../redux-store/FavouriteMoviesReducer";
-import {VSelectedMoviePage} from "./VSelectedMoviePage";
+
 import {useParams} from "react-router";
 import {CollectionType, MovieBySearch, SelectedMovieType} from "../../../types/types";
 import useLocalStorage from "../../../hooks/useLocalStorage";
 import {LIST_KEY} from "../../FavouritesMoviesPage/FavouriteMoviesPageContainer";
+import { SelectedMoviePage } from './SelectedMoviePage';
 
 
-export const VSelectedMoviePageContainer: React.FC = () => {
+export const SelectedMoviePageContainer: React.FC = () => {
 
     const dispatch = useDispatch();
 
@@ -63,7 +64,7 @@ export const VSelectedMoviePageContainer: React.FC = () => {
 
     return (
         <div>
-            <VSelectedMoviePage movieId={+movieId}/>
+            <SelectedMoviePage movieId={+movieId}/>
         </div>
     )
 };

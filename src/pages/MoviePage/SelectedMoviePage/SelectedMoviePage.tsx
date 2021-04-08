@@ -1,7 +1,6 @@
 import React from 'react'
 import {
     BackdropSectionSC,
-    CollectionContainerSC,
     CreatedSC,
     DescriptionSC,
     FooterInfoSC,
@@ -10,27 +9,28 @@ import {
     GenreSC,
     GenresSC,
     InfoContentSC,
-    InfoSC,
+    InfoWrapperSC,
     LinkSC,
     MailSC,
     ProductionSC,
-    ProductionsSC,
+    ProductionContainerSC,
     RecommendedMoviesListSC,
     RecommendedTitleSC,
-    SocialSC,
-    VBackDropSC,
-    VGradientSC,
-    VMainMoviePageTitleSC,
-    VoteAvarageSC,
+    SocialLinksSC,
+    BackDropSC,
+    GradientSC,
+    MainTitleSC,
+    VoteContainerSC,
     VoteScoreCS,
-    VSubMoviePageTitleSC,
-    VWrapperSPSC,
-    WatchMovieSC
-} from "./styles";
-import {VSimilarMovieItem} from "./VSimilarMovieItem";
-import {VModalVideo} from "./VModalVideo";
-import {VCast} from "./VCast";
-import {VReviewsMemo} from "./VReviews";
+    SubTitleSC,
+    WrapperSPSC,
+    WatchTrailerButtonSC,
+    ToggleFavouriteSC
+} from "./SelectedMoviePageSC";
+import {SimilarMovie} from "./SimilarMovie";
+import {ModalVideo} from "./ModalVideo";
+import {Cast} from "./Cast";
+import {ReviewsMemo} from "./Reviews";
 import {FaGithub, FaInstagram, FaLinkedin} from 'react-icons/fa';
 import {movieList} from "../../../API";
 import {
@@ -42,7 +42,7 @@ import {
     SelectedMovieType
 } from '../../../types/types';
 import {useDispatch, useSelector} from "react-redux";
-import {CombinedStateType} from "../../../redux-store";
+import {CombinedStateType} from "../../../redux-store/RootReducer";
 import {actions} from "../../../redux-store/MoviePageReducer";
 import {FMactions} from "../../../redux-store/FavouriteMoviesReducer";
 import useLocalStorage from "../../../hooks/useLocalStorage";
@@ -52,7 +52,7 @@ type PropsType = {
     movieId: number
 }
 
-export const VSelectedMoviePage: React.FC<PropsType> = (props) => {
+export const SelectedMoviePage: React.FC<PropsType> = (props) => {
     const {movieId} = props;
 
     const dispatch = useDispatch();
@@ -62,6 +62,7 @@ export const VSelectedMoviePage: React.FC<PropsType> = (props) => {
     const collection = useSelector((state: CombinedStateType) => state.MoviePageReducer.collection);
     const movieCast = useSelector((state: CombinedStateType) => state.MoviePageReducer.movieCast);
     const favouritesMovies = useSelector((state: CombinedStateType) => state.FavouriteMoviesReducer.favouritesMovies);
+    const addedToListInProgress = useSelector((state: CombinedStateType) => state.FavouriteMoviesReducer.isFetching);
 
     const openModuleVideo = () => dispatch(actions.openModuleVideo());
     const setCurrentMovie = (selectedMovie: SelectedMovieType) => dispatch(actions.setCurrentMovie(selectedMovie));
@@ -71,14 +72,17 @@ export const VSelectedMoviePage: React.FC<PropsType> = (props) => {
     const createFavouriteMoviesList = (listId: number) => dispatch(FMactions.createFavouriteMoviesList(listId));
     const setFavouriteMoviesList = (favouriteData: Array<MovieBySearch>) => dispatch(FMactions.setFavouriteMoviesList(favouriteData));
     const setFavouriteMovie = (flag: boolean) => dispatch(FMactions.setFavouriteMovie(flag));
+    const toggleFetch = (isFetching: boolean) => dispatch(FMactions.toggleFetch(isFetching));
 
-    const { title, original_title, vote_average, overview, backdrop_path,
-        status, genres, production_companies, release_date } = selectedMovieData;
+    const {
+        title, original_title, vote_average, overview, backdrop_path,
+        status, genres, production_companies, release_date
+    } = selectedMovieData;
 
     const baseSrc = 'https://image.tmdb.org/t/p/original/';
     const backdrop = `${baseSrc}${backdrop_path}`;
 
-    const similarMovies = similarMoviesData.map((item, index) => <VSimilarMovieItem
+    const similarMovies = similarMoviesData.map((item, index) => <SimilarMovie
         poster={item['poster_path']}
         key={index}
         movieId={item.id}
@@ -104,10 +108,12 @@ export const VSelectedMoviePage: React.FC<PropsType> = (props) => {
         favouritesMovies.listId ?
             (async () => {
                 if (listId) {
-                    await movieList.updateList(listId, +movieId);
+                    toggleFetch(true);
+                    await movieList.updateList(listId, movieId);
                     const listData = await movieList.getList(listId);
                     setFavouriteMoviesList(listData.results);
-                    setFavouriteMovie(true)
+                    setFavouriteMovie(true);
+                    toggleFetch(false);
                 }
             })() :
             (async () => {
@@ -121,66 +127,75 @@ export const VSelectedMoviePage: React.FC<PropsType> = (props) => {
     const removeFromFavourite = (): void => {
         (async () => {
             if (favouritesMovies.listId) {
-                await movieList.removeItems(favouritesMovies.listId, +movieId);
+                toggleFetch(true);
+                await movieList.removeItems(favouritesMovies.listId, movieId);
                 const listData = await movieList.getList(favouritesMovies.listId);
                 setFavouriteMoviesList(listData.results);
                 setFavouriteMovie(false)
+                toggleFetch(false);
             }
         })()
     };
 
     return (
-        <VWrapperSPSC>
-            <VModalVideo movieId={movieId}/>
+        <WrapperSPSC>
+            <ModalVideo movieId={movieId}/>
             <BackdropSectionSC>
-                <InfoSC>
+                <InfoWrapperSC>
                     <InfoContentSC>
-                        <VMainMoviePageTitleSC>
+                        <MainTitleSC>
                             {title}
-                        </VMainMoviePageTitleSC>
-                        <VSubMoviePageTitleSC>
+                        </MainTitleSC>
+                        <SubTitleSC>
                             {releaseDate(release_date)}, {original_title}
-                        </VSubMoviePageTitleSC>
-                        {status === 'Released' ?
-                            <VoteAvarageSC>
-                                VOTE AVERAGE: <VoteScoreCS score={vote_average}>{vote_average}</VoteScoreCS>
-                            </VoteAvarageSC>
-                            : <VoteAvarageSC>{status}</VoteAvarageSC>
+                        </SubTitleSC>
+                        {
+                            status === 'Released' ?
+                                <VoteContainerSC>
+                                    VOTE AVERAGE: <VoteScoreCS score={vote_average}>{vote_average}</VoteScoreCS>
+                                </VoteContainerSC> :
+                                <VoteContainerSC>{status}</VoteContainerSC>
                         }
                         {
-                            production(production_companies) ? <ProductionsSC>
-                                {production(production_companies)}
-                            </ProductionsSC> : ''
+                            production(production_companies) ?
+                                <ProductionContainerSC>
+                                    {production(production_companies)}
+                                </ProductionContainerSC> :
+                                ''
                         }
                         <DescriptionSC>
                             {overview}
                         </DescriptionSC>
-                        <CollectionContainerSC>
-                        </CollectionContainerSC>
                         <GenresSC>
-                            {collection.data?.id ? <GenreSC to='/'>{collection.data.name},</GenreSC> : ''}
+                            {
+                                collection.data?.id ?
+                                    <GenreSC to='/'>{collection.data.name},</GenreSC> :
+                                    ''
+                            }
                             {genresFunc(genres)}
                         </GenresSC>
-                        <WatchMovieSC onClick={openModuleVideo}>
+                        <WatchTrailerButtonSC onClick={openModuleVideo}>
                             WATCH TRAILER
-                        </WatchMovieSC>
+                        </WatchTrailerButtonSC>
                         {
-                            favouritesMovies.isFavourite ? <WatchMovieSC onClick={() => removeFromFavourite()}>
-                                REMOVE FROM LIST
-                            </WatchMovieSC> : <WatchMovieSC onClick={() => addToFavourite()}>
-                                ADD TO LIST
-                            </WatchMovieSC>
+                            favouritesMovies.isFavourite ?
+                                <ToggleFavouriteSC onClick={() => removeFromFavourite()} disabled={addedToListInProgress}>
+                                    REMOVE FROM LIST
+                                </ToggleFavouriteSC> :
+                                <ToggleFavouriteSC onClick={() => addToFavourite()} disabled={addedToListInProgress}>
+                                    ADD TO LIST
+                                </ToggleFavouriteSC>
                         }
                     </InfoContentSC>
-                </InfoSC>
-                <VBackDropSC src={backdrop}>
-                    <VGradientSC>
-                    </VGradientSC>
-                </VBackDropSC>
+                </InfoWrapperSC>
+                <BackDropSC src={backdrop}>
+                    <GradientSC>
+                    </GradientSC>
+                </BackDropSC>
             </BackdropSectionSC>
-            <VCast movieId={+movieId}
-                   setCast={setCast}
-                   movieCast={movieCast}
+            <Cast movieId={+movieId}
+                  setCast={setCast}
+                  movieCast={movieCast}
             />
             <RecommendedMoviesListSC>
                 <RecommendedTitleSC>
@@ -188,11 +203,11 @@ export const VSelectedMoviePage: React.FC<PropsType> = (props) => {
                 </RecommendedTitleSC>
                 {similarMovies}
             </RecommendedMoviesListSC>
-            <VReviewsMemo movieId={+movieId} setReviews={setReviews}/>
+            <ReviewsMemo movieId={+movieId} setReviews={setReviews}/>
             <FooterSC>
                 <FooterWrapperSC>
                     <FooterInfoSC>
-                        <SocialSC>
+                        <SocialLinksSC>
                             <LinkSC target="_blank" href={'https://github.com/crazze16'}>
                                 <FaGithub size={'24px'}/>
                             </LinkSC>
@@ -202,12 +217,12 @@ export const VSelectedMoviePage: React.FC<PropsType> = (props) => {
                             <LinkSC target="_blank" href={'https://www.linkedin.com/in/vladimir-nekoz-099173204/'}>
                                 <FaLinkedin size={'24px'}/>
                             </LinkSC>
-                        </SocialSC>
+                        </SocialLinksSC>
                         <CreatedSC>created by</CreatedSC>
                         <MailSC>vladimirnekoz16@gmail.com</MailSC>
                     </FooterInfoSC>
                 </FooterWrapperSC>
             </FooterSC>
-        </VWrapperSPSC>
+        </WrapperSPSC>
     )
 };

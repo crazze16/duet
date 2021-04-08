@@ -7,14 +7,14 @@ import {
     ContentSC,
     DateSC,
     InfoSC,
-    NameSC, NoCommSC, PaginationItemSC, PaginationSC,
+    NameSC, NoCommSC, PaginationNumberSC, PaginationSC,
     ReviewSectionSC,
     ReviewTitleSC,
     ToggleSC,
     WrapperSC
 } from "./ReviewsSC";
 import {useDispatch, useSelector} from "react-redux";
-import {CombinedStateType} from "../../../redux-store";
+import {CombinedStateType} from "../../../redux-store/RootReducer";
 import {actions} from "../../../redux-store/MoviePageReducer";
 
 type PropsReviewsType = {
@@ -22,14 +22,13 @@ type PropsReviewsType = {
     movieId: number
 }
 
-const VReviews: React.FC<PropsReviewsType> = (props) => {
+const Reviews: React.FC<PropsReviewsType> = (props) => {
 
     const dispatch = useDispatch();
 
     const reviews = useSelector((state: CombinedStateType) => state.MoviePageReducer.reviews);
 
     const setCurrentReviewPage = (reviewPage: number) => dispatch(actions.setCurrentReviewPage(reviewPage));
-
 
     const {setReviews, movieId} = props;
     useEffect(() => {
@@ -40,17 +39,14 @@ const VReviews: React.FC<PropsReviewsType> = (props) => {
         }, [movieId]
     );
 
-
-    const reviewsList = reviews.data.map((item, index) => <ReviewItem key={index}
+    const reviewsList = reviews.data.map((item, index) => <Review key={index}
                                                                       author={item.author}
                                                                       date={item['created_at']}
                                                                       author_details={item.author_details}
                                                                       content={item.content}
     />);
 
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     const myRef = useRef(null as any);
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     const scrollTo = (): void => myRef.current.scrollIntoView();
 
@@ -63,37 +59,44 @@ const VReviews: React.FC<PropsReviewsType> = (props) => {
                 setReviews(response.results, response['total_pages']);
             })
     };
+
     let totalPagesArr = [];
     const totalPages = reviews.totalPages;
+
     if (totalPages)
         for (let i = 1; i <= totalPages; i++) {
             totalPagesArr.push(i)
         }
+
     totalPagesArr = totalPagesArr.map((item, index) =>
-        <PaginationItemSC key={index}
-                          onClick={() => selectPage(item)}
-                          isActive={item === reviews.currentPage ? 'red' : 'white'}>
+        <PaginationNumberSC key={index}
+                            onClick={() => selectPage(item)}
+                            isActive={item === reviews.currentPage ? 'red' : 'white'}>
             {item}
-        </PaginationItemSC>);
+        </PaginationNumberSC>);
 
     return (
         <ReviewSectionSC>
             <ReviewTitleSC ref={myRef}>
                 COMMENTARIES
             </ReviewTitleSC>
-            {reviews.data.length !== 0 ? <>{reviewsList}
-                <PaginationSC>
-                    {totalPagesArr}
-                </PaginationSC>
-            </> : <NoCommSC>
-                No Commentaries :(
-            </NoCommSC>}
-
+            {
+                reviews.data.length ?
+                    <>
+                        {reviewsList}
+                        <PaginationSC>
+                            {totalPagesArr}
+                        </PaginationSC>
+                    </> :
+                    <NoCommSC>
+                        No Commentaries :(
+                    </NoCommSC>
+            }
         </ReviewSectionSC>
     )
 };
 
-export const VReviewsMemo = React.memo(VReviews);
+export const ReviewsMemo = React.memo(Reviews);
 
 type ItemPropsType = {
     author: string
@@ -102,7 +105,7 @@ type ItemPropsType = {
     content: string
 }
 
-const ReviewItem: React.FC<ItemPropsType> = React.memo(props => {
+const Review: React.FC<ItemPropsType> = React.memo(props => {
     const {author, date, author_details, content} = props;
     const src = 'https://image.tmdb.org/t/p/original/' + author_details.avatar_path;
     const noSrc = 'https://socpartnerstvo.org/img/avatar_male.png';

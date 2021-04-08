@@ -1,22 +1,22 @@
-import {Navigation} from "./components/Header";
+import {NavigationBar} from "./components/NavigationBar/NavigationBar";
 import {Redirect, Route, Switch} from 'react-router-dom';
-import {VMoviePage} from "./pages/MoviePage";
+import {MoviePage} from "./pages/MoviePage/MoviePage";
 import {BodySC, ContentSC, NavigationWrapperSC} from "./styles/AppSC";
 import {FavouriteMoviesPageContainer} from "./pages/FavouritesMoviesPage/FavouriteMoviesPageContainer";
-import  {VSelectedMoviePageContainer} from "./pages/MoviePage/VSelectedMoviePage/VSelectedMoviePageContainer";
+import  {SelectedMoviePageContainer} from "./pages/MoviePage/SelectedMoviePage/SelectedMoviePageContainer";
 
 function App() {
     return (
         <BodySC>
             <NavigationWrapperSC>
-                <Navigation/>
+                <NavigationBar/>
             </NavigationWrapperSC>
             <ContentSC>
                 <Switch>
-                    <Route exact path='/Vapi' render={() => <VMoviePage/>}/>
+                    <Route exact path='/Vapi' render={() => <MoviePage/>}/>
                     <Route path='/home' render={() => <div>home</div>}/>
                     <Route path='/about' render={() => <div>about</div>}/>
-                    <Route path='/Vapi/movie/:movieId?' render={() => <VSelectedMoviePageContainer/>}/>
+                    <Route path='/Vapi/movie/:movieId?' render={() => <SelectedMoviePageContainer/>}/>
                     <Route path='/favourite' render={() => <FavouriteMoviesPageContainer/>}/>
                     <Route path="/404" render={() => <div>not found 404</div>}/>
                     <Redirect exact from="/" to="/home" />

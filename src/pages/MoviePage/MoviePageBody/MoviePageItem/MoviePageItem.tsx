@@ -1,5 +1,5 @@
 import React from 'react'
-import {VMovieItemSC, VTitleSC} from "./styles";
+import {MovieSC, TitleSC} from "./MoviePageItemSC";
 import {NavLink} from "react-router-dom";
 
 type PropsType = {
@@ -9,18 +9,19 @@ type PropsType = {
     title: string
 }
 
-export const VMoviePageItem: React.FC<PropsType> = (props) => {
+export const MoviePageItem: React.FC<PropsType> = (props) => {
     const {poster, url, id, title} = props;
 
-    let src = `https://image.tmdb.org/t/p/w300/${poster}`;
+    const src = `https://image.tmdb.org/t/p/w300/${poster}`;
+
     return (
         <NavLink to={url + '/movie/' + id}>
-                <VMovieItemSC src={src}>
+                <MovieSC src={src}>
                     <img
                         src={poster ? src : 'https://prikolnye-kartinki.ru/img/picture/Sep/23/9d857169c84422fdaa28df62667a1467/8.jpg'}
                         alt="" height='100%' width='300'/>
-                    <VTitleSC>{title}</VTitleSC>
-                </VMovieItemSC>
+                    <TitleSC>{title}</TitleSC>
+                </MovieSC>
         </NavLink>
     )
 };

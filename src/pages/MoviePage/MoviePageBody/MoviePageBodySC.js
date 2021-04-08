@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 
-export const VMoviesListSC = styled.div`
+export const MoviesListSC = styled.div`
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     justify-content: space-around;
 `;
 
-export const VMoviesPagesSC = styled.span`
+export const MoviesPagesSC = styled.span`
     font-weight: ${props => props.isActive};
     margin-left: 2px;
     color: #fff;

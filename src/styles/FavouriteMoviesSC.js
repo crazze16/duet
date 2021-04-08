@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import {NavLink} from "react-router-dom";
 
 export const ListWrapperSC = styled.div`
-    padding: 0 15px;
+padding: 0 15px;
 `;
 export const PageTitleSC = styled.h1`
 color: white;
@@ -15,7 +15,6 @@ display: flex;
 max-width: 1700px;
 margin: 0 auto;
 flex-wrap: wrap;
-// justify-content: center;
 flex-start: left;
 `;
 export const BackdropSC = styled(NavLink)`

@@ -5,7 +5,7 @@ import {
     ReviewDetails,
     SelectedMovieType
 } from "../types/types";
-import { InferActionsTypes} from "./index";
+import { InferActionsTypes} from "./RootReducer";
 
 
 export type InitialStateType = typeof initialState

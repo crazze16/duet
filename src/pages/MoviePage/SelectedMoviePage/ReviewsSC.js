@@ -73,7 +73,7 @@ export const PaginationSC = styled.div`
     height: 50px;
     width: 100%;
 `;
-export const PaginationItemSC = styled.span`
+export const PaginationNumberSC = styled.span`
     height: 50px;
     color: ${props => props.isActive};
     font-size: 18px;
