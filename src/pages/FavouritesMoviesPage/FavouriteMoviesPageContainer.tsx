@@ -15,8 +15,8 @@ export const FavouriteMoviesPageContainer: React.FC = () => {
     const dispatch = useDispatch();
 
     const favouritesMovies = useSelector((state: CombinedStateType) => state.FavouriteMoviesReducer.favouritesMovies);
-    const createFavouriteMoviesList = (listId: number) => dispatch(FMactions.createFavouriteMoviesList(listId));
 
+    const createFavouriteMoviesList = (listId: number) => dispatch(FMactions.createFavouriteMoviesList(listId));
     const setFavouriteMoviesList = (moviesData: Array<MovieBySearch>) => dispatch(FMactions.setFavouriteMoviesList(moviesData));
 
     const listId = +useLocalStorage(LIST_KEY, '')[0];

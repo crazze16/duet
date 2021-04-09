@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import * as queryString from "querystring";
 
+type QueryParamsType = { movie?: string, page?: string };
 
 
 export const MoviePageHeader: React.FC = (props) => {
@@ -24,7 +25,6 @@ export const MoviePageHeader: React.FC = (props) => {
     const setTotalPages = (totalPages: number) => dispatch(actions.setTotalPages(totalPages));
     const setCurrentPage = (page: number) => dispatch(actions.setCurrentPage(page));
 
-
     const onSearch = () => {
         setCurrentPage(1);
         setIsSearched(!isSearched);
@@ -37,9 +37,15 @@ export const MoviePageHeader: React.FC = (props) => {
     };
 
     useEffect(() => {
+
+        const query: QueryParamsType = {};
+
+        if(searchedMovie.length > 0) query.movie = searchedMovie;
+        if(currentPage !== null) query.page = String(currentPage);
+
         history.push({
             pathname: '/Vapi',
-            search: `?movie=${searchedMovie}&page=${currentPage}`
+            search: queryString.stringify(query)
         })
     }, [isSearched, currentPage]);
 
@@ -52,9 +58,6 @@ export const MoviePageHeader: React.FC = (props) => {
             onSearch();
         }
     };
-
-    console.log('render header')
-
 
     return (
         <div>
