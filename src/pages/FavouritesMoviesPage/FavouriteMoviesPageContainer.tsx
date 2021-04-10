@@ -15,9 +15,11 @@ export const FavouriteMoviesPageContainer: React.FC = () => {
     const dispatch = useDispatch();
 
     const favouritesMovies = useSelector((state: CombinedStateType) => state.FavouriteMoviesReducer.favouritesMovies);
+    const searchedMovie = useSelector((state: CombinedStateType) => state.FavouriteMoviesReducer.searchedMovie);
 
     const createFavouriteMoviesList = (listId: number) => dispatch(FMactions.createFavouriteMoviesList(listId));
     const setFavouriteMoviesList = (moviesData: Array<MovieBySearch>) => dispatch(FMactions.setFavouriteMoviesList(moviesData));
+    const searchMovie = (searchedMovie: string) => dispatch(FMactions.searchFavouriteMovie(searchedMovie));
 
     const listId = +useLocalStorage(LIST_KEY, '')[0];
 
@@ -38,9 +40,13 @@ export const FavouriteMoviesPageContainer: React.FC = () => {
     return (
             favouritesMovies.listData.length ?
                 <WrapperSC>
-                    <FavouriteMoviePage removeFromFavourite={removeFromFavourite} favouritesMovies={favouritesMovies}/>
+                    <FavouriteMoviePage removeFromFavourite={removeFromFavourite}
+                                        favouritesMovies={favouritesMovies}
+                                        searchedMovie={searchedMovie}
+                                        searchMovie={searchMovie}
+                    />
                 </WrapperSC> :
-                <EmptyListSC>you haven't added anything to your favorite movies list</EmptyListSC>
+                <EmptyListSC>You haven't added anything to your favorite movies list</EmptyListSC>
 
     )
 };

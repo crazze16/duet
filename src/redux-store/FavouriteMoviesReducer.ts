@@ -10,6 +10,7 @@ const initialState = {
         isCreated: false,
     },
     isFetching: false,
+    searchedMovie: ''
 };
 
  const FavouriteMoviesReducer = (state = initialState, action: InferActionsTypes<typeof FMactions>): InitialStateType => {
@@ -44,6 +45,11 @@ const initialState = {
                 ...state,
                 isFetching: action.isFetching
             };
+        case 'SEARCH_FAVOURITE':
+            return {
+                ...state,
+                searchedMovie: action.searchedMovie
+            };
         default: return {...state}
     }
 };
@@ -55,6 +61,7 @@ export const FMactions = {
     setFavouriteMoviesList: (listData: Array<MovieBySearch>) => ({type: 'SET_FAVOURITE_MOVIES_LIST', listData}  as const),
     setFavouriteMovie: (isFavourite: boolean) => ({type: 'SET_AS_FAVOURITE', isFavourite}  as const),
     toggleFetch: (isFetching: boolean) => ({type: 'TOGGLE_FETCH', isFetching}  as const),
+    searchFavouriteMovie: (searchedMovie: string) => ({type: 'SEARCH_FAVOURITE', searchedMovie}  as const),
 };
 
 export default FavouriteMoviesReducer

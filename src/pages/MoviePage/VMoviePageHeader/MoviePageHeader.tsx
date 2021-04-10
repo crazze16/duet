@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import * as queryString from "querystring";
 
-type QueryParamsType = { movie?: string, page?: string };
+type QueryParamsType = { search?: string, page?: string };
 
 
 export const MoviePageHeader: React.FC = (props) => {
@@ -40,7 +40,7 @@ export const MoviePageHeader: React.FC = (props) => {
 
         const query: QueryParamsType = {};
 
-        if(searchedMovie.length > 0) query.movie = searchedMovie;
+        if(searchedMovie.length > 0) query.search = searchedMovie;
         if(currentPage !== null) query.page = String(currentPage);
 
         history.push({

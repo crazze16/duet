@@ -10,7 +10,6 @@ import {useHistory} from 'react-router-dom';
 import * as queryString from "querystring";
 
 export const MoviePageBody: React.FC = () => {
-
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -24,23 +23,23 @@ export const MoviePageBody: React.FC = () => {
     const setMovieData = (MovieData: Array<MovieBySearch>) => dispatch(actions.setMovieData(MovieData));
     const setTotalPages = (totalPages: number) => dispatch(actions.setTotalPages(totalPages));
 
-    const parsed = queryString.parse(history.location.search.substr(1)) as {movie: string, page: string};
+    const parsed = queryString.parse(history.location.search.substr(1)) as {search: string, page: string};
 
     useEffect(() => {
-        if(parsed.movie && parsed.page){
+        if(parsed.search && parsed.page){
             setCurrentPage(+parsed.page);
-            searchMovie(parsed.movie);
-            movie.getFilmsBySearch(parsed.movie, +parsed.page)
+            searchMovie(parsed.search);
+            movie.getFilmsBySearch(parsed.search, +parsed.page)
                 .then((response) => {
                     setMovieData(response.results);
                     setTotalPages(response['total_pages']);
                 });
             history.push({
                 pathname: '/Vapi',
-                search: `?movie=${parsed.movie}&page=${parsed.page}`
+                search: `?search=${parsed.search}&page=${parsed.page}`
             })
         }
-    }, [parsed.movie, parsed.page]);
+    }, []);
 
     const resultMoviesDataArr = resultMoviesData.map((item, index) => <MoviePageItem poster={item.poster_path}
                                                                                    id={item.id}
@@ -109,7 +108,7 @@ export const MoviePageBody: React.FC = () => {
     return (
         <>
             {
-                pagination(9)
+                totalPages && pagination(9)
             }
             <MoviesListSC>
                 {resultMoviesDataArr}

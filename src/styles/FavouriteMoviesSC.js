@@ -75,3 +75,42 @@ export const HoveredSC = styled.div`
 export const EmptyListSC = styled.p`
 color: white;
 `;
+export const SearchInputSC = styled.input`
+
+`;
+export const InputWrapper = styled.div`
+    display: flex;
+`;
+
+export const ClearInputSC = styled.div`
+   margin-left: 5px;
+   position: relative;
+   width: 18px;
+   height: 18px;
+   opacity: 80%;
+   cursor: pointer;
+      &:before {
+        top: 1px;
+        left: 7px;
+        content: '';
+        width: 2px;
+        height: 18px;
+        background: white;
+        position: absolute;
+        transform: rotate(45deg);
+   }
+   &:after {
+        content: '';
+        top: 1px;
+        left: 7px;
+        width: 2px;
+        height: 18px;
+        background: white;
+        position: absolute;
+        transform: rotate(-45deg);
+   }
+   &:hover {
+        opacity: 100%;
+        
+   }
+`;

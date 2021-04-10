@@ -1,52 +1,121 @@
-import React, {ReactNode, useState} from 'react'
-import {ListSC, ListWrapperSC, PageTitleSC, SortSC} from "../../styles/FavouriteMoviesSC";
+import React, {ReactNode, useEffect, useState} from 'react'
+import {
+    ClearInputSC,
+    ListSC,
+    ListWrapperSC,
+    PageTitleSC,
+    SearchInputSC,
+    InputWrapper,
+    SortSC,
+    EmptyListSC
+} from "../../styles/FavouriteMoviesSC";
 import {FavouriteMoviesType, MovieBySearch} from '../../types/types';
-import { FavouriteMovieItem } from './FavouriteMovieItem';
+import {FavouriteMovieItem} from './FavouriteMovieItem';
+import * as queryString from "querystring";
+import {useHistory} from "react-router-dom";
 
 type PropsType = {
     favouritesMovies: FavouriteMoviesType
     removeFromFavourite: (flag: boolean, movieId: number) => void
+    searchMovie: (searchedMovie: string) => void
+    searchedMovie: string
 }
+
+type QueryParamsType = { filter?: string, search?: string };
+
 
 export const FavouriteMoviePage: React.FC<PropsType> = (props) => {
 
-    const {favouritesMovies, removeFromFavourite} = props;
-    const listData = [...favouritesMovies.listData];
+    const {favouritesMovies, removeFromFavourite, searchedMovie, searchMovie} = props;
 
-    const [type, setType] = useState('default');
+    const history = useHistory();
 
-        const sort = ():Array<MovieBySearch> => {
-            switch (type) {
-                case "popularity":
-                    return listData.sort((a:MovieBySearch,b:MovieBySearch) => b.popularity - a.popularity);
-                case "vote":
-                    return listData.sort((a:MovieBySearch,b:MovieBySearch) => b.vote_average - a.vote_average);
-                case "reverse":
-                    return listData.reverse();
-                default:
-                    return [...favouritesMovies.listData]
-            }
-        };
-    const FavouriteMoviesList: Array<ReactNode> =  sort().map(item => <FavouriteMovieItem key={`key_${item.id}`}
-                                                                         id={item.id}
-                                                                         title={item.title}
-                                                                         poster={item.backdrop_path}
-                                                                         removeFromFavourite={removeFromFavourite}
+    const [filter, setFilter] = useState('');
+
+    const stringFilter = (str: string) => str.toLowerCase().replace(/[\s.\-\:,%]/gi, '');
+
+    let listData = [...favouritesMovies.listData];
+    listData = listData.filter(value => stringFilter(value.title).includes(stringFilter(searchedMovie)));
+
+    const parsed = queryString.parse(history.location.search.substr(1)) as { search: string, filter: string };
+
+    useEffect(() => {
+        const query: QueryParamsType = {};
+        if (filter) query.filter = filter;
+        if (searchedMovie.length > 0) query.search = searchedMovie;
+        history.push({
+            pathname: '/favourite',
+            search: queryString.stringify(query)
+        })
+    }, [filter, searchedMovie]);
+
+    useEffect(() => {
+        let actualSearch = searchedMovie;
+        let actualFilter = filter;
+        if (parsed.search) {
+            actualSearch = parsed.search;
+            searchMovie(actualSearch);
+        }
+        if (parsed.filter) {
+            actualFilter = parsed.filter;
+            setFilter(actualFilter);
+        }
+        if(parsed.search && parsed.filter){
+            history.push({
+                pathname: '/favourite',
+                search: `?search=${parsed.search}&filter=${parsed.filter}`
+            })
+        }
+    }, [parsed.filter]);
+
+
+
+    const sort = (): Array<MovieBySearch> => {
+        switch (filter) {
+            case "popularity":
+                return listData.sort((a: MovieBySearch, b: MovieBySearch) => b.popularity - a.popularity);
+            case "vote":
+                return listData.sort((a: MovieBySearch, b: MovieBySearch) => b.vote_average - a.vote_average);
+            case "reverse":
+                return listData.reverse();
+            default:
+                return listData
+        }
+    };
+
+    const FavouriteMoviesList: Array<ReactNode> = sort().map(item => <FavouriteMovieItem key={`key_${item.id}`}
+                                                                                         id={item.id}
+                                                                                         title={item.title}
+                                                                                         poster={item.backdrop_path}
+                                                                                         removeFromFavourite={removeFromFavourite}
     />);
+
 
     return (
         <ListWrapperSC>
             <div>
                 <PageTitleSC>Your Picked Movies:</PageTitleSC>
-                <SortSC>Sorted by: <select onChange={(e:React.FormEvent<HTMLSelectElement>) => setType(e.currentTarget.value)}>
-                    <option value='default'>Newest</option>
-                    <option value='reverse'>Oldest</option>
-                    <option value='popularity'>Most popular</option>
-                    <option value='vote'>Votes</option>
-                </select></SortSC>
+                <InputWrapper>
+                    <SearchInputSC
+                        onChange={(event: React.FormEvent<HTMLInputElement>) => searchMovie(event.currentTarget.value)}
+                        value={searchedMovie}
+                        placeholder={'Search'}
+                    />
+                    {searchedMovie && <ClearInputSC onClick={() => searchMovie('')}/>}
+                </InputWrapper>
+                <SortSC>Sorted by:
+                    <select
+                        onChange={(event: React.FormEvent<HTMLSelectElement>) => setFilter(event.currentTarget.value)}
+                        value={filter}>
+                        <option value='default'>Newest</option>
+                        <option value='reverse'>Oldest</option>
+                        <option value='popularity'>Most popular</option>
+                        <option value='vote'>Votes</option>
+                    </select>
+                </SortSC>
             </div>
             <ListSC>
-                {FavouriteMoviesList}
+                {listData.length ? FavouriteMoviesList : <EmptyListSC>No match</EmptyListSC>}
             </ListSC>
         </ListWrapperSC>
     )
