@@ -36,7 +36,7 @@ function useLocalStorage<T>(
         }
 
         try {
-            // Allow value to be a function so we have the same API as useState
+            // Allow value to be a function so we have the same api as useState
             const newValue = value instanceof Function ? value(storedValue) : value
 
             // Save to local storage

@@ -1,9 +1,9 @@
-import {NavigationBar} from "./components/NavigationBar/NavigationBar";
+import {NavigationBar} from "./sharedComponents/navigationBar/navigationBar";
 import {Redirect, Route, Switch} from 'react-router-dom';
-import {MoviePage} from "./pages/MoviePage/MoviePage";
-import {BodySC, ContentSC, NavigationWrapperSC} from "./styles/AppSC";
-import {FavouriteMoviesPageContainer} from "./pages/FavouritesMoviesPage/FavouriteMoviesPageContainer";
-import  {SelectedMoviePageContainer} from "./pages/MoviePage/SelectedMoviePage/SelectedMoviePageContainer";
+import {MoviePage} from "./pages/moviePage/moviePage";
+import {BodySC, ContentSC, NavigationWrapperSC} from "./styles/App.styles";
+import {FavouriteMoviesPageContainer} from "./pages/favouriteMoviesPage/favouriteMoviesPageContainer";
+import  {SelectedMoviePageContainer} from "./pages/selectedMoviePage/selectedMoviePageContainer";
 
 function App() {
     return (
