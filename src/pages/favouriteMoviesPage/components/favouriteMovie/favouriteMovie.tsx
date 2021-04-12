@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { PropsType } from '../../../../types/favouriteMoviesPage/favouriteMovie.type';
+import { PropsType } from 'types/favouriteMoviesPage/favouriteMovie.type';
 import {BackdropSC, HoveredSC, TitleSC, WrapperItemSC } from './favouriteMovie.styles';
 
 

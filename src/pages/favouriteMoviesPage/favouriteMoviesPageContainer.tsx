@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import {FavouriteMoviePage} from "./components/favouriteMoviesPage/favouriteMoviesPage";
-import {movieList} from "../../api";
-import {CombinedStateType} from "../../redux-store/rootReducer";
-import {MovieBySearch} from "../../types/shared.type";
-import useLocalStorage from '../../hooks/useLocalStorage';
-import { FMactions } from '../../redux-store/favouriteMoviesReducer/actions';
+import {movieList} from "api";
+import {CombinedStateType} from "redux-store/rootReducer";
+import {MovieBySearch} from "types/shared.type";
+import useLocalStorage from 'hooks/useLocalStorage';
+import { FMactions } from 'redux-store/favouriteMoviesReducer/actions';
 import {EmptyListSC, WrapperSC} from "./favouriteMoviesPageContainer.styles";
 
 export const LIST_KEY = 'Favourite Movies list id';
@@ -16,7 +16,6 @@ export const FavouriteMoviesPageContainer: React.FC = () => {
 
     const favouritesMovies = useSelector((state: CombinedStateType) => state.FavouriteMoviesReducer.favouritesMovies);
     const searchedMovie = useSelector((state: CombinedStateType) => state.FavouriteMoviesReducer.searchedMovie);
-
     const createFavouriteMoviesList = (listId: number) => dispatch(FMactions.createFavouriteMoviesList(listId));
     const setFavouriteMoviesList = (moviesData: Array<MovieBySearch>) => dispatch(FMactions.setFavouriteMoviesList(moviesData));
     const searchMovie = (searchedMovie: string) => dispatch(FMactions.searchFavouriteMovie(searchedMovie));

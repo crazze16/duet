@@ -1,13 +1,13 @@
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from "react-redux";
-import {CombinedStateType} from "../../../../redux-store/rootReducer";
-import {MovieBySearch} from "../../../../types/shared.type";
-import {movie} from "../../../../api";
+import {CombinedStateType} from "redux-store/rootReducer";
+import {MovieBySearch} from "types/shared.type";
+import {movie} from "api";
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import * as queryString from "querystring";
-import { MPactions } from '../../../../redux-store/moviePageReducer/actions';
-import { QueryParamsType } from '../../../../types/moviePage/header.type';
+import { MPactions } from 'redux-store/moviePageReducer/actions';
+import { QueryParamsType } from 'types/moviePage/header.type';
 
 
 export const Header: React.FC = () => {

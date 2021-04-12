@@ -2,12 +2,12 @@ import React, {useEffect} from 'react'
 import {Movie} from "../movie/movie";
 import {useDispatch, useSelector} from "react-redux";
 import {MoviesListSC, MoviesPagesSC} from "./moviePageBody.styles";
-import {movie} from "../../../../api";
-import {CombinedStateType} from "../../../../redux-store/rootReducer";
-import {MovieBySearch} from '../../../../types/shared.type';
+import {movie} from "api";
+import {CombinedStateType} from "redux-store/rootReducer";
+import {MovieBySearch} from 'types/shared.type';
 import {useHistory} from 'react-router-dom';
 import * as queryString from "querystring";
-import { MPactions } from '../../../../redux-store/moviePageReducer/actions';
+import { MPactions } from 'redux-store/moviePageReducer/actions';
 
 export const MoviePageBody: React.FC = () => {
     const dispatch = useDispatch();

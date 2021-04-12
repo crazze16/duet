@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from "react-redux";
-import {movie} from "../../../../api";
-import {CombinedStateType} from "../../../../redux-store/rootReducer";
-import { MPactions } from '../../../../redux-store/moviePageReducer/actions';
+import {movie} from "api";
+import {CombinedStateType} from "redux-store/rootReducer";
+import { MPactions } from 'redux-store/moviePageReducer/actions';
 import {ModalWrappSC, VideoCloseSC, VideoFrameSC} from "./modalVideo.styles";
-import { OwnPropsType } from '../../../../types/selectedMoviePage/movalVideo.type';
+import { OwnPropsType } from 'types/selectedMoviePage/movalVideo.type';
 
 export const ModalVideo: React.FC<OwnPropsType> = (props) => {
     const {movieId} = props;

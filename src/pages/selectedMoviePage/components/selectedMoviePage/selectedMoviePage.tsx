@@ -24,7 +24,7 @@ import {SimilarMovie} from "../similarMovie/similarMovie";
 import {ModalVideo} from "../modalVideo/modalVideo";
 import {Cast} from "../cast/сast";
 import {ReviewsMemo} from "../reviews/reviews";
-import {movieList} from "../../../../api";
+import {movieList} from "api";
 import {
     CastPersonType,
     GenresType,
@@ -32,15 +32,15 @@ import {
     ProdactionCompaniesType,
     ReviewDetails,
     SelectedMovieType
-} from '../../../../types/shared.type';
+} from 'types/shared.type';
 import {useDispatch, useSelector} from "react-redux";
-import {CombinedStateType} from "../../../../redux-store/rootReducer";
-import useLocalStorage from "../../../../hooks/useLocalStorage";
-import {LIST_KEY} from "../../../favouriteMoviesPage/favouriteMoviesPageContainer";
-import {FMactions} from '../../../../redux-store/favouriteMoviesReducer/actions';
-import {MPactions} from '../../../../redux-store/moviePageReducer/actions';
-import {Footer} from "../../../../sharedComponents/footer/footer";
-import { PropsType } from '../../../../types/selectedMoviePage/selectedMoviePage.type';
+import {CombinedStateType} from "redux-store/rootReducer";
+import useLocalStorage from "hooks/useLocalStorage";
+import {LIST_KEY} from "pages/favouriteMoviesPage/favouriteMoviesPageContainer";
+import {FMactions} from 'redux-store/favouriteMoviesReducer/actions';
+import {MPactions} from 'redux-store/moviePageReducer/actions';
+import {Footer} from "sharedComponents/footer/footer";
+import { PropsType } from 'types/selectedMoviePage/selectedMoviePage.type';
 
 
 

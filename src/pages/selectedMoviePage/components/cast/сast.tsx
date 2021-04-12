@@ -1,9 +1,7 @@
 import React, {useEffect} from 'react'
-import {movie} from "../../../../api";
+import {movie} from "api";
 import {AvatarsListSC, AvatarWrapper, PersonAvatarSC, PersonSC, CastTitleSC, CastWrapperSC, CharacterSC, NameSC} from "./cast.styles";
-import {PropsItemType, PropsType} from "../../../../types/selectedMoviePage/cast.type";
-
-
+import {PropsItemType, PropsType} from "types/selectedMoviePage/cast.type";
 
 export const Cast: React.FC<PropsType> = (props) => {
     const {movieCast, setCast, movieId} = props;
@@ -32,8 +30,6 @@ export const Cast: React.FC<PropsType> = (props) => {
         </CastWrapperSC>
     )
 };
-
-
 
 const CastPerson: React.FC<PropsItemType> = (props) => {
 

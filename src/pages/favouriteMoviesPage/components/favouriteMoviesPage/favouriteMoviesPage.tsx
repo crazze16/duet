@@ -9,11 +9,11 @@ import {
     SearchInputSC,
     SortSC,
 } from "./favouriteMoviesPage.styles";
-import {MovieBySearch} from '../../../../types/shared.type';
+import {MovieBySearch} from 'types/shared.type';
 import {FavouriteMovie} from '../favouriteMovie/favouriteMovie';
 import * as queryString from "querystring";
 import {useHistory} from "react-router-dom";
-import {PropsType, QueryParamsType} from '../../../../types/favouriteMoviesPage/favouriteMoviePage.type';
+import {PropsType, QueryParamsType} from 'types/favouriteMoviesPage/favouriteMoviePage.type';
 
 export const FavouriteMoviePage: React.FC<PropsType> = (props) => {
 

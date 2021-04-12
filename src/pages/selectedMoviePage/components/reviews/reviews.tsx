@@ -1,24 +1,24 @@
 import React, {useEffect, useRef, useState} from 'react'
-import {AuthorDetailsType, ReviewDetails} from '../../../../types/shared.type';
-import {movie,} from "../../../../api";
+import {movie,} from "api";
 import {
     AvatarSC,
     BodySC,
     ContentSC,
     DateSC,
     InfoSC,
-    NameSC, NoCommSC, PaginationNumberSC, PaginationSC,
+    NameSC,
+    NoCommSC,
+    PaginationNumberSC,
+    PaginationSC,
     ReviewSectionSC,
     ReviewTitleSC,
     ToggleSC,
     WrapperSC
 } from "./reviews.styles";
 import {useDispatch, useSelector} from "react-redux";
-import {CombinedStateType} from "../../../../redux-store/rootReducer";
-import { MPactions } from '../../../../redux-store/moviePageReducer/actions';
-import {ItemPropsType, PropsReviewsType } from '../../../../types/selectedMoviePage/reviews.type';
-
-
+import {CombinedStateType} from "redux-store/rootReducer";
+import {MPactions} from 'redux-store/moviePageReducer/actions';
+import {ItemPropsType, PropsReviewsType} from 'types/selectedMoviePage/reviews.type';
 
 
 const Reviews: React.FC<PropsReviewsType> = (props) => {

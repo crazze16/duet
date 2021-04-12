@@ -1,6 +1,6 @@
 import React from 'react'
-import {movie} from "../../../../api";
-import {PropsType} from '../../../../types/selectedMoviePage/similarMovie.type';
+import {movie} from "api";
+import {PropsType} from 'types/selectedMoviePage/similarMovie.type';
 import {SimilarMoviesItemSC} from './similarMovies.styles';
 
 

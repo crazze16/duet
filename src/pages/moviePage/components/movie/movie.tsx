@@ -1,7 +1,7 @@
 import React from 'react'
 import {MovieSC, TitleSC} from "./movie.styles";
 import {NavLink} from "react-router-dom";
-import { PropsType } from '../../../../types/moviePage/movie.type';
+import { PropsType } from 'types/moviePage/movie.type';
 
 
 
