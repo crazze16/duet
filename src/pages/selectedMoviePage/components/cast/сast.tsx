@@ -19,6 +19,7 @@ export const Cast: React.FC<PropsType> = (props) => {
         src={item['profile_path']}
         character={item.character}
         name={item.name}
+        id={item.id}
     />);
 
     return (
@@ -33,11 +34,11 @@ export const Cast: React.FC<PropsType> = (props) => {
 
 const CastPerson: React.FC<PropsItemType> = (props) => {
 
-    const {src, character, name} = props;
+    const {src, character, name, id} = props;
     const noSrc = 'https://socpartnerstvo.org/img/avatar_male.png';
 
     return (
-        <PersonSC>
+        <PersonSC to={`/person/${id}`}>
             <AvatarWrapper>
                 <PersonAvatarSC src={src ? 'https://image.tmdb.org/t/p/w500' + src : noSrc}/>
             </AvatarWrapper>

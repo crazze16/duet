@@ -1,3 +1,4 @@
+import {CastCreditsType, CrewCreditsType, PopularPersonDataType} from "./personPage/personPage.type";
 import {CastPersonType, MovieBySearch, ReviewDetails} from "./shared.type";
 
 export type SimilarMoviesType = {
@@ -70,4 +71,15 @@ export type MoviesBySearchType = {
     results: Array<MovieBySearch>
     total_pages: number
     total_results: number
+}
+export type PersonCreditsType = {
+    cast: Array<CastCreditsType>,
+    crew: Array<CrewCreditsType>,
+    id: number
+}
+export type PopularPersonType = {
+    page: number
+    results: Array<PopularPersonDataType>
+    total_results: number
+    total_pages: number
 }

@@ -4,17 +4,21 @@ import {
     CastType,
     ListType,
     MoviesBySearchType,
+    PersonCreditsType,
+    PopularPersonType,
     ResponseType,
     ReviewsType,
     SimilarMoviesType,
     VideoType
 } from "../types/response-api.type";
+import {DetailsType, PersonSocialType} from "types/personPage/personPage.type";
 
 const API_KEY = '5b9377492f02937b4e7cf2b6508ab19f';
 const ACCESS_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE2MTYxNzA1NjEsImF1ZCI6IjViOTM3NzQ5MmYwMjkzN2I0ZTdjZjJiNjUwOGFiMTlmIiwianRpIjoiMjkxNDIzNyIsInNjb3BlcyI6WyJhcGlfcmVhZCIsImFwaV93cml0ZSJdLCJ2ZXJzaW9uIjoxLCJzdWIiOiI2MDJlN2ZiYjIyM2UyMDAwM2U5ODU2ODUifQ.BaLxvYlC7YsKu-tmY6dMv2nYkRzlbTeYElXT4V3e_Rw'
 
 export const movieInstance = axios.create({
     baseURL: 'https://api.themoviedb.org/3/',
+
 });
 
 export const listInstance = axios.create({
@@ -33,16 +37,16 @@ export const movie = {
         return movieInstance.get<SelectedMovieType>(`movie/${movieId}?api_key=${API_KEY}&language=en-US`).then(res => res.data)
     },
     getSimilarMovies(movieId: number) {
-        return movieInstance.get<SimilarMoviesType>(`/movie/${movieId}/recommendations?api_key=${API_KEY}&language=en-US&page=1`).then(res => res.data)
+        return movieInstance.get<SimilarMoviesType>(`movie/${movieId}/recommendations?api_key=${API_KEY}&language=en-US&page=1`).then(res => res.data)
     },
     getVideo(movieId: number) {
-        return movieInstance.get<VideoType>(`/movie/${movieId}/videos?api_key=${API_KEY}&language=en-US`).then(res => res.data)
+        return movieInstance.get<VideoType>(`movie/${movieId}/videos?api_key=${API_KEY}&language=en-US`).then(res => res.data)
     },
     getCollection(collectionId: number) {
-        return movieInstance.get<CollectionType>(`/collection/${collectionId}?api_key=${API_KEY}&language=en-US`).then(res => res.data)
+        return movieInstance.get<CollectionType>(`collection/${collectionId}?api_key=${API_KEY}&language=en-US`).then(res => res.data)
     },
     getCastAndCrew(collectionId: number) {
-        return movieInstance.get<CastType>(`/movie/${collectionId}/credits?api_key=${API_KEY}&language=en-US`).then(res => res.data)
+        return movieInstance.get<CastType>(`movie/${collectionId}/credits?api_key=${API_KEY}&language=en-US`).then(res => res.data)
     },
     getReviews(movieId: number, currentPage: number) {
         return movieInstance.get<ReviewsType>(`movie/${movieId}/reviews?api_key=${API_KEY}&language=en-US&page=${currentPage}`).then(res => res.data)
@@ -80,6 +84,21 @@ export const movieList = {
                 ]
             }
         })
+    }
+};
+
+export const people = {
+    getDetails(personId: number){
+        return movieInstance.get<DetailsType>(`person/${personId}?api_key=${API_KEY}&language=en-US`).then(res => res.data)
+    },
+    getPersonCredits(personId: number){
+        return movieInstance.get<PersonCreditsType>(`person/${personId}/combined_credits?api_key=${API_KEY}&language=en-US`).then(res => res.data)
+    },
+    getPersonSocialLinks(personId: number){
+        return movieInstance.get<PersonSocialType>(`person/${personId}/external_ids?api_key=${API_KEY}&language=en-US`).then(res => res.data)
+    },
+    getPopularPeople(page = 1){
+        return movieInstance.get<PopularPersonType>(`person/popular?api_key=${API_KEY}&language=en-US&page=${page}`).then(res => res.data)
     }
 };
 

@@ -34,7 +34,6 @@ export const SelectedMoviePageContainer: React.FC = () => {
                 //set selected data
                 const selectedFilm = await movie.getSelectedFilm(movieId);
                 setCurrentMovie(selectedFilm);
-
                 //set similar data
                 const similar = await movie.getSimilarMovies(movieId);
                 setSimilarMovieData((similar.results).splice(0, 8));

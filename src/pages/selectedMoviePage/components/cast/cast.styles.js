@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import {NavLink} from "react-router-dom";
 
 
 export const PersonAvatarSC = styled.div`
@@ -17,7 +18,7 @@ export const AvatarsListSC = styled.div`
     width: 100%;
     margin: 0 auto;
 `;
-export const PersonSC = styled.div`
+export const PersonSC = styled(NavLink)`
     display: flex;
     flex-direction: column;
     margin: 0 20px;

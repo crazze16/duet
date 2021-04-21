@@ -23,7 +23,7 @@ export type CastPersonType = {
     cast_id: number
     character: string
     credit_id: string
-    gender: string
+    gender: 1 | 2
     id: number
     known_for_department: string
     name: string
@@ -87,5 +87,12 @@ export type FavouriteMoviesType = {
     listData: Array<MovieBySearch>
     isFavourite: boolean
     isCreated: boolean
+}
+export type MoviePropsType = {
+    poster: string | null | undefined
+    title?: string
+    posterWidth?: 92 | 154 | 185 | 342 | 500
+    height?: number
+    id?: number
 }
 

@@ -39,7 +39,7 @@ import useLocalStorage from "hooks/useLocalStorage";
 import {LIST_KEY} from "pages/favouriteMoviesPage/favouriteMoviesPageContainer";
 import {FMactions} from 'redux-store/favouriteMoviesReducer/actions';
 import {MPactions} from 'redux-store/moviePageReducer/actions';
-import {Footer} from "sharedComponents/footer/footer";
+import {Footer} from "shared/components/footer/footer";
 import { PropsType } from 'types/selectedMoviePage/selectedMoviePage.type';
 
 
@@ -76,7 +76,7 @@ export const SelectedMoviePage: React.FC<PropsType> = (props) => {
 
     const similarMovies = similarMoviesData.map((item, index) => <SimilarMovie
         poster={item['poster_path']}
-        key={index}
+        key={`similarM_${index}`}
         movieId={item.id}
         setSimilarMovieData={setSimilarMovieData}
         setCurrentMovie={setCurrentMovie}
@@ -84,13 +84,13 @@ export const SelectedMoviePage: React.FC<PropsType> = (props) => {
     const genresFunc = (data = [] as GenresType): React.ReactNode => {
         let genresArr: Array<string> = [];
         data.forEach(item => genresArr.push(item.name));
-        return genresArr.join(', ').split(' ').map((item, index) => <GenreSC key={index}
+        return genresArr.join(', ').split(' ').map((item, index) => <GenreSC key={`gengre_${index}`}
                                                                              to={`/${item}`}>{item}</GenreSC>);
     };
     const production = (data = [] as ProdactionCompaniesType): React.ReactNode => {
         let arr: Array<string> = [];
         data.forEach(item => arr.push(item.name));
-        return arr.join(', ').split(' ').map((item, index) => <ProductionSC key={index} to='/'>{item}</ProductionSC>);
+        return arr.join(', ').split(' ').map((item, index) => <ProductionSC key={`production_${index}`} to='/'>{item}</ProductionSC>);
     };
     const releaseDate = (releaseDate = ''): string => releaseDate.slice(0, 4);
 
@@ -123,7 +123,7 @@ export const SelectedMoviePage: React.FC<PropsType> = (props) => {
                 await movieList.removeItems(favouritesMovies.listId, movieId);
                 const listData = await movieList.getList(favouritesMovies.listId);
                 setFavouriteMoviesList(listData.results);
-                setFavouriteMovie(false)
+                setFavouriteMovie(false);
                 toggleFetch(false);
             }
         })()
