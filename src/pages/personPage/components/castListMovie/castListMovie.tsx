@@ -14,7 +14,7 @@ export const CastListMovie: React.FC<ListItemPropsType> = (props) => {
     return (
         <ListItemSC>
             <MainMovieInfoSC>
-                <LinkWrapperSC to={`/Vapi/movie/${id}`}>
+                <LinkWrapperSC to={`/movie/${id}`}>
                     <DateSC>
                         {release_date?.slice(0, 4)}
                     </DateSC>

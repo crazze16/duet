@@ -2,9 +2,6 @@ import React from 'react'
 import { MoviePropsType } from 'types/shared.type';
 import {MovieSC, TitleSC} from "./movie.styles";
 
-
-
-
 export const Movie: React.FC<MoviePropsType> = (props) => {
     const {poster, title, posterWidth, height} = props;
 

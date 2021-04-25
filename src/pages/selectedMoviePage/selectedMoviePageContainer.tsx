@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react'
 import {movie, movieList} from "api";
 import {useDispatch} from "react-redux";
-
 import {useParams} from "react-router";
 import {CollectionType, MovieBySearch, SelectedMovieType} from "types/shared.type";
 import useLocalStorage from "hooks/useLocalStorage";
@@ -9,7 +8,6 @@ import {LIST_KEY} from "pages/favouriteMoviesPage/favouriteMoviesPageContainer";
 import { SelectedMoviePage } from './components/selectedMoviePage/selectedMoviePage';
 import { FMactions } from 'redux-store/favouriteMoviesReducer/actions';
 import { MPactions } from 'redux-store/moviePageReducer/actions';
-
 
 export const SelectedMoviePageContainer: React.FC = () => {
 
@@ -23,8 +21,7 @@ export const SelectedMoviePageContainer: React.FC = () => {
     const setFavouriteMovie = (isFavourite: boolean) => dispatch(FMactions.setFavouriteMovie(isFavourite));
     const createFavouriteMoviesList = (listId: number) => dispatch(FMactions.createFavouriteMoviesList(listId));
 
-    // @ts-ignore
-    const { movieId } = useParams();
+    const { movieId } = useParams<any>();
 
     const listId = +useLocalStorage(LIST_KEY, '')[0];
 

@@ -1,8 +1,5 @@
 import styled from 'styled-components'
 
-const arrowDisabled = 'rgba(145, 145, 145, 0.45)';
-const arrowActive = '#919191';
-
 export const ContainerSC = styled.div`
     max-width: 1260px;
     width: 100%;
@@ -10,7 +7,6 @@ export const ContainerSC = styled.div`
     background: ${`#0a090b`};
     padding: 30px 30px 0;
 `;
-
 export const PersonInfoContainerSC = styled.div`
     display: flex;
     letter-spacing: .8px;
@@ -19,18 +15,16 @@ export const WrapperSC = styled.div`
     overflow: hidden;
     position: relative;
 `;
-
 export const PhotoSC = styled.div`
 display: flex;
 flex-direction: column;
-
-`;
-export const SocialLinksCS = styled.div`
+& > div {
 display: flex;
 justify-content: center;
 margin-top: 8px;
 & a {
     margin: 0 6px;
+}
 }
 `;
 export const BiographySC = styled.div`
@@ -50,14 +44,13 @@ export const ShowMoreSC = styled.div`
         cursor: pointer;
     }
 `;
-export const BirthPlaceSC = styled.div`
-`;
 export const DetailsSC = styled.div`
     margin-left: 30px;
     display: flex;
     flex-direction: column;
     color: #919191;
     width: 900px;
+    
 `;
 export const NameSC = styled.div`
     color: white;
@@ -66,74 +59,10 @@ export const NameSC = styled.div`
     letter-spacing: 1.2px;
     margin: 0 0 10px;
 `;
-
 export const PersonMoviesContainerSC = styled.div`
     display: flex;
     height: 300px;
     justify-content: center;
-`;
-
-export const SliderWheelWrapperSC = styled.div`
-    display: flex;
-    width: 1015px;
-    overflow: hidden;
-    position: relative;
-    height: 100%;
-`;
-
-export const BorderSC = styled.div`
-    margin: 0 8px;
-    position: relative;
-    &:hover::before{
-        position: absolute;
-        content: '';
-        top: 1px;
-        height: 100%;
-        width: 100%;
-        box-shadow: inset -22px -80px 80px 5px #000000;
-        z-index: 10;
-    }
-    height: 245px;
-    &:hover .test{
-    display: flex;
-    }
-`;
-export const SliderSC = styled.div`
-        position: relative;
-`;
-export const VoteSC = styled.div`
-        font-size: 21px;
-        font-weight: 500;
-`;
-export const RealeseDateSC = styled.div`
-        font-size: 14px;
-`;
-export const CharacterSC = styled.div`
-        width: 100px;
-        text-align: end;
-`;
-export const MovieInfoSC = styled.div`
-        display: none;
-        position: absolute;
-        height: 30px;
-        width: 200px;
-        height: 100px;
-        width: 100%;
-        bottom: 5px;
-        right: 10px;
-        color: ${`#b9b9b9`};
-        justify-content: flex-end;
-        align-items: flex-end;
-        flex-direction: column;
-        z-index: 999;
-`;
-export const SliderWheelSC = styled.div`
-    transition: 3s;
-    display: flex;
-    width: 1040px;
-    transition: .2s;
-    position: absolute;
-    left: 0;
 `;
 export const ArrowSC = styled.div`
 background: transparent;
@@ -155,36 +84,6 @@ display: flex;
 margin: 20px 0;
 letter-spacing: 1px;
 `;
-export const ArrowLeftSC = styled(ArrowSC)`
-left: -50px;
-border-bottom: 2px solid ${props => props.disabled ?
-    arrowDisabled : arrowActive};
-border-left: 2px solid ${props => props.disabled ?
-    arrowDisabled : arrowActive};
-&:hover {
-    border-color: ${props => props.disabled ?
-    arrowDisabled :
-    '#fff'};
-    cursor: ${props => props.disabled ?
-    'auto' :
-    'pointer'};
-}
-`;
-export const ArrowRightSC = styled(ArrowSC)`
-right: -50px;
-border-top: 2px solid ${props => props.disabled ?
-    arrowDisabled : arrowActive};
-border-right: 2px solid ${props => props.disabled ?
-    arrowDisabled : arrowActive};
-&:hover {
-    border-color: ${props => props.disabled ?
-    arrowDisabled :
-    '#fff'};
-    cursor: ${props => props.disabled ?
-    'auto' :
-    'pointer'};
-}
-`;
 export const ScrollToTopSC = styled.div`
     width: 60px;
     height: 60px;
@@ -203,8 +102,8 @@ export const ScrollToTopSC = styled.div`
         height: 20px;
         position: absolute;
         top: 26px;
-        border-top: 3px solid ${arrowActive};
-        border-left: 3px solid ${arrowActive};
+        border-top: 3px solid #919191;
+        border-left: 3px solid #919191;
         transform: rotate(45deg);
     };
     &:hover{

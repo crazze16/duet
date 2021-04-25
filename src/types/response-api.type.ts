@@ -55,16 +55,16 @@ export type ListType = {
     total_results: number
 }
 export type ResponseType = {
-    "status_message": string
-    "results": [
+    status_message: string
+    results: [
         {
-            "media_type": string
-            "media_id": number
-            "success": boolean
+            media_type: string
+            media_id: number
+            success: boolean
         }
     ],
-    "success": boolean
-    "status_code": number
+    success: boolean
+    status_code: number
 }
 export type MoviesBySearchType = {
     page: number
