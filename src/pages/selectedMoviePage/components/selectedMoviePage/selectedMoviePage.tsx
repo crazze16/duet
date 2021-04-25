@@ -1,24 +1,8 @@
 import React from 'react'
 import {
-    BackDropSC,
-    BackdropSectionSC,
-    DescriptionSC,
-    GenreSC,
-    GenresSC,
-    GradientSC,
-    InfoContentSC,
-    InfoWrapperSC,
-    MainTitleSC,
-    ProductionContainerSC,
-    ProductionSC,
-    RecommendedMoviesListSC,
-    RecommendedTitleSC,
-    SubTitleSC,
-    ToggleFavouriteSC,
-    VoteContainerSC,
-    VoteScoreCS,
-    WatchTrailerButtonSC,
-    WrapperSPSC
+    BackDropSC, BackdropSectionSC, DescriptionSC, GenreSC, GenresSC, GradientSC, InfoContentSC,
+    InfoWrapperSC, MainTitleSC, ProductionContainerSC, ProductionSC, RecommendedMoviesListSC,
+    RecommendedTitleSC, SubTitleSC, ToggleFavouriteSC, VoteContainerSC, VoteScoreCS, WatchTrailerButtonSC, WrapperSPSC
 } from "./selectedMoviePage.styles";
 import {SimilarMovie} from "../similarMovie/similarMovie";
 import {ModalVideo} from "../modalVideo/modalVideo";
@@ -41,8 +25,6 @@ import {FMactions} from 'redux-store/favouriteMoviesReducer/actions';
 import {MPactions} from 'redux-store/moviePageReducer/actions';
 import {Footer} from "shared/components/footer/footer";
 import { PropsType } from 'types/selectedMoviePage/selectedMoviePage.type';
-
-
 
 export const SelectedMoviePage: React.FC<PropsType> = (props) => {
     const {movieId} = props;

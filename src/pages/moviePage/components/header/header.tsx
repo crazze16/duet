@@ -24,6 +24,18 @@ export const Header: React.FC = () => {
     const setTotalPages = (totalPages: number) => dispatch(MPactions.setTotalPages(totalPages));
     const setCurrentPage = (page: number) => dispatch(MPactions.setCurrentPage(page));
 
+    useEffect(() => {
+        const query: QueryParamsType = {};
+
+        if(searchedMovie.length > 0) query.search = searchedMovie;
+        if(currentPage !== null) query.page = String(currentPage);
+
+        history.push({
+            pathname: '/movies',
+            search: queryString.stringify(query)
+        })
+    }, [isSearched, currentPage]);
+
     const onSearch = () => {
         setCurrentPage(1);
         setIsSearched(!isSearched);
@@ -33,18 +45,6 @@ export const Header: React.FC = () => {
                 setTotalPages(response['total_pages']);
             });
     };
-
-    useEffect(() => {
-        const query: QueryParamsType = {};
-
-        if(searchedMovie.length > 0) query.search = searchedMovie;
-        if(currentPage !== null) query.page = String(currentPage);
-
-        history.push({
-            pathname: '/Vapi',
-            search: queryString.stringify(query)
-        })
-    }, [isSearched, currentPage]);
 
     const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         searchMovie(event.target.value)

@@ -95,4 +95,21 @@ export type MoviePropsType = {
     height?: number
     id?: number
 }
+type SliderOptionsType = {
+    data: Array<object>
+    translateLeft: number
+    slidesCount: number
+}
+export type SliderType = {
+    options: SliderOptionsType
+}
+type PaginationOptionsType = {
+    totalPages: number | null
+    currentPage: number | null
+    selectPage?: (item: number) => void
+    range: number
+}
+export type PaginationType = {
+    options: PaginationOptionsType
+}
 

@@ -14,11 +14,11 @@ function App() {
             </NavigationWrapperSC>
             <ContentSC>
                 <Switch>
-                    <Route exact path='/Vapi' render={() => <MoviePage/>}/>
+                    <Route exact path='/movies' render={() => <MoviePage/>}/>
                     <Route path='/home' render={() => <div>home</div>}/>
                     <Route path='/about' render={() => <div>about</div>}/>
                     <Route path='/person/:personId?' render={() => <Person/>}/>
-                    <Route path='/Vapi/movie/:movieId?' render={() => <SelectedMoviePageContainer/>}/>
+                    <Route path='/movie/:movieId?' render={() => <SelectedMoviePageContainer/>}/>
                     <Route path='/favourite' render={() => <FavouriteMoviesPageContainer/>}/>
                     <Route path="/404" render={() => <div>not found 404</div>}/>
                     <Redirect exact from="/" to="/home" />
