@@ -5,7 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
+  box-sizing: border-box;
+  padding: 0;
+  background: linear-gradient(270deg, rgba(13,12,14,1) 0%, rgba(0,0,0,1) 100%);
 }
 
 code {
@@ -17,8 +19,32 @@ a{
   text-decoration: none;
   
 }
-body{
-  background: linear-gradient(to right, #757f9a, #d7dde8);}
+.slides .slick-prev,
+.slides .slick-next {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+}
+
+
+.slides {
+  position: relative;
+}
+
+.slides .slick-prev,
+.slides .slick-next {
+  position: absolute;
+  top: 50%;
+  z-index:1;
+}
+
+.slides .slick-prev {
+  left: 5%;
+}
+
+.slides .slick-next {
+  right: 5%;
+}
 
 
 
