@@ -86,7 +86,9 @@ export const Person: React.FC = () => {
                 </PersonInfoContainerSC>
                 <MainMoviesTitleSC>Popular movies with {details.name}:</MainMoviesTitleSC>
                 <PersonMoviesContainerSC>
-                    <Slider options={{data: popularCast, translateLeft: 1015, slidesCount: 20}}/>
+                    <Slider
+                        wheelOptions={{data: popularCast, translateLeft: 1015, slidesCount: 20, wheelWidth: 1015, wheelHeight: 320, startFrom: 1}}
+                        slideOptions={{type: "poster_path", height: 245, width: 185}}/>
                 </PersonMoviesContainerSC>
                 <CastedMovies cast={cast}/>
             </ContainerSC>

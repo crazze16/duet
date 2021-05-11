@@ -1,14 +1,16 @@
 import React, {ReactElement, useRef, useState} from "react";
 import {SliderType} from "types/shared.type";
 import {NavLink} from "react-router-dom";
-import {Movie} from "pages/moviePage/components/movie/movie";
+import {Movie} from "shared/components/movie/movie";
 import {
     ArrowLeftSC, ArrowRightSC, BorderSC, CharacterSC, MovieInfoSC,
     RealeseDateSC, SliderSC, SliderWheelWrapperSC, VoteSC
 } from "./slider.styles";
 
+
 export const Slider: React.FC<SliderType> = (props) => {
-    const {slidesCount, data, translateLeft} = props.options;
+    const {slidesCount, data, translateLeft, wheelWidth, wheelHeight, startFrom} = props.wheelOptions;
+    const {type, width, height} = props.slideOptions;
 
     const [transLeft, setTransLeft] = useState(translateLeft);
     const [rightCount, setRightCount] = useState(0);
@@ -29,21 +31,20 @@ export const Slider: React.FC<SliderType> = (props) => {
                 setRightCount(prevState => prevState + 1);
             }
         };
-        return (
-            <SliderSC>
-                <ArrowLeftSC onClick={(): void => setPrev()} disabled={rightCount === 0}/>
-                <SliderWheelWrapperSC>
-                    <div ref={sliderElement}>
-                        {sliderItems.slice(0, slidesCount).map((item, index): ReactElement => <NavLink
-                            to={`/Vapi/movie/${item.id}`} key={index}>
+
+        const returnedSlide = (item: any, index: any) => {
+            return (
+                <NavLink
+                    to={`/movie/${item.id}`} key={index}>
+                    {type === 'poster_path' ?
                             <BorderSC>
                                 <Movie
                                     title={item.title || item.name}
-                                    poster={item.poster_path}
-                                    posterWidth={185}
-                                    height={245}
+                                    poster={item[type]}
+                                    posterWidth={width}
+                                    height={height}
                                 />
-                                <MovieInfoSC className='test'>
+                                <MovieInfoSC className='additional_info'>
                                     <VoteSC>{item.vote_average}</VoteSC>
                                     <CharacterSC>
                                         {item.character || '(voice)'}
@@ -53,7 +54,23 @@ export const Slider: React.FC<SliderType> = (props) => {
                                     </RealeseDateSC>
                                 </MovieInfoSC>
                             </BorderSC>
-                        </NavLink>)}
+                         :
+                            // <BackDropSC height={height} poster={'https://image.tmdb.org/t/p/original/' + item[type]}>
+                            //
+                            // </BackDropSC>
+                        ''
+                        }
+
+                </NavLink>
+            )
+        };
+
+        return (
+            <SliderSC>
+                <ArrowLeftSC onClick={(): void => setPrev()} disabled={rightCount === 0}/>
+                <SliderWheelWrapperSC wheelWidth={wheelWidth} wheelHeight={wheelHeight} type={type} left={translateLeft * startFrom} start={startFrom}>
+                    <div ref={sliderElement}>
+                        {sliderItems && sliderItems.slice(0, slidesCount).map((item, index): ReactElement => returnedSlide(item, index))}
                     </div>
                 </SliderWheelWrapperSC>
                 <ArrowRightSC onClick={(): void => setNext()} disabled={rightCount === (slidesCount / 5) - 1}/>

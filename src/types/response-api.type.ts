@@ -1,5 +1,5 @@
 import {CastCreditsType, CrewCreditsType, PopularPersonDataType} from "./personPage/personPage.type";
-import {CastPersonType, MovieBySearch, ReviewDetails} from "./shared.type";
+import {CastPersonType, MovieBySearch, ReviewDetails, TVShowResultType} from "./shared.type";
 
 export type SimilarMoviesType = {
     page: number
@@ -66,12 +66,6 @@ export type ResponseType = {
     success: boolean
     status_code: number
 }
-export type MoviesBySearchType = {
-    page: number
-    results: Array<MovieBySearch>
-    total_pages: number
-    total_results: number
-}
 export type PersonCreditsType = {
     cast: Array<CastCreditsType>,
     crew: Array<CrewCreditsType>,
@@ -80,6 +74,38 @@ export type PersonCreditsType = {
 export type PopularPersonType = {
     page: number
     results: Array<PopularPersonDataType>
+    total_results: number
+    total_pages: number
+}
+
+export type TVShowResponseType = {
+    page: number
+    results: Array<TVShowResultType>
+    total_results: number
+    total_pages: number
+}
+export type NowPlayingType = {
+    page: number
+    results: Array<MovieBySearch>
+    total_results: number
+    dates: {
+        maximum: string
+        minimum: string
+    }
+    total_pages: number
+}
+
+
+
+export type MoviesBySearchType = {
+    page: number
+    results: Array<MovieBySearch>
+    total_pages: number
+    total_results: number
+}
+export type MultiSearchType = {
+    page: number
+    results: Array<MovieBySearch>
     total_results: number
     total_pages: number
 }
