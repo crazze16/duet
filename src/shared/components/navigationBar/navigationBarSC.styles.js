@@ -13,6 +13,9 @@ width: 90px;
 border-right: 1px solid white;
 z-index: 10;
 background: black;
+top: 0;
+left: ${props => props.navigationVisibility ? '0' : '-90px'};
+transition: all .3s easy;
 `;
 
 export const NavigationLinkSC = styled(NavLink)`

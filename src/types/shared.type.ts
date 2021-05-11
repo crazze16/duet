@@ -17,6 +17,11 @@ export type MovieBySearch = {
     video: boolean
     vote_average: number
     vote_count: number
+    media_type?: string
+    first_air_date?: string
+    origin_country?: Array<string>
+    name?: string
+    original_name?: string
 }
 export type CastPersonType = {
     adult: boolean
@@ -89,10 +94,55 @@ export type FavouriteMoviesType = {
     isCreated: boolean
 }
 export type MoviePropsType = {
-    poster: string | null | undefined
+    poster?: string | null | undefined
     title?: string
-    posterWidth?: 92 | 154 | 185 | 342 | 500
+    posterWidth?: 92 | 154 | 185 | 342 | 500 | 780  | 1280 | 'original'
     height?: number
     id?: number
+    width?:number
+    elipsis?: boolean
+    backdrop?: string | null | undefined
+
+}
+type WheelOptionsType = {
+    data: Array<object>
+    translateLeft: number
+    slidesCount: number
+    wheelWidth: number
+    wheelHeight: number
+    startFrom: number,
+}
+export type SliderType = {
+    wheelOptions: WheelOptionsType
+    slideOptions: {
+        type: 'poster_path' | 'backdrop_path'
+        width?: 92 | 154 | 185 | 342 | 500 | 780 | 1280 | 'original'
+        height?: number
+    }
+}
+type PaginationOptionsType = {
+    totalPages: number | null
+    currentPage: number | null
+    selectPage?: any
+    range: number
+}
+export type PaginationType = {
+    options: PaginationOptionsType
+}
+export type TVShowResultType = {
+    poster_path: string | null
+    popularity: number
+    id: number
+    backdrop_path: string | null
+    vote_average: number
+    overview: string
+    first_air_date: string
+    origin_country: Array<string>
+    genre_ids: Array<number>
+    original_language: string
+    vote_count: number
+    name: string
+    original_name: string
+    media_type?: string
 }
 

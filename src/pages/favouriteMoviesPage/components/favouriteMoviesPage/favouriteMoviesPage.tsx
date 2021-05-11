@@ -1,13 +1,7 @@
 import React, {ReactNode, useEffect, useState} from 'react'
 import {
-    ClearInputSC,
-    EmptyListSC,
-    InputWrapper,
-    ListSC,
-    ListWrapperSC,
-    PageTitleSC,
-    SearchInputSC,
-    SortSC,
+    ClearInputSC, EmptyListSC, InputWrapper, ListSC, ListWrapperSC,
+    PageTitleSC, SearchInputSC, SortSC,
 } from "./favouriteMoviesPage.styles";
 import {MovieBySearch} from 'types/shared.type';
 import {FavouriteMovie} from '../favouriteMovie/favouriteMovie';
