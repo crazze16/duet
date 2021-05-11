@@ -1,13 +1,14 @@
 import React, {ReactElement, useEffect} from 'react'
-import {Movie} from "../movie/movie";
+import {Movie} from "../../../../shared/components/movie/movie";
 import {useDispatch, useSelector} from "react-redux";
-import {MoviesListSC, MoviesPagesSC} from "./moviePageBody.styles";
-import {movie} from "api";
+import {MoviesListSC} from "./moviePageBody.styles";
+import {search} from "api";
 import {CombinedStateType} from "redux-store/rootReducer";
 import {MovieBySearch} from 'types/shared.type';
 import {NavLink, useHistory} from 'react-router-dom';
 import * as queryString from "querystring";
 import {MPactions} from 'redux-store/moviePageReducer/actions';
+import {Pagination} from 'shared/components/pagination/pagination';
 
 export const MoviePageBody: React.FC = () => {
     const dispatch = useDispatch();
@@ -29,19 +30,19 @@ export const MoviePageBody: React.FC = () => {
         if (parsed.search && parsed.page) {
             setCurrentPage(+parsed.page);
             searchMovie(parsed.search);
-            movie.getFilmsBySearch(parsed.search, +parsed.page)
+            search.movieSearch(parsed.search, +parsed.page)
                 .then((response) => {
                     setMovieData(response.results);
                     setTotalPages(response['total_pages']);
                 });
             history.push({
-                pathname: '/Vapi',
+                pathname: '/movies',
                 search: `?search=${parsed.search}&page=${parsed.page}`
             })
         }
     }, []);
 
-    const resultMoviesDataArr = resultMoviesData.map((item, index): ReactElement => <NavLink to={`/Vapi/movie/${item.id}`}>
+    const resultMoviesDataArr = resultMoviesData.map((item, index): ReactElement => <NavLink to={`/movie/${item.id}`}>
         <Movie poster={item.poster_path}
                title={item.title}
                key={index}
@@ -50,59 +51,9 @@ export const MoviePageBody: React.FC = () => {
         />
     </NavLink>);
 
-    const pagination = (range: number) => {
-        const totalPagesArr = [];
-        if (totalPages !== null)
-            for (let i = 1; i <= totalPages; i++) {
-                totalPagesArr.push(i)
-            }
-        const mapping = (arr: Array<number>) => arr.map(
-            (item, index) =>
-                <MoviesPagesSC key={index} onClick={() => selectPage(item)}
-                               isActive={item === currentPage ? '800' : '500'}>
-                    {item}
-                </MoviesPagesSC>
-        );
-        const extremePages = (num: number) => <MoviesPagesSC onClick={() => selectPage(num)}>{num}</MoviesPagesSC>;
-        const neighbours = (range - 1) / 2;
-        const rightLimit = totalPagesArr.length - neighbours;
-        if (currentPage !== null)
-            if (currentPage >= neighbours + 1 && currentPage < rightLimit) {
-                return (
-                    <div>
-                        {
-                            currentPage >= neighbours + 2 ? extremePages(1) : ''
-                        }
-                        {
-                            mapping(totalPagesArr.filter(i => i >= currentPage - neighbours && i <= currentPage + neighbours))
-                        }
-                        {extremePages(totalPagesArr.length)}
-                    </div>
-                )
-            } else if (currentPage < neighbours + 1) {
-                return (
-                    <div>
-                        {
-                            mapping(totalPagesArr.filter(i => i <= range))
-                        }
-                        {currentPage !== null && extremePages(totalPagesArr.length)}
-                    </div>
-                )
-            } else if (currentPage >= rightLimit) {
-                return (
-                    <div>
-                        {extremePages(1)}
-                        {
-                            mapping(totalPagesArr.filter(i => i >= (totalPagesArr.length - neighbours * 2) && i <= totalPagesArr.length))
-                        }
-                    </div>
-                )
-            }
-    };
-
     const selectPage = (item: number) => {
         setCurrentPage(item);
-        movie.getFilmsBySearch(searchedMovie, item)
+        search.movieSearch(searchedMovie, item)
             .then((response) => {
                 setMovieData(response.results);
             })
@@ -111,7 +62,7 @@ export const MoviePageBody: React.FC = () => {
     return (
         <>
             {
-                totalPages && pagination(9)
+                <Pagination options={{range: 9, currentPage: currentPage, selectPage, totalPages}}/>
             }
             <MoviesListSC>
                 {resultMoviesDataArr}

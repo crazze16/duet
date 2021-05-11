@@ -1,19 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {movie,} from "api";
 import {
-    AvatarSC,
-    BodySC,
-    ContentSC,
-    DateSC,
-    InfoSC,
-    NameSC,
-    NoCommSC,
-    PaginationNumberSC,
-    PaginationSC,
-    ReviewSectionSC,
-    ReviewTitleSC,
-    ToggleSC,
-    WrapperSC
+    AvatarSC, BodySC, ContentSC, DateSC, InfoSC, NameSC, NoCommSC, PaginationNumberSC,
+    PaginationSC, ReviewSectionSC, ReviewTitleSC, ToggleSC, WrapperSC
 } from "./reviews.styles";
 import {useDispatch, useSelector} from "react-redux";
 import {CombinedStateType} from "redux-store/rootReducer";
@@ -22,14 +11,15 @@ import {ItemPropsType, PropsReviewsType} from 'types/selectedMoviePage/reviews.t
 
 
 const Reviews: React.FC<PropsReviewsType> = (props) => {
+    const {setReviews, movieId} = props;
 
     const dispatch = useDispatch();
+    const myRef = useRef(null as any);
 
     const reviews = useSelector((state: CombinedStateType) => state.MoviePageReducer.reviews);
 
     const setCurrentReviewPage = (reviewPage: number) => dispatch(MPactions.setCurrentReviewPage(reviewPage));
 
-    const {setReviews, movieId} = props;
     useEffect(() => {
             movie.getReviews(movieId, reviews.currentPage)
                 .then(response => {
@@ -45,7 +35,6 @@ const Reviews: React.FC<PropsReviewsType> = (props) => {
                                                                       content={item.content}
     />);
 
-    const myRef = useRef(null as any);
 
     const scrollTo = (): void => myRef.current.scrollIntoView();
 

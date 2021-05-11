@@ -2,8 +2,6 @@ import React, {useState} from 'react'
 import { PropsType } from 'types/favouriteMoviesPage/favouriteMovie.type';
 import {BackdropSC, HoveredSC, TitleSC, WrapperItemSC } from './favouriteMovie.styles';
 
-
-
 export const FavouriteMovie: React.FC<PropsType> = (props) => {
 
     const {id, title, poster, removeFromFavourite} = props;
@@ -17,14 +15,12 @@ export const FavouriteMovie: React.FC<PropsType> = (props) => {
 
     return (
             <WrapperItemSC onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} >
-
-                    <BackdropSC bg={`https://image.tmdb.org/t/p/w780` + poster} to={`/Vapi/movie/${id}`}>
+                    <BackdropSC bg={`https://image.tmdb.org/t/p/w780` + poster} to={`/movie/${id}`}>
                     </BackdropSC>
                     <TitleSC>
                         {title}
                     </TitleSC>
-
-                    <HoveredSC flag={hover} content={isFavourite} to={`/Vapi/movie/${id}`} onClick={() => toggleFavouriteMovie(!isFavourite)}>
+                    <HoveredSC flag={hover} content={isFavourite} to={`/movie/${id}`} onClick={() => toggleFavouriteMovie(!isFavourite)}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" fill={isFavourite ? `white` : 'transparent'}
                              stroke="white"
                              className="bi bi-bookmark-fill" viewBox="0 0 16 16">
