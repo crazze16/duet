@@ -3,12 +3,11 @@ import {LinkContentSC, NavigationContainerSC, NavigationLinkSC } from './navigat
 
 
 
-export const NavigationBar: React.FC<{navigationVisibility: boolean}> = (props) => {
+export const NavigationBar: React.FC = (props) => {
     return (
-        <NavigationContainerSC navigationVisibility={props.navigationVisibility}>
-            <NavigationLinkSC to="/home"><LinkContentSC>Home Page</LinkContentSC></NavigationLinkSC>
-            <NavigationLinkSC to="/movies"><LinkContentSC>Movies</LinkContentSC></NavigationLinkSC>
-            <NavigationLinkSC to="/favourite"><LinkContentSC>Favourite</LinkContentSC></NavigationLinkSC>
+        <NavigationContainerSC>
+            <NavigationLinkSC to="/movies"><LinkContentSC>Main Page</LinkContentSC></NavigationLinkSC>
+            <NavigationLinkSC to="/favourite"><LinkContentSC> Favourite Movies</LinkContentSC></NavigationLinkSC>
         </NavigationContainerSC>
     )
 };

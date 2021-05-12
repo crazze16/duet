@@ -1,8 +1,8 @@
 import React, {ReactElement, useEffect} from 'react'
-import {Movie} from "../../../../shared/components/movie/movie";
+import {Movie} from "../movie/movie";
 import {useDispatch, useSelector} from "react-redux";
 import {MoviesListSC} from "./moviePageBody.styles";
-import {search} from "api";
+import {movie} from "api";
 import {CombinedStateType} from "redux-store/rootReducer";
 import {MovieBySearch} from 'types/shared.type';
 import {NavLink, useHistory} from 'react-router-dom';
@@ -30,7 +30,7 @@ export const MoviePageBody: React.FC = () => {
         if (parsed.search && parsed.page) {
             setCurrentPage(+parsed.page);
             searchMovie(parsed.search);
-            search.movieSearch(parsed.search, +parsed.page)
+            movie.getFilmsBySearch(parsed.search, +parsed.page)
                 .then((response) => {
                     setMovieData(response.results);
                     setTotalPages(response['total_pages']);
@@ -53,7 +53,7 @@ export const MoviePageBody: React.FC = () => {
 
     const selectPage = (item: number) => {
         setCurrentPage(item);
-        search.movieSearch(searchedMovie, item)
+        movie.getFilmsBySearch(searchedMovie, item)
             .then((response) => {
                 setMovieData(response.results);
             })

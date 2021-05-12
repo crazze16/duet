@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import {CombinedStateType} from "redux-store/rootReducer";
 import {MovieBySearch} from "types/shared.type";
-import {search} from "api";
-import {useHistory} from 'react-router-dom';
+import {movie} from "api";
+import { useHistory } from 'react-router-dom';
+import { useState } from 'react';
 import * as queryString from "querystring";
-import {MPactions} from 'redux-store/moviePageReducer/actions';
-import {QueryParamsType} from 'types/moviePage/header.type';
-import {onEnterHandler} from "../../../../helpers/functions";
+import { MPactions } from 'redux-store/moviePageReducer/actions';
+import { QueryParamsType } from 'types/moviePage/header.type';
 
 
 export const Header: React.FC = () => {
@@ -39,7 +39,7 @@ export const Header: React.FC = () => {
     const onSearch = () => {
         setCurrentPage(1);
         setIsSearched(!isSearched);
-        search.movieSearch(searchedMovie, 1)
+        movie.getFilmsBySearch(searchedMovie, 1)
             .then(response => {
                 setMovieData(response.results);
                 setTotalPages(response['total_pages']);
@@ -50,10 +50,13 @@ export const Header: React.FC = () => {
         searchMovie(event.target.value)
     };
 
+    const onKeyHandler = (event: React.KeyboardEvent) => {
+        if(event.key === 'Enter') onSearch();
+    };
 
     return (
         <div>
-            <input type="text" onChange={onInputChange} onKeyPress={(evenKeyboardEvent) => onEnterHandler(evenKeyboardEvent, onSearch)} value={searchedMovie}/>
+            <input type="text" onChange={onInputChange} onKeyPress={onKeyHandler} value={searchedMovie}/>
             <button onClick={onSearch}>search</button>
         </div>
     )

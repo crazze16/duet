@@ -70,7 +70,6 @@ position: absolute;
 width: 32px;
 height: 32px;
 top: 120px;
-z-index: 100;
 transform: rotate(45deg);
 &:hover {
     border-color: white;

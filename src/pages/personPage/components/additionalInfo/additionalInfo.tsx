@@ -1,7 +1,7 @@
 import React from "react";
 import {ListItemPropsType} from "types/personPage/castedMovies.type";
 import {InfoContainerSC, InfoItemSC, PosterSC, TitlesSC} from "./additionalInfo.styles";
-import {Movie} from "shared/components/movie/movie";
+import {Movie} from "pages/moviePage/components/movie/movie";
 
 export const AdditionalInfo: React.FC<ListItemPropsType> = (props) => {
 

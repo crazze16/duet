@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import {ArrowSC} from "../../../pages/personPage/person.styles";
-import {NavLink} from "react-router-dom";
 
 const arrowDisabled = 'rgba(145, 145, 145, 0.45)';
 const arrowActive = '#919191';
@@ -47,7 +46,8 @@ export const BorderSC = styled.div`
         box-shadow: inset -22px -80px 80px 5px #000000;
         z-index: 10;
     }
-    &:hover .additional_info{
+    height: 245px;
+    &:hover .test{
     display: flex;
     }
 `;
@@ -82,15 +82,16 @@ export const RealeseDateSC = styled.div`
 `;
 export const SliderWheelWrapperSC = styled.div`
     display: flex;
-    width: ${props => props.wheelWidth}px;
+    width: 1015px;
+    overflow: hidden;
     position: relative;
-    overflow: ${props => props.type === 'poster_path' ? 'hidden' : 'visible'};
-    height: ${props => props.wheelHeight}px;
+    height: 320px;
     & > div {
-    transition: 3s;
+            transition: 3s;
     display: flex;
+    width: 1040px;
     transition: .2s;
     position: absolute;
-    left: -${props => props.startFrom !== 1 ? props.left : '0'}px;
+    left: 0;
     }
 `;

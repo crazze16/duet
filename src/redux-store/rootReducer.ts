@@ -2,7 +2,6 @@ import { combineReducers, createStore } from "redux";
 import MoviePageReducer from "./moviePageReducer/moviePageReducer";
 import FavouriteMoviesReducer from "./favouriteMoviesReducer/favouriteMoviesReducer";
 import PeoplePageReducer from "./peoplePageReducer/peoplePageReducer";
-import HomePageReducer from "./homePageReducer/homePageReducer";
 
 type RootReducerType = typeof rootReducer;
 export type CombinedStateType = ReturnType<RootReducerType>
@@ -11,8 +10,7 @@ export type CombinedStateType = ReturnType<RootReducerType>
 const rootReducer = combineReducers({
     MoviePageReducer,
     FavouriteMoviesReducer,
-    PeoplePageReducer,
-    HomePageReducer
+    PeoplePageReducer
 });
 
 //explanation

@@ -1,5 +1,3 @@
-import React from "react";
-
 export const scrollToTop = (): void => {
     window.scrollTo({
         top: 0,
@@ -12,6 +10,4 @@ export const getAge = (date = ''): number => {
     const diff = currentDate - birthDay;
     return Math.floor(diff / 31557600000)
 };
-export const onEnterHandler = (event: React.KeyboardEvent, action: () => void) => {
-    if(event.key === 'Enter') action()
-};
+
