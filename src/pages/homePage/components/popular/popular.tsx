@@ -26,7 +26,6 @@ export const Popular: React.FC = () => {
             let movieData: MultiSearchType;
             if (popularData.active === 'movies') {
                 movieData = await search.discoverMovie(popularData.genres.join(','));
-                console.log(movieData)
             } else {
                 movieData = await search.discoverTV(popularData.genres.join(','));
             }
