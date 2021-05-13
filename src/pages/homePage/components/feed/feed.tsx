@@ -29,7 +29,6 @@ export const Feed: React.FC = () => {
             let movieData: MultiSearchType;
             if (discoverData.active === "movies") {
                 movieData = await search.discoverMovie(discoverData.genres.join(','));
-                console.log(movieData)
             } else {
                 movieData = await search.discoverTV(discoverData.genres.join(','));
             }
@@ -63,8 +62,8 @@ export const Feed: React.FC = () => {
                         (discoverData.genres && discoverData.data.results.length === 0) ?
                             (<NoResultsSC>No results</NoResultsSC>) :
                             (
-                                discoverData.data.results && discoverData.data.results.map(item =>
-                                    <ElementContainerSC>
+                                discoverData.data.results && discoverData.data.results.map((item, index) =>
+                                    <ElementContainerSC key={index}>
                                         <SlideElement
                                             title={item.title || item.name}
                                             poster={item.poster_path}

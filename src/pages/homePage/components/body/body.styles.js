@@ -8,15 +8,6 @@ export const WrapperSC = styled(NavLink)`
     max-width: 210px;
     width: 100%;
 `;
-export const SectionNameSC = styled.div`
-    border-bottom: 1px solid ${'rgba(255,0,0,0.5)'};
-    max-width: calc(100% - 300px);
-    width: 100%;
-    font-weight: 500;
-    font-size: 24px;
-    padding: .8em;
-    letter-spacing: 1.2px;
-`;
 export const OverviewSC = styled.div`
     max-width: 180px;
     width: 100%;
