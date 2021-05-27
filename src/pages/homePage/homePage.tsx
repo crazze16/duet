@@ -1,8 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'
-import {movie, trending, TVShow} from "api";
 import {useDispatch, useSelector} from "react-redux";
 import {HPActions} from "redux-store/homePageReducer/actions";
-import {MoviesBySearchType, MultiSearchType} from "types/response-api.type";
 import {HomePageHeader} from './components/header/header';
 import {CombinedStateType} from "redux-store/rootReducer";
 import {BackDropSC, HeaderWrapperSC, NextSlideSC, PrevSlideSC, SliderWrapperSC, WrapperHomeSC} from './mainPage.styles';
@@ -23,20 +21,12 @@ export const HomePage: React.FC<HomePageType> = (props) => {
 
     const trendingData = useSelector((state: CombinedStateType) => state.HomePageReducer.trending.results);
 
-    const setPopularMovies = (popularMoviesData: MoviesBySearchType) => dispatch(HPActions.setPopularData(popularMoviesData));
-    const setPopularTVShows = (popularTVShowsData: MultiSearchType) => dispatch(HPActions.setPopularTVShows(popularTVShowsData.results));
-    const setTrendingData = (trendingData: MultiSearchType) => dispatch(HPActions.setTrendingData(trendingData));
-
     const prevRef = useRef<HTMLDivElement>(null);
     const nextRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
+
         (async () => {
-            const popularData = await movie.getPopular();
-            setPopularMovies(popularData);
-            const TVPopularData = await TVShow.getPopular();
-            setPopularTVShows(TVPopularData);
-            const trendingData = await trending.getTrending();
-            setTrendingData(trendingData);
+            dispatch(HPActions.setAsyncPopularData());
             window.onscroll = () => {
                 if (window.pageYOffset > 150) {
                     setHeaderVisibility(true);

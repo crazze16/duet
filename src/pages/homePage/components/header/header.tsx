@@ -1,13 +1,17 @@
 import React, {ReactElement, useEffect, useState} from 'react'
 import {onEnterHandler} from "helpers/functions";
-import {search} from "api";
 import {HPActions} from "redux-store/homePageReducer/actions";
-import {MultiSearchType} from "types/response-api.type";
 import {useDispatch, useSelector} from "react-redux";
 import {CombinedStateType} from "redux-store/rootReducer";
 import {
-    HeaderSC, HeaderWrapperSC, InputWrapperSC, LinkSC,
-    LinkWrapperSC, ModalGenresSC, ModalSearchSC, SearchIconSC
+    HeaderSC,
+    HeaderWrapperSC,
+    InputWrapperSC,
+    LinkSC,
+    LinkWrapperSC,
+    ModalGenresSC,
+    ModalSearchSC,
+    SearchIconSC
 } from './header.styles';
 import {NavLink, useHistory} from 'react-router-dom';
 import {movieGenres, TVShowGenres} from 'shared/constants/constants';
@@ -34,19 +38,13 @@ export const HomePageHeader: React.FC = () => {
     const currentPage = useSelector((state: CombinedStateType) => state.HomePageReducer.searchedResults.page);
 
     const setSearchedText = (searchedText: string) => dispatch(HPActions.setSearchedText(searchedText));
-    const setSearchedResults = (results: MultiSearchType) => dispatch(HPActions.setSearchedResults(results));
     const setSearchedPage = (page: number) => dispatch(HPActions.setSearchedPage(page));
 
     const parsed = queryString.parse(history.location.search.substr(1)) as { search: string, page: string };
 
-    const onSearch = async (searchedText?: string, page?: number) => {
+    const onSearch = async (searchedText: string, page?: number) => {
         if (searchedText) {
-            const resultData = await search.multiSearch(searchedText, page);
-            const filteredResults = {
-                ...resultData,
-                results: [...resultData.results.filter(item => item.media_type !== 'person')]
-            };
-            setSearchedResults(filteredResults);
+            dispatch(HPActions.headerAsyncSearch(searchedText, page));
         }
     };
 

@@ -25,15 +25,7 @@ export const Feed: React.FC = () => {
     const discoverData = useSelector((state: CombinedStateType) => state.HomePageReducer.feed);
 
     useEffect(() => {
-        (async () => {
-            let movieData: MultiSearchType;
-            if (discoverData.active === "movies") {
-                movieData = await search.discoverMovie(discoverData.genres.join(','));
-            } else {
-                movieData = await search.discoverTV(discoverData.genres.join(','));
-            }
-            setMovieFeed(movieData);
-        })()
+        dispatch(HPActions.setAsyncFeedData(discoverData))
     }, [discoverData.active, discoverData.genres]);
 
     useEffect(() => {

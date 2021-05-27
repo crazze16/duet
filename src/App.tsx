@@ -7,6 +7,7 @@ import {FavouriteMoviesPageContainer} from "./pages/favouriteMoviesPage/favourit
 import  {SelectedMoviePageContainer} from "./pages/selectedMoviePage/selectedMoviePageContainer";
 import {Person} from "./pages/personPage/person";
 import {HomePage} from "./pages/homePage/homePage";
+import {ChatPage} from "./pages/chatPage/chatPage";
 
 function App() {
     const [navigationVisibility, setNavigationVisibility] = useState(true);
@@ -24,6 +25,7 @@ function App() {
                     <Route path='/person/:personId?' render={() => <Person />}/>
                     <Route path='/movie/:movieId?' render={() => <SelectedMoviePageContainer />}/>
                     <Route path='/favourite' render={() => <FavouriteMoviesPageContainer />}/>
+                    <Route path='/chat' render={() => <ChatPage />}/>
                     <Route path="/404" render={() => <div>not found 404</div>}/>
                     <Redirect exact from="/" to="/home" />
                     {/*<Redirect to="/404"/>*/}

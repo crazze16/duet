@@ -3,8 +3,6 @@ import {SelectorSectionSC} from "../../mainPage.styles";
 import {HPActions} from "redux-store/homePageReducer/actions";
 import {useDispatch, useSelector} from "react-redux";
 import {CombinedStateType} from "redux-store/rootReducer";
-import {MultiSearchType} from "types/response-api.type";
-import {search} from "api";
 import {GenresSlider} from "../genresSlider/genresSlider";
 import {Selector} from "../selector/selector";
 import { NoResultsSC } from './popular.styles';
@@ -17,20 +15,11 @@ export const Popular: React.FC = () => {
     const popularData = useSelector((state: CombinedStateType) => state.HomePageReducer.popular);
 
     const setPopularType = (dataType: 'movies' | 'tv') => dispatch(HPActions.setPopularType(dataType));
-    const setPopularData = (popularData: MultiSearchType) => dispatch(HPActions.setPopularData(popularData));
     const setMovieGenre = (genre: number) => dispatch(HPActions.setMovieGenre(genre));
     const removeMovieGenre = (genre: number) => dispatch(HPActions.removeMovieGenre(genre));
 
     useEffect(() => {
-        (async () => {
-            let movieData: MultiSearchType;
-            if (popularData.active === 'movies') {
-                movieData = await search.discoverMovie(popularData.genres.join(','));
-            } else {
-                movieData = await search.discoverTV(popularData.genres.join(','));
-            }
-            setPopularData(movieData);
-        })()
+        dispatch(HPActions.setAsyncTest(popularData));
     }, [popularData.active, popularData.genres]);
 
     return (

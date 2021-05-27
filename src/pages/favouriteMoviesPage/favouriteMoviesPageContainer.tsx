@@ -28,8 +28,7 @@ export const FavouriteMoviesPageContainer: React.FC = () => {
                 const listData = await movieList.getList(listId);
                 setFavouriteMoviesList(listData.results);
             })();
-        },
-        []
+        }, []
     );
 
     const removeFromFavourite = async (flag: boolean, id: number) => {

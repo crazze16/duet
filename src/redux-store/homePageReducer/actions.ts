@@ -1,5 +1,6 @@
 import {MoviesBySearchType, MultiSearchType, NowPlayingType, TVShowResponseType} from "types/response-api.type";
 import {MovieBySearch} from "types/shared.type";
+import {selectorDataType} from "../../types/homePage/selectorData.type";
 
 export const HPActions = {
     setSearchedText: (searchedText: string) => ({type: 'SET_SEARCHED_TEXT', searchedText} as const),
@@ -25,4 +26,9 @@ export const HPActions = {
     setAiringToday: (airingTodayData: TVShowResponseType) => ({type: 'SET_AIRING_TODAY', airingTodayData} as const),
     setOnTheAir: (onTheAirData: TVShowResponseType) => ({type: 'SET_ON_THE_AIR', onTheAirData} as const),
     setTrendingData: (trendingData: MultiSearchType) => ({type: 'SET_TRENDING_DATA', trendingData} as const),
+
+    setAsyncPopularData: () => ({type: 'SET_ASYNC_TRENDING_DATA'} as const),
+    setAsyncTest: (data: selectorDataType) => ({type: 'SET_ASYNC_POPULAR_DATA', data} as const),
+    setAsyncFeedData: (data: selectorDataType) => ({type: 'SET_ASYNC_FEED_DATA', data} as const),
+    headerAsyncSearch: (searchedText: string, page?: number) => ({type: 'HEADER_ASYNC_SEARCH', searchedText, page} as const),
 };
